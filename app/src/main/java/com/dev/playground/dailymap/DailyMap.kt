@@ -1,7 +1,11 @@
 package com.dev.playground.dailymap
 
 import android.app.Application
-import com.dev.playground.presentation.di.localDataSourceModule
+import com.dev.playground.data.di.localDataSourceModule
+import com.dev.playground.data.di.repositoryModule
+import com.dev.playground.domain.di.dispatcherModule
+import com.dev.playground.domain.di.useCaseModule
+import com.dev.playground.presentation.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +16,11 @@ class DailyMap: Application() {
 
         startKoin {
             modules(
-                localDataSourceModule
+                viewModelModule,
+                dispatcherModule,
+                useCaseModule,
+                repositoryModule,
+                localDataSourceModule,
             )
             androidContext(this@DailyMap)
         }

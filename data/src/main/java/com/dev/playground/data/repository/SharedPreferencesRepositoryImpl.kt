@@ -7,12 +7,12 @@ class SharedPreferencesRepositoryImpl(
     private val sharedPreferencesManager: SharedPreferencesManager
 ) : SharedPreferencesRepository {
 
-    override fun getKakaoToken(): Map<String, String?> {
+    override suspend fun getKakaoToken(): Map<String, String?> {
         return sharedPreferencesManager.getKakaoToken()
     }
 
-    override fun setKakaoToken(accessToken: String, refreshToken: String) {
-        return sharedPreferencesManager.setKakaoToken(accessToken, refreshToken)
+    override suspend fun setKakaoToken(token: Map<String, String>) {
+        return sharedPreferencesManager.setKakaoToken(token)
     }
 
 }

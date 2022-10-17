@@ -1,4 +1,4 @@
-package com.dev.playground.domain.usecase
+package com.dev.playground.domain.usecase.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

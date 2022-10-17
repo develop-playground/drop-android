@@ -2,8 +2,8 @@ package com.dev.playground.domain.repository
 
 interface SharedPreferencesRepository {
 
-    fun getKakaoToken(): Map<String, String?>
+    suspend fun getKakaoToken(): Map<String, String?>
 
-    fun setKakaoToken(accessToken: String, refreshToken: String)
+    suspend fun setKakaoToken(token: Map<String, String>)
 
 }

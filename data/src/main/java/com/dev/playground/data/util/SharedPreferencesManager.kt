@@ -17,10 +17,10 @@ class SharedPreferencesManager(context: Context) {
         mPreferences.edit()
     }
 
-    fun setKakaoToken(accessToken: String, refreshToken: String) {
+    fun setKakaoToken(token: Map<String, String>) {
         preferencesEditor.apply {
-            putString(KAKAO_ACCESS_TOKEN, accessToken)
-            putString(KAKAO_REFRESH_TOKEN, refreshToken)
+            putString(KAKAO_ACCESS_TOKEN, token["accessToken"])
+            putString(KAKAO_REFRESH_TOKEN, token["refreshToken"])
             apply()
         }
     }

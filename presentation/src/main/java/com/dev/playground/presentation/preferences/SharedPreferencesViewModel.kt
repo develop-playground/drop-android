@@ -1,18 +1,25 @@
 package com.dev.playground.presentation.preferences
 
 import androidx.lifecycle.ViewModel
-import com.dev.playground.domain.repository.SharedPreferencesRepository
+import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.usecase.login.GetKakaoTokenUseCase
+import com.dev.playground.domain.usecase.login.SetKakaoTokenUseCase
+import kotlinx.coroutines.launch
 
 class SharedPreferencesViewModel(
-    private val sharedPreferencesRepository: SharedPreferencesRepository
+    private val getKakaoTokenUseCase: GetKakaoTokenUseCase,
+    private val setKakaoTokenUseCase: SetKakaoTokenUseCase,
 ) : ViewModel() {
 
-    fun getKakaoToken(): Map<String, String?> {
-        return sharedPreferencesRepository.getKakaoToken()
+    fun getKakaoToken() {
+
     }
 
-    fun setKakaoToken(accessToken: String, refreshToken: String) {
-        sharedPreferencesRepository.setKakaoToken(accessToken, refreshToken)
+    fun setKakaoToken(token: Map<String, String>) {
+        viewModelScope.launch {
+            setKakaoTokenUseCase.invoke(token)
+        }
+
     }
 
 }
