@@ -15,4 +15,8 @@ class SharedPreferencesRepositoryImpl(
         return sharedPreferencesManager.setKakaoToken(token)
     }
 
+    override suspend fun removeKakaoToken() {
+        return sharedPreferencesManager.removeKakaoToken()
+    }
+
 }

@@ -17,6 +17,14 @@ class SharedPreferencesManager(context: Context) {
         mPreferences.edit()
     }
 
+    fun removeKakaoToken() {
+        preferencesEditor.apply {
+            remove(KAKAO_ACCESS_TOKEN)
+            remove(KAKAO_REFRESH_TOKEN)
+            apply()
+        }
+    }
+
     fun setKakaoToken(token: Map<String, String>) {
         preferencesEditor.apply {
             putString(KAKAO_ACCESS_TOKEN, token["accessToken"])
@@ -27,8 +35,8 @@ class SharedPreferencesManager(context: Context) {
 
     fun getKakaoToken(): Map<String, String?> {
         return mapOf(
-            "access_token" to mPreferences.getString(KAKAO_ACCESS_TOKEN, "kakao_access_token"),
-            "refresh_token" to mPreferences.getString(KAKAO_REFRESH_TOKEN, "kakao_refresh_token")
+            "access_token" to mPreferences.getString(KAKAO_ACCESS_TOKEN, null),
+            "refresh_token" to mPreferences.getString(KAKAO_REFRESH_TOKEN, null)
         )
     }
 
@@ -36,5 +44,4 @@ class SharedPreferencesManager(context: Context) {
         const val KAKAO_ACCESS_TOKEN: String = "kakao_access_token"
         const val KAKAO_REFRESH_TOKEN: String = "kakao_refresh_token"
     }
-
 }

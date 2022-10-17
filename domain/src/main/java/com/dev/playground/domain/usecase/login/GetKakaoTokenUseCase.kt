@@ -10,7 +10,13 @@ class GetKakaoTokenUseCase(
 ) : NonCoroutineUseCase<Map<String, String?>>(ioDispatcher) {
 
     override suspend fun execute(): Map<String, String?> {
-        return sharedPreferencesRepository.getKakaoToken()
+        val token = sharedPreferencesRepository.getKakaoToken()
+
+        return if (token["access_token"].isNullOrEmpty() && token["refresh_token"].isNullOrEmpty()) {
+            throw IllegalArgumentException("Token Argument is Null")
+        } else {
+            token
+        }
     }
 
 }

@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.dev.playground.presentation.login.LoginActivity
+import com.dev.playground.presentation.main.MainActivity
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
 import com.dev.playground.presentation.util.UiState
+import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,14 +22,22 @@ class SplashActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_splash)
 
-        viewModel.getKakaoToken()
+        loginVerification()
+    }
 
+    private fun loginVerification() {
         lifecycleScope.launch {
+            viewModel.getKakaoToken()
+
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginState.collect { uiState ->
                     when (uiState) {
-                        is UiState.Success -> println("성공 ${uiState.data}")
-                        is UiState.Failure -> println("실패 ${uiState.exception}")
+                        is UiState.Success -> {
+                            startActivity<MainActivity> { }
+                        }
+                        is UiState.Failure -> {
+                            startActivity<LoginActivity> { }
+                        }
                         else -> println("로딩중")
                     }
                 }

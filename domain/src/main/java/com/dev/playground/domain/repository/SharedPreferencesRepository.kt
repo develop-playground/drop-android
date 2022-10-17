@@ -6,4 +6,6 @@ interface SharedPreferencesRepository {
 
     suspend fun setKakaoToken(token: Map<String, String>)
 
+    suspend fun removeKakaoToken()
+
 }
