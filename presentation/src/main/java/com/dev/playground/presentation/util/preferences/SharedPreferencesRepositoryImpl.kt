@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.util
+package com.dev.playground.presentation.util.preferences
 
 class SharedPreferencesRepositoryImpl(
     private val sharedPreferencesManager: SharedPreferencesManager
