@@ -1,6 +1,7 @@
-package com.dev.playground.presentation.util.preferences
+package com.dev.playground.presentation.preferences
 
 import androidx.lifecycle.ViewModel
+import com.dev.playground.domain.repository.SharedPreferencesRepository
 
 class SharedPreferencesViewModel(
     private val sharedPreferencesRepository: SharedPreferencesRepository

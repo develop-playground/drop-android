@@ -1,8 +1,8 @@
-package com.dev.playground.presentation.util.preferences
+package com.dev.playground.data.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.dev.playground.presentation.R
+import com.dev.playground.data.R
 
 class SharedPreferencesManager(context: Context) {
 

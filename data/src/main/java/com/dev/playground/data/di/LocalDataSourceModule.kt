@@ -1,6 +1,6 @@
-package com.dev.playground.presentation.di
+package com.dev.playground.data.di
 
-import com.dev.playground.presentation.util.preferences.SharedPreferencesManager
+import com.dev.playground.data.util.SharedPreferencesManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

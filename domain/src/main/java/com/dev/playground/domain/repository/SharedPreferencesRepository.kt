@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.util.preferences
+package com.dev.playground.domain.repository
 
 interface SharedPreferencesRepository {
 
