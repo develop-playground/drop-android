@@ -9,7 +9,7 @@
 ## 📚 Stack & Libraries
 - IDE : Android Studio
 - Minimum SDK level 21
-- Language : [Kotlin](https://kotlinlang.org/) based + Transfer build configuration from [Groovy](https://developer.android.com/studio/build/migrate-to-kts) to KTS + [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous.
+- Language : [Kotlin](https://kotlinlang.org/) based + Transfer build configuration from [Groovy](https://developer.android.com/studio/build/migrate-to-kts) + [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous.
 - Jetpack AAC
   - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) : Observable data holder class.
   - [LifeCycle](https://developer.android.com/topic/libraries/architecture/lifecycle) : Use lifecycle-aware components to perform actions in response to lifecycle events such as activities and fragments(viewmodel, livedata).
@@ -34,10 +34,6 @@ Jeju Road is not using the local database yet.
 ![clean](https://user-images.githubusercontent.com/29699217/169539214-f8b0fdb9-08a9-40ab-b577-d619f572c000.png)
 
 </br>
-
-## 📲 API
-
-Refer to the [API document](http://183.107.10.236:8080/docs/index.html) provided by the backend team.
 
 ## Code Convention
 **Test Method Convention**
