@@ -27,10 +27,6 @@ inside the JVM on your workstation in seconds.
 
 ## 🛠 Architecture
 
-Jeju Road is not using the local database yet.
-
-![MVVM](https://user-images.githubusercontent.com/29699217/169539171-b84e7581-ff6e-4a60-b392-c87f3befda8c.png)
-
 ![clean](https://user-images.githubusercontent.com/29699217/169539214-f8b0fdb9-08a9-40ab-b577-d619f572c000.png)
 
 </br>
