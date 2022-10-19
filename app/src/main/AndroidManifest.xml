@@ -5,6 +5,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".DailyMap"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -12,9 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DailyMap"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="lvdv2fig1b" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.dev.playground.presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
