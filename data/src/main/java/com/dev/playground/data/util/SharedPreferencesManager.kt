@@ -2,23 +2,20 @@ package com.dev.playground.data.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.dev.playground.data.R
 
 class SharedPreferencesManager(context: Context) {
 
-    private val mPreferences: SharedPreferences by lazy {
+    private val preferences: SharedPreferences by lazy {
         context.getSharedPreferences(
             context.getString(R.string.app_preferences),
             Context.MODE_PRIVATE
         )
     }
 
-    private val preferencesEditor: SharedPreferences.Editor by lazy {
-        mPreferences.edit()
-    }
-
     fun removeKakaoToken() {
-        preferencesEditor.apply {
+        preferences.edit {
             remove(KAKAO_ACCESS_TOKEN)
             remove(KAKAO_REFRESH_TOKEN)
             apply()
@@ -26,7 +23,7 @@ class SharedPreferencesManager(context: Context) {
     }
 
     fun setKakaoToken(token: Map<String, String>) {
-        preferencesEditor.apply {
+        preferences.edit {
             putString(KAKAO_ACCESS_TOKEN, token["accessToken"])
             putString(KAKAO_REFRESH_TOKEN, token["refreshToken"])
             apply()
@@ -35,8 +32,8 @@ class SharedPreferencesManager(context: Context) {
 
     fun getKakaoToken(): Map<String, String?> {
         return mapOf(
-            "access_token" to mPreferences.getString(KAKAO_ACCESS_TOKEN, null),
-            "refresh_token" to mPreferences.getString(KAKAO_REFRESH_TOKEN, null)
+            "access_token" to preferences.getString(KAKAO_ACCESS_TOKEN, null),
+            "refresh_token" to preferences.getString(KAKAO_REFRESH_TOKEN, null)
         )
     }
 

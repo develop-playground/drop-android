@@ -28,6 +28,9 @@ android {
 dependencies {
     implementation project(":domain")
 
+    //android core ktx
+    implementation "androidx.core:core-ktx:1.7.0"
+
     // network
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
