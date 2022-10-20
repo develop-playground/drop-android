@@ -3,12 +3,15 @@ package com.dev.playground.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.State.STARTED
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.dev.playground.presentation.login.LoginActivity
 import com.dev.playground.presentation.main.MainActivity
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
-import com.dev.playground.presentation.util.UiState
+import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State
 import com.dev.playground.presentation.util.lifecycleScope
 import com.dev.playground.presentation.util.startActivity
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
@@ -30,10 +33,10 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope(STARTED) {
             viewModel.loginState.collect { uiState ->
                 when (uiState) {
-                    is UiState.Success -> {
+                    is State.Success -> {
                         startActivity<MainActivity> { }
                     }
-                    is UiState.Failure -> {
+                    is State.Failure -> {
                         startActivity<LoginActivity> { }
                     }
                     else -> println("로딩중")

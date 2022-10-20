@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.usecase.login.GetKakaoTokenUseCase
 import com.dev.playground.domain.usecase.login.SetKakaoTokenUseCase
-import com.dev.playground.presentation.util.UiState
+import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State.Loading
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -14,10 +15,14 @@ class SharedPreferencesViewModel(
     private val setKakaoTokenUseCase: SetKakaoTokenUseCase
 ) : ViewModel() {
 
-    private val _loginState = MutableStateFlow<UiState<Map<String, String?>>>(
-        UiState.Loading(false)
-    )
-    val loginState = _loginState.asStateFlow()
+    sealed class State {
+        data class Success(val data: Map<String, String?>) : State()
+        data class Failure(val error: Throwable) : State()
+        object Loading : State()
+    }
+
+    private val _loginState = MutableStateFlow<State>(Loading)
+    val loginState: StateFlow<State> = _loginState.asStateFlow()
 
     fun getKakaoToken() {
         viewModelScope.launch {
@@ -25,9 +30,9 @@ class SharedPreferencesViewModel(
 
             result
                 .onSuccess {
-                    _loginState.value = UiState.Success(it)
+                    _loginState.value = State.Success(it)
                 }.onFailure {
-                    _loginState.value = UiState.Failure(it)
+                    _loginState.value = State.Failure(it)
                 }
         }
     }
