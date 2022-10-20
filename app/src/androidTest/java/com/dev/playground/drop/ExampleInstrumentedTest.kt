@@ -1,4 +1,4 @@
-package com.dev.playground.dailymap
+package com.dev.playground.drop
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.dev.playground.dailymap", appContext.packageName)
+        assertEquals("com.dev.playground.drop", appContext.packageName)
     }
 }

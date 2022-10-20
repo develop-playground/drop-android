@@ -1,4 +1,4 @@
-package com.dev.playground.dailymap
+package com.dev.playground.drop
 
 import org.junit.Test
 
