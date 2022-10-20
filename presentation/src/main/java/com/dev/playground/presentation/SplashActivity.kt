@@ -26,9 +26,10 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun loginVerification() {
-        lifecycleScope.launch {
-            viewModel.getKakaoToken()
 
+        viewModel.getKakaoToken()
+
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginState.collect { uiState ->
                     when (uiState) {
