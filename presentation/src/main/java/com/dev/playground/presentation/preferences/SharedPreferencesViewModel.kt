@@ -21,7 +21,7 @@ class SharedPreferencesViewModel(
         object Loading : State()
     }
 
-    private val _loginState = MutableStateFlow<State>(Loading)
+    private val _loginState: MutableStateFlow<State> = MutableStateFlow(Loading)
     val loginState: StateFlow<State> = _loginState.asStateFlow()
 
     fun getKakaoToken() {
