@@ -19,14 +19,16 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="lvdv2fig1b" />
         <activity
-            android:name="com.dev.playground.presentation.main.MainActivity"
+            android:name="com.dev.playground.presentation.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="com.dev.playground.presentation.main.MainActivity"/>
+        <activity android:name="com.dev.playground.presentation.login.LoginActivity"/>
     </application>
 
 </manifest>
