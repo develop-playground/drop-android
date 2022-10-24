@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 fun <T : Lifecycle.State> LifecycleOwner.lifecycleScope(
     state: T,
     block: suspend CoroutineScope.() -> Unit
-): Unit {
-    lifecycleScope.launch {
-        repeatOnLifecycle(state, block)
-    }
+) = lifecycleScope.launch {
+    repeatOnLifecycle(state, block)
 }
