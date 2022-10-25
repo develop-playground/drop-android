@@ -1,5 +1,5 @@
 <div align = "center">
-  <h1> daily-map-android </h1>
+  <h1> drop-android </h1>
 </div>
 
 ![Android Version](https://img.shields.io/badge/API-23%2B-green?style=flat&logo=Android&logoColor=white")
