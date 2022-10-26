@@ -1,73 +1,89 @@
 package com.dev.playground.presentation.main
 
 import android.os.Bundle
-import android.widget.TextView
+import android.view.MenuItem
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
+import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.ActivityMainBinding
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.MapFragment
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
-import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.util.MarkerIcons
-import ted.gun0912.clustering.naver.TedNaverClustering
+import com.dev.playground.presentation.extension.hideKeyboard
+import com.dev.playground.presentation.feed.FeedFragment
+import com.dev.playground.presentation.map_container.MapContainerFragment
+import com.dev.playground.presentation.setting.SettingFragment
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
-    OnMapReadyCallback {
+    NavigationBarView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSyncMap()
         initViews()
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (binding.bottomNavMain.selectedItemId == id) {
+            scrollTop(id)
+        }
+
+        val tag = getTagByNavigationId(id)
+        return if (tag != null) {
+            showFragment(tag)
+            true
+        } else {
+            false
+        }
+    }
+
     private fun initViews() = with(binding) {
-
+        bottomNavMain.setOnItemSelectedListener(this@MainActivity)
     }
 
-    override fun onMapReady(p0: NaverMap): Unit = with(p0) {
-        TedNaverClustering.with<MapItem>(this@MainActivity, this)
-            .customMarker { clusterItem ->
-                Marker(clusterItem.position).apply {
-                    icon = MarkerIcons.RED
-                    title = clusterItem.position.latitude.toString()
-                }
+    private fun scrollTop(id: Int) {
+        binding.root.hideKeyboard()
 
-            }
-            .customCluster {
-                TextView(this@MainActivity).apply {
-                    setBackgroundColor(android.graphics.Color.GREEN)
-                    setTextColor(android.graphics.Color.WHITE)
-                    text = "${it.size}개"
-                    setPadding(10, 10, 10, 10)
-                }
-            }
-            .items(generateItems(this))
-            .make()
+        val tag = getTagByNavigationId(id)
+        val foundFragment = supportFragmentManager.findFragmentByTag(tag)
+        (foundFragment as? ScrollableScreen)?.scrollTop()
     }
 
-    private fun setSyncMap() {
-        val fm = supportFragmentManager
-        val mapFragment = fm.findFragmentById(R.id.mapMain) as? MapFragment
-            ?: MapFragment.newInstance().also {
-                fm.beginTransaction().add(R.id.mapMain, it).commit()
+    private fun showFragment(tag: String) {
+        binding.root.hideKeyboard()
+
+        with(supportFragmentManager) {
+            fragments.forEach {
+                beginTransaction().hide(it).commitAllowingStateLoss()
             }
-        mapFragment.getMapAsync(this)
+
+            val foundFragment = supportFragmentManager.findFragmentByTag(tag)
+
+            if (foundFragment != null) {
+                beginTransaction().show(foundFragment).commitAllowingStateLoss()
+            } else {
+                addFragment(tag)
+            }
+        }
     }
 
-    private fun generateItems(map: NaverMap): ArrayList<MapItem> {
-        return ArrayList<MapItem>().apply {
-            repeat(50) {
-                val bounds = map.contentBounds
-                val temp = MapItem(
-                    LatLng(
-                        (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-                        (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-                    )
-                )
-                add(temp)
-            }
+    private fun getTagByNavigationId(id: Int): String? = when (id) {
+        R.id.menu_feed -> FeedFragment.TAG
+        R.id.menu_map_container -> MapContainerFragment.TAG
+        R.id.menu_setting -> SettingFragment.TAG
+        else -> null
+    }
+
+    private fun addFragment(tag: String) {
+        val fragment = when (tag) {
+            FeedFragment.TAG -> FeedFragment.newInstance()
+            MapContainerFragment.TAG -> MapContainerFragment.newInstance()
+            SettingFragment.TAG -> SettingFragment.newInstance()
+            else -> null
+        }
+
+        if (fragment != null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainerMain, fragment, tag)
+                .commitAllowingStateLoss()
         }
     }
 
