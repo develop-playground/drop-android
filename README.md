@@ -36,7 +36,7 @@ inside the JVM on your workstation in seconds.
 
 given(option)_when_expect (korea language & when using spaces, use _ )
 
-ex) `예기치_못한_에러가_발생했을때_에러페이지가_잘_보여지는가에_대한_테스트`
+ex) `예기치 못한 에러가_발생했을때_에러페이지가 잘 보여지는가에 대한 테스트`
 
 
 
