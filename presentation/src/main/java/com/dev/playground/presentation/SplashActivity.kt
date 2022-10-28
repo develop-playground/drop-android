@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
             viewModel.loginState.collect { uiState ->
                 when (uiState) {
                     is State.Success -> {
-                        startActivity<MainActivity> { }
+                        startActivity<LoginActivity> { }
                     }
                     is State.Failure -> {
                         startActivity<LoginActivity> { }

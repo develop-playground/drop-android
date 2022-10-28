@@ -1,22 +1,28 @@
 package com.dev.playground.presentation.login
 
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
+import com.dev.playground.presentation.login.LoginViewModel.State.*
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
+import com.dev.playground.presentation.util.lifecycleScope
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
     companion object {
-        const val KAKAO_ACCESS_TOKEN: String = "kakao_access_token"
-        const val KAKAO_REFRESH_TOKEN: String = "kakao_refresh_token"
+        const val KAKAO_ACCESS_TOKEN: String = "accessToken"
+        const val KAKAO_REFRESH_TOKEN: String = "refreshToken"
     }
 
+    private val viewModel: LoginViewModel by viewModel()
     private val preferencesViewModel: SharedPreferencesViewModel by viewModel()
 
     private val loginCallback: (OAuthToken?, Throwable?) -> Unit = { token, exception ->
@@ -34,6 +40,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
         binding.btLogin.setOnClickListener {
             isKakaoLogin()
+        }
+
+        lifecycleScope(Lifecycle.State.STARTED) {
+            viewModel.isSignIn.collect {
+                when (it) {
+                    is Success -> {
+                        println(it)
+                    }
+
+                    is Failure -> {
+                        println(it)
+                    }
+                }
+            }
         }
     }
 
@@ -53,6 +73,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 KAKAO_REFRESH_TOKEN to token.refreshToken
             )
         )
+
+        viewModel.login("KAKAO")
     }
 
 }
