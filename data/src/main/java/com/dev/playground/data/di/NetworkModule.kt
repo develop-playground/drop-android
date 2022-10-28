@@ -1,6 +1,7 @@
 package com.dev.playground.data.di
 
 import com.dev.playground.data.api.DropApi
+import com.dev.playground.data.util.AuthenticationInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONException
@@ -34,6 +35,7 @@ val networkModule = module {
             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(logging)
+            .addInterceptor(AuthenticationInterceptor(get()))
             .retryOnConnectionFailure(true)
             .build()
     }
