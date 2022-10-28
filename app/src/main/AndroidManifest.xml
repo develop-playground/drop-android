@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dev.playground.drop">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:name="com.dev.playground.drop.DropApplication"
@@ -29,6 +31,21 @@
         
         <activity android:name="com.dev.playground.presentation.main.MainActivity"/>
         <activity android:name="com.dev.playground.presentation.login.LoginActivity"/>
+        
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/kakao_native_app_key"/>
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

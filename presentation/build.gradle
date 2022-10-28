@@ -61,4 +61,7 @@ dependencies {
     // clustering
     implementation "io.github.ParkSangGwon:tedclustering-naver:1.0.2"
 
+    //kakao
+    implementation "com.kakao.sdk:v2-user:2.11.2"
+
 }
