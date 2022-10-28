@@ -6,7 +6,6 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.databinding.ViewLoginButtonBinding
 import com.dev.playground.presentation.util.RoundRectOutlineProvider
