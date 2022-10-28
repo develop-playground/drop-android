@@ -23,7 +23,7 @@ class LoginViewModel(
     private val _isSignIn: MutableStateFlow<State> = MutableStateFlow(Loading)
     val isSignIn: StateFlow<State> = _isSignIn.asStateFlow()
 
-    fun login(memberType: String) {
+    fun requestLogin(memberType: String) {
         viewModelScope.launch {
             val result = requestLoginUseCase.invoke(memberType)
 
@@ -33,6 +33,12 @@ class LoginViewModel(
                 }.onFailure {
                     _isSignIn.value = Failure(it)
                 }
+        }
+    }
+
+    fun reIssueToken(refreshToken: String) {
+        viewModelScope.launch {
+
         }
     }
 }
