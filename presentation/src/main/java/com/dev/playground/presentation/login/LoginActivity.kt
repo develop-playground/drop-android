@@ -4,20 +4,29 @@ import android.os.Bundle
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
+import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginActivity: BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
+
+    companion object {
+        const val KAKAO_ACCESS_TOKEN: String = "kakao_access_token"
+        const val KAKAO_REFRESH_TOKEN: String = "kakao_refresh_token"
+    }
+
+    private val preferencesViewModel: SharedPreferencesViewModel by viewModel()
 
     private val loginCallback: (OAuthToken?, Throwable?) -> Unit = { token, exception ->
         if (exception != null) {
-            println("로그인 성공 $token")
-        } else {
-            println("로그인 실패")
+            println("로그인 실패 $exception")
+        } else if (token != null) {
+            storingTokenInLocalDataBase(token)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,20 +35,24 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::in
         binding.btLogin.setOnClickListener {
             isKakaoLogin()
         }
-
     }
 
-    private fun initKakaoSdk() {
-        KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
-    }
+    private fun initKakaoSdk() = KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
 
-    private fun isKakaoLogin() {
 
+    private fun isKakaoLogin() =
         when (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
             true -> UserApiClient.instance.loginWithKakaoTalk(this, callback = loginCallback)
             false -> UserApiClient.instance.loginWithKakaoAccount(this, callback = loginCallback)
         }
 
+    private fun storingTokenInLocalDataBase(token: OAuthToken) {
+        preferencesViewModel.setKakaoToken(
+            mapOf(
+                KAKAO_ACCESS_TOKEN to token.accessToken,
+                KAKAO_REFRESH_TOKEN to token.refreshToken
+            )
+        )
     }
 
 }

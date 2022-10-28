@@ -2,6 +2,7 @@ package com.dev.playground.drop
 
 import android.app.Application
 import com.dev.playground.data.di.localDataSourceModule
+import com.dev.playground.data.di.networkModule
 import com.dev.playground.data.di.repositoryModule
 import com.dev.playground.domain.di.dispatcherModule
 import com.dev.playground.domain.di.useCaseModule
@@ -15,9 +16,11 @@ class DropApplication: Application() {
 
         startKoin {
             modules(
+                appModule,
                 viewModelModule,
                 dispatcherModule,
                 useCaseModule,
+                networkModule,
                 repositoryModule,
                 localDataSourceModule,
             )
