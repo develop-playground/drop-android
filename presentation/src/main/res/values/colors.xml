@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yellow">#F9DF4A</color>
+    <color name="green">#57CA76</color>
+    <color name="kakaoText">#261A00</color>
+    <color name="naverText">#FFFFFF</color>
 </resources>

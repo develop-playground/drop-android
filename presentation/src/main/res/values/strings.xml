@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">드롭</string>
+    <string name="head_login_activity">나의 어떤 매일을 기록하다,</string>
+    <string name="kakao_login_view">카카오톡으로 로그인</string>
+    <string name="naver_login_view">네이버로 로그인</string>
 </resources>
