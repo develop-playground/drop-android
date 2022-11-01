@@ -33,6 +33,24 @@ inside the JVM on your workstation in seconds.
 </br>
 
 ## Code Convention
+
+**Activity, Fragment Convension**
+- inherit `BaseActivity` or `BaseFragment` and using `ViewBinding`
+- On Activity and Fragment, work with bindings in `initViews` functions 
+```kotlin
+// ex
+fun initViews() = with(binding) {
+  // do something..
+}
+```
+- On Activity and Fragment, work with ViewModel in `initCollects` functions
+```kotlin
+// ex
+fun initCollects() = with(viewModel) {
+  // do something..
+}
+```
+
 **Test Method Convention**
 
 given(option)_when_expect (korea language & when using spaces, use _ )
