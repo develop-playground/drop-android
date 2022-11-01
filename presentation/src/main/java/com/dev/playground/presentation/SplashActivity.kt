@@ -3,15 +3,12 @@ package com.dev.playground.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.State.STARTED
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.dev.playground.presentation.login.LoginActivity
 import com.dev.playground.presentation.main.MainActivity
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State
 import com.dev.playground.presentation.util.lifecycleScope
 import com.dev.playground.presentation.util.startActivity
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
