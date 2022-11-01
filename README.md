@@ -22,6 +22,7 @@ inside the JVM on your workstation in seconds.
 - [Retrofit2](https://github.com/square/retrofit) : REST APIs.
 - [OkHttp3](https://github.com/square/okhttp) : Implementing interceptor, logging web server.
 - [Glide](https://github.com/bumptech/glide) : Image loader.
+- [Lottie](https://github.com/airbnb/lottie-android) : Splash animation.
 
 </br>
 
