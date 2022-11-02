@@ -11,4 +11,5 @@
     <color name="green">#57CA76</color>
     <color name="kakaoText">#261A00</color>
     <color name="naverText">#FFFFFF</color>
+    <color name="light_gray">#969696</color>
 </resources>

@@ -2,15 +2,20 @@
 <resources>
 
     <dimen name="login_linearLayout_height">18dp</dimen>
-    <dimen name="login_linearLayout_marginTop">99dp</dimen>
+    <dimen name="login_linearLayout_marginTop">248dp</dimen>
     <dimen name="login_textView_drop_marginStart">5dp</dimen>
     <dimen name="login_imageView_width">200dp</dimen>
     <dimen name="login_imageView_height">36.12dp</dimen>
     <dimen name="login_imageView_marginTop">16dp</dimen>
-
+    <dimen name="login_imageView_marginBottom">100dp</dimen>
+    <dimen name="login_textView_easy_paddingStart">10dp</dimen>
+    <dimen name="login_textView_easy_paddingEnd">10dp</dimen>
+    <dimen name="login_divider_view_weight">131.7dp</dimen>
+    <dimen name="login_divider_view_height">0.1dp</dimen>
     <dimen name="login_view_constraintLayout_width">341dp</dimen>
     <dimen name="login_view_constraintLayout_height">48dp</dimen>
     <dimen name="login_view_imageView_marginStart">12dp</dimen>
+    <dimen name="login_button_view_marginTop">16dp</dimen>
 
     <dimen name="round_rect_outline_provider_button_radius">5dp</dimen>
 </resources>

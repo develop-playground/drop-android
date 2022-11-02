@@ -4,6 +4,7 @@
     <string name="head_login_activity">나의 어떤 매일을 기록하다,</string>
     <string name="kakao_login_view">카카오톡으로 로그인</string>
     <string name="naver_login_view">네이버로 로그인</string>
+    <string name="easy_login_activity">간편 로그인</string>
     <string name="kakao_native_app_key">642127e0f11def53eeec49c714efe72d</string>
     <string name="manifest_kakao_native_app_key">kakao642127e0f11def53eeec49c714efe72d</string>
 </resources>
