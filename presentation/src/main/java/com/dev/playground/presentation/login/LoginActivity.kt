@@ -1,7 +1,7 @@
 package com.dev.playground.presentation.login
 
 import android.os.Bundle
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.State.STARTED
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
@@ -9,6 +9,8 @@ import com.dev.playground.presentation.login.LoginViewModel.State.Failure
 import com.dev.playground.presentation.login.LoginViewModel.State.Success
 import com.dev.playground.presentation.main.MainActivity
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
+import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State
+import com.dev.playground.presentation.util.errorStatusCode
 import com.dev.playground.presentation.util.lifecycleScope
 import com.dev.playground.presentation.util.startActivity
 import com.kakao.sdk.auth.model.OAuthToken
@@ -19,8 +21,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
     companion object {
-        const val KAKAO_ACCESS_TOKEN: String = "accessToken"
-        const val KAKAO_REFRESH_TOKEN: String = "refreshToken"
+        const val GET_DROP_ACCESS_TOKEN: String = "get_access_token"
+        const val GET_DROP_REFRESH_TOKEN: String = "get_refresh_token"
+        const val SET_ACCESS_TOKEN: String = "set_access_token"
+        const val SET_REFRESH_TOKEN: String = "set_refresh_token"
     }
 
     private val viewModel: LoginViewModel by viewModel()
@@ -43,7 +47,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             isKakaoLogin()
         }
 
-        lifecycleScope(Lifecycle.State.STARTED) {
+        isTokenInvalidate()
+    }
+
+    private fun isTokenInvalidate() {
+        lifecycleScope(STARTED) {
             viewModel.isSignIn.collect {
                 when (it) {
                     is Success -> {
@@ -52,7 +60,30 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                     }
 
                     is Failure -> {
-                        println("드롭 로그인 실패 & HTTP 상태 코드에 따라 토큰 재발급 로직 필요 ${it.error}")
+                        when (errorStatusCode(it.error)) {
+                            "403" -> {
+                                reIssueRefreshToken()
+                            }
+                            else -> println("추가 에러 로직 필요")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun reIssueRefreshToken() {
+        preferencesViewModel.getKakaoToken()
+
+        lifecycleScope(STARTED) {
+            preferencesViewModel.loginState.collect { uiState ->
+                when (uiState) {
+                    is State.Success -> {
+                        uiState.data[GET_DROP_REFRESH_TOKEN]?.let { viewModel.reIssueToken(it) }
+                    }
+
+                    is State.Failure -> {
+                        println("로컬에 저장된 토큰 가져오기 실패")
                     }
                 }
             }
@@ -71,8 +102,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     private fun storingTokenInLocalDataBase(accessToken: String, refreshToken: String) {
         preferencesViewModel.setKakaoToken(
             mapOf(
-                KAKAO_ACCESS_TOKEN to accessToken,
-                KAKAO_REFRESH_TOKEN to refreshToken
+                SET_ACCESS_TOKEN to accessToken,
+                SET_REFRESH_TOKEN to refreshToken
             )
         )
 

@@ -11,6 +11,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.math.log
 
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 1L
@@ -34,8 +35,8 @@ val networkModule = module {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(logging)
             .addInterceptor(AuthenticationInterceptor(get()))
+            .addInterceptor(logging)
             .retryOnConnectionFailure(true)
             .build()
     }

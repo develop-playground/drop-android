@@ -16,29 +16,35 @@ class SharedPreferencesManager(context: Context) {
 
     fun removeKakaoToken() {
         preferences.edit {
-            remove(KAKAO_ACCESS_TOKEN)
-            remove(KAKAO_REFRESH_TOKEN)
+            remove(KEY_KAKAO_ACCESS_TOKEN)
+            remove(KEY_KAKAO_REFRESH_TOKEN)
             apply()
         }
     }
 
     fun setKakaoToken(token: Map<String, String>) {
         preferences.edit {
-            putString(KAKAO_ACCESS_TOKEN, token["accessToken"])
-            putString(KAKAO_REFRESH_TOKEN, token["refreshToken"])
+            putString(KEY_KAKAO_ACCESS_TOKEN, token[SET_ACCESS_TOKEN])
+            putString(KEY_KAKAO_REFRESH_TOKEN, token[SET_REFRESH_TOKEN])
             apply()
         }
     }
 
     fun getKakaoToken(): Map<String, String?> {
         return mapOf(
-            "access_token" to preferences.getString(KAKAO_ACCESS_TOKEN, null),
-            "refresh_token" to preferences.getString(KAKAO_REFRESH_TOKEN, null)
+            GET_DROP_ACCESS_TOKEN to preferences.getString(KEY_KAKAO_ACCESS_TOKEN, null),
+            GET_DROP_REFRESH_TOKEN to preferences.getString(KEY_KAKAO_REFRESH_TOKEN, null)
         )
     }
 
     companion object {
-        const val KAKAO_ACCESS_TOKEN: String = "kakao_access_token"
-        const val KAKAO_REFRESH_TOKEN: String = "kakao_refresh_token"
+        const val GET_DROP_ACCESS_TOKEN: String = "get_access_token"
+        const val GET_DROP_REFRESH_TOKEN: String = "get_refresh_token"
+
+        const val SET_ACCESS_TOKEN: String = "set_access_token"
+        const val SET_REFRESH_TOKEN: String = "set_refresh_token"
+
+        const val KEY_KAKAO_ACCESS_TOKEN: String = "kakao_access_token"
+        const val KEY_KAKAO_REFRESH_TOKEN: String = "kakao_refresh_token"
     }
 }

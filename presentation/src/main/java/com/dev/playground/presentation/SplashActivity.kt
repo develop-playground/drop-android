@@ -32,10 +32,10 @@ class SplashActivity : AppCompatActivity() {
             viewModel.loginState.collect { uiState ->
                 when (uiState) {
                     is State.Success -> {
-                        startActivity<MainActivity> { }
+                        startActivity<LoginActivity> { finish() }
                     }
                     is State.Failure -> {
-                        startActivity<LoginActivity> { }
+                        startActivity<LoginActivity> { finish() }
                     }
                     else -> println("로딩중")
                 }

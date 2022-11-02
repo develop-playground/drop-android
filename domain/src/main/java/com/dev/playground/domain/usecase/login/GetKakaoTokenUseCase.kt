@@ -12,7 +12,7 @@ class GetKakaoTokenUseCase(
     override suspend fun execute(): Map<String, String?> {
         val token = sharedPreferencesRepository.getKakaoToken()
 
-        return if (token["access_token"].isNullOrEmpty()) {
+        return if (token["get_access_token"].isNullOrEmpty()) {
             throw IllegalArgumentException("Access token has expired or is null")
         } else {
             token
