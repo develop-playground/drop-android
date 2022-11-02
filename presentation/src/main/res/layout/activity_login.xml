@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
     android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/llLogin"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/login_linearLayout_height"
-        android:layout_marginTop="@dimen/login_linearLayout_marginTop"
+
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@id/ivLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +45,7 @@
         android:layout_marginTop="@dimen/login_imageView_marginTop"
         android:layout_marginBottom="@dimen/login_imageView_marginBottom"
         android:src="@drawable/ic_drop_logo"
+
         app:layout_constraintBottom_toTopOf="@id/llDivisionLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,10 +90,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/login_button_view_marginTop"
         app:bgColor="@color/yellow"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llDivisionLogin"
-
+        app:layout_constraintBottom_toBottomOf="parent"
         app:symbol="@drawable/ic_kakao_logo"
         app:text="@string/kakao_login_view"
         app:textColor="@color/kakaoText" />
