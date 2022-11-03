@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/menu_feed"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="피드" />
+        android:icon="@drawable/ic_home"
+        android:title="Feed" />
 
     <item
         android:id="@+id/menu_map_container"
-        android:icon="@android:drawable/ic_dialog_map"
-        android:title="지도" />
+        android:icon="@drawable/ic_map_pin"
+        android:title="Map" />
 
     <item
         android:id="@+id/menu_setting"
-        android:icon="@android:drawable/ic_secure"
-        android:title="설정" />
+        android:icon="@drawable/ic_setting"
+        android:title="Setting" />
 
 </menu>
