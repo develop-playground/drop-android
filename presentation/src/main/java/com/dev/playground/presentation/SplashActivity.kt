@@ -29,15 +29,17 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope(STARTED) {
             viewModel.loginState.collect { uiState ->
-                when (uiState) {
-                    is State.Success -> {
-                        startActivity<MainActivity> { }
-                    }
-                    is State.Failure -> {
-                        startActivity<LoginActivity> { }
-                    }
-                    else -> println("로딩중")
-                }
+                startActivity<MainActivity> { }
+                finish()
+//                when (uiState) {
+//                    is State.Success -> {
+//                        startActivity<MainActivity> { }
+//                    }
+//                    is State.Failure -> {
+//                        startActivity<LoginActivity> { }
+//                    }
+//                    else -> println("로딩중")
+//                }
             }
         }
     }
