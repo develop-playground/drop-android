@@ -37,6 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private fun initViews() = with(binding) {
         bottomNavMain.setOnItemSelectedListener(this@MainActivity)
+        bottomNavMain.selectedItemId = R.id.menu_feed
     }
 
     private fun scrollTop(id: Int) {
