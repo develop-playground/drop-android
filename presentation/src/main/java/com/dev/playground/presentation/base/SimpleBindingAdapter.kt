@@ -14,6 +14,7 @@ open class SimpleBindingAdapter<T, VH>(
     SimpleItemDiffCallback()
 ) where T : SimpleItemDiffCallback.DiffCallback, T : SimpleUIModel, VH : SimpleBindingViewHolder<T> {
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(

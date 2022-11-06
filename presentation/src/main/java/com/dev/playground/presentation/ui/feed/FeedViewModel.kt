@@ -20,23 +20,31 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
     // TODO get real data
     private fun fetch() {
         viewModelScope.launch {
-            _itemList.emit(itemListOf())
+            _itemList.emit(
+                listOf(
+                    itemOf("0"),
+                    itemOf("1"),
+                    itemOf("2")
+                )
+            )
         }
     }
 
-    private fun itemListOf() = listOf(
-        PostGroupUIModel(
-            id = "0",
-            title = "돌고기506",
-            description = "Test Description... Test Description... Test Description... " +
-                    "Test Description... Test Description... Test Description... " +
-                    "Test Description... Test Description... Test Description...",
-            location = "서울시 역삼동",
-            urlList = listOf("", "", ""),
-        ) {
-            event(FeedEvent.Edit(it))
-        }
-    )
+    private fun itemOf(id: String) = PostGroupUIModel(
+        id = id,
+        title = "돌고기506",
+        description = "Test Description... Test Description... Test Description... " +
+                "Test Description... Test Description... Test Description... " +
+                "Test Description... Test Description... Test Description...",
+        location = "서울시 역삼동",
+        urlList = listOf(
+            "https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg",
+            "https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg",
+            "https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"
+        ),
+    ) {
+        event(FeedEvent.Edit(it))
+    }
 
     sealed interface FeedEvent : Event {
         data class Edit(val id: String) : FeedEvent

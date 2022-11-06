@@ -56,11 +56,10 @@ constructor(
             }
         )
 
-        // TODO real data inject
         override fun onBindViewHolder(holder: ImagePagerViewHolder, position: Int) {
             val imageView = (holder.itemView as? ImageView) ?: return
             Glide.with(imageView)
-                .load("https://mblogthumb-phinf.pstatic.net/MjAxOTA1MjhfMjg1/MDAxNTU5MDI4NDIwNDQx.As5OFJqnVafj399tvNkZEjjsGDDHnNmI5JXuA8jvorcg.bvAu6JVGfnkS8SO7wazOLIIa-ImAorM23BJzG1rt2Asg.JPEG.designpress2016/DDP_01.jpg?type=w800")
+                .load(getItem(position))
                 .into(imageView)
         }
 

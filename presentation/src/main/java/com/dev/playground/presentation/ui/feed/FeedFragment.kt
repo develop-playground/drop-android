@@ -34,9 +34,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         initCollects()
     }
 
-    private fun initViews() = with(binding) {
-        rvFeed.itemAnimator = null
-        rvFeed.adapter = feedAdapter
+    private fun initViews() = with(binding.rvFeed) {
+        itemAnimator = null
+        adapter = feedAdapter
+        addItemDecoration(FeedItemDecoration())
     }
 
     private fun initCollects() = with(viewModel) {
