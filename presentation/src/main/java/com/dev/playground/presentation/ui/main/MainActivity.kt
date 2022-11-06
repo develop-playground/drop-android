@@ -12,7 +12,7 @@ import com.dev.playground.presentation.ui.feed.FeedFragment
 import com.dev.playground.presentation.ui.setting.SettingFragment
 import com.google.android.material.navigation.NavigationBarView
 
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     NavigationBarView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {

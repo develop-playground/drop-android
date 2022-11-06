@@ -2,18 +2,19 @@ package com.dev.playground.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseActivity<T: ViewBinding>(
-    private val inflate : (LayoutInflater) -> T
-): AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes layoutId: Int) : AppCompatActivity(layoutId) {
 
-    protected val binding: T by lazy { inflate.invoke(layoutInflater) }
+    protected val binding: B by lazy { DataBindingUtil.setContentView<B>(this, layoutId) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        binding.lifecycleOwner = this
     }
 
 }

@@ -3,6 +3,7 @@ package com.dev.playground.presentation.ui.map_container
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
 import com.naver.maps.geometry.LatLng
@@ -13,7 +14,7 @@ import com.naver.maps.map.util.MarkerIcons
 import ted.gun0912.clustering.naver.TedNaverClustering
 
 class MapContainerFragment :
-    BaseFragment<FragmentMapContainerBinding>(FragmentMapContainerBinding::inflate),
+    BaseFragment<FragmentMapContainerBinding>(R.layout.fragment_map_container),
     OnMapReadyCallback {
 
     private lateinit var map: NaverMap

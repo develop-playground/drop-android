@@ -3,6 +3,7 @@ package com.dev.playground.presentation.ui.feed
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
@@ -10,7 +11,7 @@ import com.dev.playground.presentation.util.repeatOnLifecycleState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FeedFragment : BaseFragment<FragmentFeedBinding>(FragmentFeedBinding::inflate), ScrollableScreen {
+class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), ScrollableScreen {
 
     companion object {
         fun newInstance() = FeedFragment()

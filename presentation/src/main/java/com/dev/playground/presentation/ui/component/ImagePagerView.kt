@@ -22,7 +22,7 @@ constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding by lazy {
-        ViewImagePagerBinding.inflate(LayoutInflater.from(context), this)
+        ViewImagePagerBinding.inflate(LayoutInflater.from(context), this, true)
     }
     private val adapter by lazy { ImagePagerAdapter() }
 
