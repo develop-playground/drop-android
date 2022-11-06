@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.setting
+package com.dev.playground.presentation.ui.setting
 
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
