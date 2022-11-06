@@ -5,12 +5,15 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.dev.playground.presentation.model.PostGroupUIModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clPostGroupTitle"
@@ -25,6 +28,7 @@
                 android:layout_marginStart="@dimen/spacing_8"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{@string/feed_post_group_title_prefix(item.title)}"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constrainedWidth="true"
@@ -44,6 +48,7 @@
                 android:layout_marginEnd="@dimen/spacing_16"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{item.location}"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constrainedWidth="true"
@@ -58,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_16"
+                android:onClick="@{() -> item.onEditPost.invoke(item.id)}"
                 android:text="@string/post_group_edit_button_text"
                 android:textColor="@color/gray_medium"
                 android:textSize="11sp"
@@ -70,7 +76,8 @@
         <com.dev.playground.presentation.ui.component.ImagePagerView
             android:id="@+id/cvImagePager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            app:ItemList="@{item.urlList}" />
+        
     </LinearLayout>
 </layout>

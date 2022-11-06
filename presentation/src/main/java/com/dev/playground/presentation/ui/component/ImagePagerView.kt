@@ -31,8 +31,8 @@ constructor(
         initViews()
     }
 
-    fun submitList(urlList: List<String>) {
-        adapter.submitList(listOf("", "", ""))
+    fun setItemList(urlList: List<String>) {
+        adapter.submitList(urlList)
     }
 
     private fun initViews() = with(binding) {
@@ -51,6 +51,7 @@ constructor(
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImagePagerViewHolder(
             ImageView(parent.context).apply {
+                layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT)
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }
         )

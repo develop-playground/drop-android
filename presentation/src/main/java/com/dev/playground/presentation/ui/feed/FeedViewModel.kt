@@ -32,14 +32,14 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
                     "Test Description... Test Description... Test Description... " +
                     "Test Description... Test Description... Test Description...",
             location = "서울시 역삼동",
-            urlList = listOf(),
+            urlList = listOf("", "", ""),
         ) {
             event(FeedEvent.Edit(it))
         }
     )
 
     sealed interface FeedEvent : Event {
-        data class Edit(val title: String) : FeedEvent
+        data class Edit(val id: String) : FeedEvent
     }
 
 }

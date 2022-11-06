@@ -63,6 +63,8 @@
             android:id="@+id/rvFeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/spacing_20"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>
