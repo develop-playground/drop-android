@@ -49,6 +49,10 @@ dependencies {
     implementation(Dep.Koin.core)
     implementation(Dep.Koin.android)
 
+    // glide
+    implementation(Dep.Glide.glide)
+    annotationProcessor(Dep.Glide.glideCompiler)
+
     // map
     implementation(Dep.naverMap)
 

@@ -15,4 +15,7 @@
     <!-- feed -->
     <dimen name="feed_toolbar_height">52dp</dimen>
 
+    <!-- image pager -->
+    <dimen name="image_pager_tab_indicator_thickness">2dp</dimen>
+
 </resources>

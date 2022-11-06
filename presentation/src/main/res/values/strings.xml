@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- feed -->
     <string name="feed_post_title_text">drop point</string>
+
+    <!-- post group item -->
+    <string name="post_group_edit_button_text">수정</string>
 </resources>
