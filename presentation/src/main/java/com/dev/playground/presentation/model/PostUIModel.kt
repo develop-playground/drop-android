@@ -4,6 +4,7 @@ import androidx.annotation.LayoutRes
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.SimpleUIModel
 
+// TODO POST 그룹으로 묶어서 표현g
 sealed class PostUIModel(
     @LayoutRes
     layoutRes: Int,

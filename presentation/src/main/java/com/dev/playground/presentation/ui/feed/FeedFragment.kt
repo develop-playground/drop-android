@@ -40,6 +40,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(FragmentFeedBinding::infl
                 }
             }
         }
+        viewLifecycleOwner.repeatOnLifecycleState {
+            itemList.collectLatest {
+                binding.tvFeedPostCount.text = it.size.toString()
+            }
+        }
     }
 
     override fun scrollTop() = binding.rvFeed.smoothScrollToPosition(0)
