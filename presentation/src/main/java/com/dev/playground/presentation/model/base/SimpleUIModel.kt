@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.base
+package com.dev.playground.presentation.model.base
 
 import androidx.annotation.LayoutRes
 

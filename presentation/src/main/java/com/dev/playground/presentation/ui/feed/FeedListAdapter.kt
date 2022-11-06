@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dev.playground.presentation.base.SimpleItemDiffCallback
+import com.dev.playground.presentation.model.base.SimpleItemDiffCallback
 import com.dev.playground.presentation.databinding.ItemPostGroupBinding
 import com.dev.playground.presentation.model.PostGroupUIModel
 

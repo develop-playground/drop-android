@@ -1,8 +1,8 @@
 package com.dev.playground.presentation.model
 
 import com.dev.playground.presentation.R
-import com.dev.playground.presentation.base.SimpleItemDiffCallback
-import com.dev.playground.presentation.base.SimpleUIModel
+import com.dev.playground.presentation.model.base.SimpleItemDiffCallback
+import com.dev.playground.presentation.model.base.SimpleUIModel
 
 data class PostGroupUIModel(
     val id: String,
