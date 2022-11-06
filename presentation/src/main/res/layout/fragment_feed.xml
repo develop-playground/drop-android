@@ -13,6 +13,7 @@
         android:paddingHorizontal="@dimen/spacing_16">
 
         <ImageView
+            android:id="@+id/ivFeedToolbarLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
@@ -27,7 +28,7 @@
             android:layout_marginEnd="@dimen/spacing_4"
             android:contentDescription="@null"
             android:src="@drawable/ic_map_pin"
-            app:layout_constraintBottom_toBottomOf="@id/tvFeedPostTitle"
+            app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
             app:layout_constraintEnd_toStartOf="@id/tvFeedPostTitle"
             app:layout_constraintTop_toTopOf="@id/tvFeedPostTitle"
             app:tint="@color/white" />
@@ -41,9 +42,8 @@
             android:text="@string/feed_post_title_text"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvFeedPostCount"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
+            app:layout_constraintEnd_toStartOf="@id/tvFeedPostCount" />
 
         <TextView
             android:id="@+id/tvFeedPostCount"
@@ -52,9 +52,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/lime"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="32" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -63,6 +62,6 @@
         android:id="@+id/rvFeed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>
