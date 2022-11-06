@@ -20,6 +20,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = DataBindingUtil.inflate<B>(inflater, layoutId, container, false).apply {
+        binding = this
         lifecycleOwner = viewLifecycleOwner
     }.run {
         root
