@@ -79,5 +79,15 @@
             android:layout_height="wrap_content"
             app:ItemList="@{item.urlList}" />
 
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="@dimen/spacing_16"
+            android:text="@{item.description}"
+            app:readMoreMaxLine="2"
+            app:readMoreColor="@color/gray_medium"/>
+
     </LinearLayout>
 </layout>

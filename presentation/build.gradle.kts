@@ -57,6 +57,9 @@ dependencies {
     // map
     implementation(Dep.naverMap)
 
+    // read more
+    implementation(Dep.readMoreTextView)
+
     // clustering
     implementation(Dep.clustering)
 
