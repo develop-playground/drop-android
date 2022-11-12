@@ -9,6 +9,7 @@ import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State
 import com.dev.playground.presentation.util.lifecycleScope
 import com.dev.playground.presentation.util.startActivity
+import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
@@ -21,7 +22,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         loginVerification()
-
     }
 
     private fun loginVerification() {

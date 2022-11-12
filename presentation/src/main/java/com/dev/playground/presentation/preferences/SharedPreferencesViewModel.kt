@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.usecase.login.GetKakaoTokenUseCase
 import com.dev.playground.domain.usecase.login.SetKakaoTokenUseCase
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State.Loading
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
