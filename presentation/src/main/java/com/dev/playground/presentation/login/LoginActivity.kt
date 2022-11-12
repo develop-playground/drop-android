@@ -35,8 +35,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initKakaoSdk()
-
         binding.btLogin.setOnClickListener {
             isKakaoLogin()
         }
@@ -84,9 +82,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
         }
     }
-
-    private fun initKakaoSdk() = KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
-
 
     private fun isKakaoLogin() =
         when (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
