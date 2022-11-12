@@ -2,6 +2,7 @@ package com.dev.playground.presentation.login
 
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle.State.STARTED
+import com.dev.playground.domain.model.Auth
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
@@ -19,13 +20,6 @@ import com.kakao.sdk.user.UserApiClient
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
-
-    companion object {
-        const val GET_DROP_ACCESS_TOKEN: String = "get_access_token"
-        const val GET_DROP_REFRESH_TOKEN: String = "get_refresh_token"
-        const val SET_ACCESS_TOKEN: String = "set_access_token"
-        const val SET_REFRESH_TOKEN: String = "set_refresh_token"
-    }
 
     private val viewModel: LoginViewModel by viewModel()
     private val preferencesViewModel: SharedPreferencesViewModel by viewModel()
@@ -64,6 +58,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                             "403" -> {
                                 reIssueRefreshToken()
                             }
+
                             else -> println("추가 에러 로직 필요")
                         }
                     }
@@ -73,13 +68,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     private fun reIssueRefreshToken() {
-        preferencesViewModel.getKakaoToken()
+        preferencesViewModel.getToken()
 
         lifecycleScope(STARTED) {
             preferencesViewModel.loginState.collect { uiState ->
                 when (uiState) {
                     is State.Success -> {
-                        uiState.data[GET_DROP_REFRESH_TOKEN]?.let { viewModel.reIssueToken(it) }
+                        uiState.data.let { viewModel.reIssueToken(it.refreshToken) }
                     }
 
                     is State.Failure -> {
@@ -100,14 +95,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
 
     private fun storingTokenInLocalDataBase(accessToken: String, refreshToken: String) {
-        preferencesViewModel.setKakaoToken(
-            mapOf(
-                SET_ACCESS_TOKEN to accessToken,
-                SET_REFRESH_TOKEN to refreshToken
-            )
-        )
-
-        viewModel.requestLogin("KAKAO")
+        preferencesViewModel.setToken(Auth(accessToken, refreshToken))
     }
 
 }

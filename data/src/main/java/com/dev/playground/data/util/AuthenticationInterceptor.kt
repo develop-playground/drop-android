@@ -10,10 +10,10 @@ class AuthenticationInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
 
         val accessToken =
-            "Bearer " + preferencesManager.getKakaoToken()["get_access_token"].toString()
+            preferencesManager.getToken()?.accessToken ?: throw IllegalArgumentException()
 
         val newRequest = request().newBuilder()
-            .addHeader("Authorization", accessToken)
+            .addHeader("Authorization", "Bearer $accessToken")
             .build()
 
         proceed(newRequest)

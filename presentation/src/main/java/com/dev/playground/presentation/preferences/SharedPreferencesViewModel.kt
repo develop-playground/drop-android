@@ -2,22 +2,22 @@ package com.dev.playground.presentation.preferences
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dev.playground.domain.usecase.login.GetKakaoTokenUseCase
-import com.dev.playground.domain.usecase.login.SetKakaoTokenUseCase
+import com.dev.playground.domain.model.Auth
+import com.dev.playground.domain.usecase.login.GetTokenUseCase
+import com.dev.playground.domain.usecase.login.SetTokenUseCase
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State.Loading
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SharedPreferencesViewModel(
-    private val getKakaoTokenUseCase: GetKakaoTokenUseCase,
-    private val setKakaoTokenUseCase: SetKakaoTokenUseCase
+    private val getTokenUseCase: GetTokenUseCase,
+    private val setTokenUseCase: SetTokenUseCase
 ) : ViewModel() {
 
     sealed class State {
-        data class Success(val data: Map<String, String?>) : State()
+        data class Success(val data: Auth) : State()
         data class Failure(val error: Throwable) : State()
         object Loading : State()
     }
@@ -25,9 +25,9 @@ class SharedPreferencesViewModel(
     private val _loginState: MutableStateFlow<State> = MutableStateFlow(Loading)
     val loginState: StateFlow<State> = _loginState.asStateFlow()
 
-    fun getKakaoToken() {
+    fun getToken() {
         viewModelScope.launch {
-            val result = getKakaoTokenUseCase.invoke()
+            val result = getTokenUseCase.invoke()
 
             result
                 .onSuccess {
@@ -38,9 +38,9 @@ class SharedPreferencesViewModel(
         }
     }
 
-    fun setKakaoToken(token: Map<String, String>) {
+    fun setToken(token: Auth) {
         viewModelScope.launch {
-            setKakaoTokenUseCase.invoke(token)
+            setTokenUseCase.invoke(token)
         }
     }
 

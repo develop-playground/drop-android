@@ -8,8 +8,8 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel {
         SharedPreferencesViewModel(
-            getKakaoTokenUseCase = get(),
-            setKakaoTokenUseCase = get()
+            getTokenUseCase = get(),
+            setTokenUseCase = get()
         )
     }
 

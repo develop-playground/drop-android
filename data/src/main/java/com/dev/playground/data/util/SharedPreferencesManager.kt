@@ -4,8 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.dev.playground.data.R
+import com.dev.playground.domain.model.Auth
 
 class SharedPreferencesManager(context: Context) {
+    companion object {
+        private const val KEY_ACCESS_TOKEN: String = "access_token"
+        private const val KEY_REFRESH_TOKEN: String = "refresh_token"
+    }
 
     private val preferences: SharedPreferences by lazy {
         context.getSharedPreferences(
@@ -14,37 +19,28 @@ class SharedPreferencesManager(context: Context) {
         )
     }
 
-    fun removeKakaoToken() {
+    fun removeToken() {
         preferences.edit {
-            remove(KEY_KAKAO_ACCESS_TOKEN)
-            remove(KEY_KAKAO_REFRESH_TOKEN)
-            apply()
+            remove(KEY_ACCESS_TOKEN)
+            remove(KEY_REFRESH_TOKEN)
         }
     }
 
-    fun setKakaoToken(token: Map<String, String>) {
+    fun setToken(token: Auth) {
         preferences.edit {
-            putString(KEY_KAKAO_ACCESS_TOKEN, token[SET_ACCESS_TOKEN])
-            putString(KEY_KAKAO_REFRESH_TOKEN, token[SET_REFRESH_TOKEN])
-            apply()
+            putString(KEY_ACCESS_TOKEN, token.accessToken)
+            putString(KEY_REFRESH_TOKEN, token.refreshToken)
         }
     }
 
-    fun getKakaoToken(): Map<String, String?> {
-        return mapOf(
-            GET_DROP_ACCESS_TOKEN to preferences.getString(KEY_KAKAO_ACCESS_TOKEN, null),
-            GET_DROP_REFRESH_TOKEN to preferences.getString(KEY_KAKAO_REFRESH_TOKEN, null)
-        )
+    fun getToken(): Auth? {
+        val accessToken = preferences.getString(KEY_ACCESS_TOKEN, null)
+        val refreshToken = preferences.getString(KEY_REFRESH_TOKEN, null)
+        return if (accessToken.isNullOrEmpty() || refreshToken.isNullOrEmpty()) {
+            null
+        } else {
+            Auth(accessToken, refreshToken)
+        }
     }
 
-    companion object {
-        const val GET_DROP_ACCESS_TOKEN: String = "get_access_token"
-        const val GET_DROP_REFRESH_TOKEN: String = "get_refresh_token"
-
-        const val SET_ACCESS_TOKEN: String = "set_access_token"
-        const val SET_REFRESH_TOKEN: String = "set_refresh_token"
-
-        const val KEY_KAKAO_ACCESS_TOKEN: String = "kakao_access_token"
-        const val KEY_KAKAO_REFRESH_TOKEN: String = "kakao_refresh_token"
-    }
 }
