@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.State.STARTED
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.login.LoginActivity
+import com.dev.playground.presentation.main.MainActivity
 import com.dev.playground.presentation.splash.SplashViewModel.SplashState.Failure
 import com.dev.playground.presentation.splash.SplashViewModel.SplashState.Success
 import com.dev.playground.presentation.util.lifecycleScope
@@ -28,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope(STARTED) {
             splashState.collect { uiState ->
                 when (uiState) {
-                    is Success -> startActivity<LoginActivity> { finish() }
+                    is Success -> startActivity<MainActivity> { finish() }
                     is Failure -> startActivity<LoginActivity> { finish() }
                     else -> println("로딩중")
                 }
