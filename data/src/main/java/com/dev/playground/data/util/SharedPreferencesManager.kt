@@ -26,13 +26,11 @@ class SharedPreferencesManager(context: Context) {
         }
     }
 
-    fun setToken(token: Auth): Boolean {
+    fun setToken(token: Auth) {
         preferences.edit {
             putString(KEY_ACCESS_TOKEN, token.accessToken)
             putString(KEY_REFRESH_TOKEN, token.refreshToken)
         }
-
-        return true
     }
 
     fun getToken(): Auth? {

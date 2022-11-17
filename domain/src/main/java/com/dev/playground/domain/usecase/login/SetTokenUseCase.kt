@@ -10,12 +10,8 @@ class SetTokenUseCase(
     ioDispatcher: CoroutineDispatcher
 ) : CoroutineUseCase<Auth, Unit>(ioDispatcher) {
 
-    override suspend fun execute(param: Auth) {
-        val result = sharedPreferencesRepository.setToken(param)
-
-        if (!result) {
-            throw IllegalStateException("failure token save")
-        }
+    override suspend fun execute(param: Auth): Unit {
+        sharedPreferencesRepository.setToken(param)
     }
 
 }

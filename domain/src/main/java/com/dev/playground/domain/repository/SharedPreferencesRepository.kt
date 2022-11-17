@@ -6,7 +6,7 @@ interface SharedPreferencesRepository {
 
     suspend fun getToken(): Auth?
 
-    suspend fun setToken(token: Auth): Boolean
+    suspend fun setToken(token: Auth)
 
     suspend fun removeToken()
 

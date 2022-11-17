@@ -4,20 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.model.type.TokenType
-import com.dev.playground.domain.usecase.login.GetTokenUseCase
 import com.dev.playground.domain.usecase.login.RequestLoginUseCase
 import com.dev.playground.domain.usecase.login.SetTokenUseCase
-import com.dev.playground.presentation.login.LoginViewModel.LoginEvent.*
-import com.dev.playground.presentation.login.LoginViewModel.LoginState.Failure
-import com.dev.playground.presentation.login.LoginViewModel.LoginState.Loading
-import com.dev.playground.presentation.login.LoginViewModel.LoginState.Success
-import com.dev.playground.presentation.preferences.SharedPreferencesViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.dev.playground.presentation.login.LoginViewModel.LoginEvent.SaveDropToken
+import com.dev.playground.presentation.login.LoginViewModel.LoginEvent.SaveSNSToken
+import com.dev.playground.presentation.login.LoginViewModel.LoginState.*
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class LoginViewModel(

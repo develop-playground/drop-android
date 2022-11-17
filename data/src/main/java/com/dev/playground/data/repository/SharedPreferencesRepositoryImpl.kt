@@ -12,7 +12,7 @@ class SharedPreferencesRepositoryImpl(
         return sharedPreferencesManager.getToken()
     }
 
-    override suspend fun setToken(token: Auth): Boolean {
+    override suspend fun setToken(token: Auth) {
         return sharedPreferencesManager.setToken(token)
     }
 
