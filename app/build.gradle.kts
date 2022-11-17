@@ -12,8 +12,12 @@ android {
         targetSdk = Versions.targetSdk
         versionCode = Versions.versionCode
         versionName = Versions.versionName
-
         testInstrumentationRunner = Runner.instrument
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"http://3.34.194.171/\""
+        )
     }
 
     buildTypes {
@@ -23,11 +27,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"http://3.34.194.171/\""
-            )
         }
 
         debug {
@@ -35,11 +34,6 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
-            )
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"http://3.34.194.171/\""
             )
         }
     }
