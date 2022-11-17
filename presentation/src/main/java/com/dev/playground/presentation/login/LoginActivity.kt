@@ -12,8 +12,6 @@ import com.dev.playground.presentation.login.LoginViewModel.LoginState.Success
 import com.dev.playground.presentation.main.MainActivity
 import com.dev.playground.presentation.util.lifecycleScope
 import com.dev.playground.presentation.util.startActivity
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,25 +19,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private val viewModel: LoginViewModel by viewModel()
 
-    private val loginCallback: (OAuthToken?, Throwable?) -> Unit by lazy {
-        { token, exception ->
-            if (exception != null) {
-                println("카카오 로그인 실패 $exception")
-            } else if (token != null) {
-                viewModel.storeToken(
-                    token.accessToken,
-                    token.refreshToken,
-                    TokenType.SNS
-                )
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.btLogin.setOnClickListener {
-            isKakaoLogin()
+            KakaoLogin(this, viewModel).isKakaoLogin()
         }
 
         initCollect()
@@ -75,11 +59,5 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
         }
     }
-
-    private fun isKakaoLogin() =
-        when (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-            true -> UserApiClient.instance.loginWithKakaoTalk(this, callback = loginCallback)
-            false -> UserApiClient.instance.loginWithKakaoAccount(this, callback = loginCallback)
-        }
 
 }
