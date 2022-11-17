@@ -11,7 +11,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import kotlin.math.log
 
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 1L
