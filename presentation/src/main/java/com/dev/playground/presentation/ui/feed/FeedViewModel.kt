@@ -2,6 +2,7 @@ package com.dev.playground.presentation.ui.feed
 
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.ImageCarouselItemUIModel
 import com.dev.playground.presentation.model.PostGroupUIModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,10 +36,10 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
         title = "돌고기506",
         description = "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세",
         location = "서울시 역삼동",
-        urlList = listOf(
-            "https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg",
-            "https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg",
-            "https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"
+        imageList = listOf(
+            ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
+            ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
+            ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
         ),
     ) {
         event(FeedEvent.Edit(it))

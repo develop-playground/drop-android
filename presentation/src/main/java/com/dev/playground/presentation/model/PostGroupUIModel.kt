@@ -9,6 +9,6 @@ data class PostGroupUIModel(
     val title: String,
     val description: String,
     val location: String,
-    val urlList: List<String>,
+    val imageList: List<ImageCarouselItemUIModel>,
     val onEditPost: (String) -> Unit
 ) : SimpleUIModel(R.layout.item_post_group), SimpleItemDiffCallback.DiffCallback

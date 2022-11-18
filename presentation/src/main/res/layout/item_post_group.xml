@@ -73,11 +73,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.dev.playground.presentation.ui.component.ImagePagerView
+        <com.dev.playground.presentation.ui.component.ImageCarouselView
             android:id="@+id/cvImagePager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:ItemList="@{item.urlList}" />
+            app:itemList="@{item.imageList}" />
 
         <kr.co.prnd.readmore.ReadMoreTextView
             android:layout_width="match_parent"
