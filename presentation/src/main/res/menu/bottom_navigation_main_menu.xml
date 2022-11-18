@@ -4,16 +4,16 @@
     <item
         android:id="@+id/menu_feed"
         android:icon="@drawable/ic_home"
-        android:title="Feed" />
+        android:title="@string/menu_title_feed" />
 
     <item
         android:id="@+id/menu_map_container"
         android:icon="@drawable/ic_map_pin"
-        android:title="Map" />
+        android:title="@string/menu_title_map" />
 
     <item
         android:id="@+id/menu_setting"
         android:icon="@drawable/ic_setting"
-        android:title="Setting" />
+        android:title="@string/menu_title_setting" />
 
 </menu>

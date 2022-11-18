@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="menu_title_feed">Feed</string>
+    <string name="menu_title_map">Map</string>
+    <string name="menu_title_setting">Setting</string>
+
     <!-- feed -->
     <string name="feed_post_title_text">drop point</string>
 
