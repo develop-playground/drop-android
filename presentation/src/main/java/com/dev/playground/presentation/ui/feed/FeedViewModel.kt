@@ -3,7 +3,7 @@ package com.dev.playground.presentation.ui.feed
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.ImageCarouselItemUIModel
-import com.dev.playground.presentation.model.PostGroupUIModel
+import com.dev.playground.presentation.model.MemoryUIModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 // TODO 로컬 DB or 네트워크에서 실제 데이터 받아와야 함.
 class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
 
-    private val _itemList: MutableStateFlow<List<PostGroupUIModel>> = MutableStateFlow(emptyList())
-    val itemList: StateFlow<List<PostGroupUIModel>> = _itemList.asStateFlow()
+    private val _itemList: MutableStateFlow<List<MemoryUIModel>> = MutableStateFlow(emptyList())
+    val itemList: StateFlow<List<MemoryUIModel>> = _itemList.asStateFlow()
 
     init {
         fetch()
@@ -31,7 +31,7 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
         }
     }
 
-    private fun itemOf(id: String) = PostGroupUIModel(
+    private fun itemOf(id: String) = MemoryUIModel(
         id = id,
         title = "돌고기506",
         description = "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세",

@@ -2,14 +2,13 @@ package com.dev.playground.presentation.ui.feed
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.model.PostGroupUIModel
+import com.dev.playground.presentation.model.MemoryUIModel
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
 import kotlinx.coroutines.flow.collectLatest
@@ -25,7 +24,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
 
     private val viewModel by viewModel<FeedViewModel>()
     private val feedAdapter by lazy {
-        SimpleBindingAdapter<PostGroupUIModel, SimpleBindingViewHolder<PostGroupUIModel>>()
+        SimpleBindingAdapter<MemoryUIModel, SimpleBindingViewHolder<MemoryUIModel>>()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
