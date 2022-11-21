@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.main
+package com.dev.playground.presentation.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,9 +7,9 @@ import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.ActivityMainBinding
 import com.dev.playground.presentation.extension.hideKeyboard
-import com.dev.playground.presentation.feed.FeedFragment
-import com.dev.playground.presentation.map_container.MapContainerFragment
-import com.dev.playground.presentation.setting.SettingFragment
+import com.dev.playground.presentation.ui.map_container.MapContainerFragment
+import com.dev.playground.presentation.ui.feed.FeedFragment
+import com.dev.playground.presentation.ui.setting.SettingFragment
 import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
@@ -37,6 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
 
     private fun initViews() = with(binding) {
         bottomNavMain.setOnItemSelectedListener(this@MainActivity)
+        bottomNavMain.selectedItemId = R.id.menu_feed
     }
 
     private fun scrollTop(id: Int) {

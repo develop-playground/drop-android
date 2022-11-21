@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -49,8 +50,15 @@ dependencies {
     implementation(Dep.Koin.core)
     implementation(Dep.Koin.android)
 
+    // glide
+    implementation(Dep.Glide.glide)
+    annotationProcessor(Dep.Glide.glideCompiler)
+
     // map
     implementation(Dep.naverMap)
+
+    // read more
+    implementation(Dep.readMoreTextView)
 
     // clustering
     implementation(Dep.clustering)

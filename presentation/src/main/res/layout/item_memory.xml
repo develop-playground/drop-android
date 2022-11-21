@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.dev.playground.presentation.model.MemoryUIModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPostGroupTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvPostGroupTitle"
+                style="@style/Gmarket.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{@string/feed_post_group_title_prefix(item.title)}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
+                app:layout_constraintEnd_toStartOf="@id/tvPostGroupLocation"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="|돝고기506" />
+
+            <TextView
+                android:id="@+id/tvPostGroupLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_8"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.location}"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvPostGroupEdit"
+                app:layout_constraintStart_toEndOf="@id/tvPostGroupTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="서울시 역삼동" />
+
+            <TextView
+                android:id="@+id/tvPostGroupEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:onClick="@{() -> item.onEditPost.invoke(item.id)}"
+                android:text="@string/post_group_edit_button_text"
+                android:textColor="@color/gray_medium"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.dev.playground.presentation.ui.component.ImageCarouselView
+            android:id="@+id/cvImagePager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemList="@{item.imageList}" />
+
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="@dimen/spacing_16"
+            android:text="@{item.description}"
+            app:readMoreMaxLine="2"
+            app:readMoreColor="@color/gray_medium"/>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:innerRadius="0dp" android:shape="ring" android:thickness="@dimen/image_pager_tab_indicator_thickness" android:useLevel="false">
+            <solid android:color="@color/lime" />
+        </shape>
+    </item>
+    <item>
+        <shape android:innerRadius="0dp" android:shape="ring" android:thickness="@dimen/image_pager_tab_indicator_thickness" android:useLevel="false">
+            <solid android:color="@color/gray_light" />
+        </shape>
+    </item>
+</selector>
