@@ -34,6 +34,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     }
 
     private fun initViews() = with(binding.rvFeed) {
+        binding.vm = viewModel
         itemAnimator = null
         adapter = feedAdapter
         addItemDecoration(FeedItemDecoration())
@@ -50,9 +51,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             }
         }
         viewLifecycleOwner.repeatOnLifecycleState {
-            itemList.collectLatest {
-                feedAdapter.submitList(it)
-                binding.tvFeedPostCount.text = it.size.toString()
+            currentState.collectLatest { state ->
+                when (state) {
+                    is FeedViewModel.FeedState.Success -> {
+                        feedAdapter.submitList(state.itemList)
+                        binding.tvFeedPostCount.text = state.itemList.size.toString()
+                    }
+                    else -> Unit
+                }
             }
         }
     }
