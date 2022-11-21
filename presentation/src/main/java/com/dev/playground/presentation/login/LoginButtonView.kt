@@ -26,9 +26,8 @@ constructor(
     }
 
     private fun initView() {
-        binding = ViewLoginButtonBinding.inflate(LayoutInflater.from(context), this, false)
+        binding = ViewLoginButtonBinding.inflate(LayoutInflater.from(context), this, true)
         outlineProvider = RoundRectOutlineProvider()
-        addView(binding.root)
     }
 
     private fun getAttrs(attrs: AttributeSet?) {
@@ -38,7 +37,6 @@ constructor(
     }
 
     private fun setTypeArray(typedArray: TypedArray) {
-        val bgResId = typedArray.getColor(R.styleable.LoginButton_bgColor, 0)
         val imgResId = typedArray.getResourceId(
             R.styleable.LoginButton_symbol,
             R.drawable.ic_kakao_logo
@@ -47,7 +45,6 @@ constructor(
         val textColor = typedArray.getColor(R.styleable.LoginButton_textColor, 0)
 
         binding.apply {
-            ctlView.setBackgroundColor(bgResId)
             ivLoginView.setImageResource(imgResId)
             tvLoginView.text = text
             tvLoginView.setTextColor(textColor)

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ctlView"
-        android:layout_width="@dimen/login_view_constraintLayout_width"
-        android:layout_height="@dimen/login_view_constraintLayout_height"
-        tools:background="@color/yellow">
+    <merge
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:background="@color/yellow"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLoginView"
@@ -31,6 +31,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/kakao_login_view"
             tools:textColor="@color/kakaoText" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </merge>
 </layout>
