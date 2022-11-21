@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.usecase.login.GetTokenUseCase
+import com.dev.playground.presentation.splash.SplashViewModel.SplashState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
@@ -14,7 +16,7 @@ class SplashViewModel(
 ) : ViewModel() {
 
     private val _splashState: MutableStateFlow<SplashState> = MutableStateFlow(
-        SplashState.Loading
+        Loading
     )
     val splashState: StateFlow<SplashState> = _splashState.asStateFlow()
 
@@ -23,10 +25,10 @@ class SplashViewModel(
             val result = getTokenUseCase.invoke()
 
             result
-                .onSuccess {
-                    _splashState.value = SplashState.Success(it)
-                }.onFailure {
-                    _splashState.value = SplashState.Failure(it)
+                .onSuccess { auth ->
+                    _splashState.update { Success(auth) }
+                }.onFailure { throwable ->
+                    _splashState.update { Failure(throwable) }
                 }
         }
     }

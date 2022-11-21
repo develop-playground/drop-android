@@ -27,10 +27,10 @@ class LoginViewModel(
         viewModelScope.launch {
             val result = requestLoginUseCase.invoke(memberType)
 
-            result.onSuccess {
-                _loginState.value = Success(it)
-            }.onFailure {
-                _loginState.value = Failure(it)
+            result.onSuccess { auth ->
+                _loginState.update { Success(auth) }
+            }.onFailure { throwable ->
+                _loginState.update { Failure(throwable) }
             }
         }
     }

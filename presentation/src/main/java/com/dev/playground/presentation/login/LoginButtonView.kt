@@ -44,7 +44,7 @@ constructor(
         val text = typedArray.getString(R.styleable.LoginButton_text)
         val textColor = typedArray.getColor(R.styleable.LoginButton_textColor, 0)
 
-        binding.apply {
+        with(binding) {
             ivLoginView.setImageResource(imgResId)
             tvLoginView.text = text
             tvLoginView.setTextColor(textColor)

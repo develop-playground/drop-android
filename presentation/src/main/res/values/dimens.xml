@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="login_linearLayout_height">18dp</dimen>
     <dimen name="login_linearLayout_marginTop">248dp</dimen>
     <dimen name="login_textView_drop_marginStart">5dp</dimen>
     <dimen name="login_imageView_width">200dp</dimen>
@@ -16,6 +15,6 @@
     <dimen name="login_view_constraintLayout_height">48dp</dimen>
     <dimen name="login_view_imageView_marginStart">12dp</dimen>
     <dimen name="login_button_view_marginTop">16dp</dimen>
-
     <dimen name="round_rect_outline_provider_button_radius">5dp</dimen>
+
 </resources>
