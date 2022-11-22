@@ -110,4 +110,5 @@ object Dep {
     const val clustering = "io.github.ParkSangGwon:tedclustering-naver:1.0.2"
     const val lottie = "com.airbnb.android:lottie:5.0.3"
     const val gson = "com.google.code.gson:gson:2.8.7"
+    const val kakaoUser = "com.kakao.sdk:v2-user:2.11.2"
 }

@@ -1,22 +1,23 @@
 package com.dev.playground.data.repository
 
 import com.dev.playground.data.util.SharedPreferencesManager
+import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.repository.SharedPreferencesRepository
 
 class SharedPreferencesRepositoryImpl(
     private val sharedPreferencesManager: SharedPreferencesManager
 ) : SharedPreferencesRepository {
 
-    override suspend fun getKakaoToken(): Map<String, String?> {
-        return sharedPreferencesManager.getKakaoToken()
+    override suspend fun getToken(): Auth? {
+        return sharedPreferencesManager.getToken()
     }
 
-    override suspend fun setKakaoToken(token: Map<String, String>) {
-        return sharedPreferencesManager.setKakaoToken(token)
+    override suspend fun setToken(token: Auth) {
+        return sharedPreferencesManager.setToken(token)
     }
 
-    override suspend fun removeKakaoToken() {
-        return sharedPreferencesManager.removeKakaoToken()
+    override suspend fun removeToken() {
+        return sharedPreferencesManager.removeToken()
     }
 
 }

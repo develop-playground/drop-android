@@ -3,17 +3,98 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:background="@color/white">
 
-        <TextView
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/llLogin"
             android:layout_width="wrap_content"
-            android:text="임시 로그인 페이지"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toTopOf="@id/ivLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/head_login_activity"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/login_textView_drop_marginStart"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/login_imageView_marginTop"
+            android:layout_marginBottom="@dimen/login_imageView_marginBottom"
+            android:src="@drawable/ic_drop_logo_black"
+
+            app:layout_constraintBottom_toTopOf="@id/llDivisionLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llLogin" />
+
+        <LinearLayout
+            android:id="@+id/llDivisionLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/btLogin"
+            app:layout_constraintEnd_toEndOf="@id/btLogin"
+            app:layout_constraintStart_toStartOf="@id/btLogin"
+            app:layout_constraintTop_toBottomOf="@id/ivLogin">
+
+            <View
+                android:layout_width="@dimen/login_divider_view_weight"
+                android:layout_height="@dimen/login_divider_view_height"
+                android:layout_gravity="center"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingStart="@dimen/login_textView_easy_paddingStart"
+                android:paddingEnd="@dimen/login_textView_easy_paddingEnd"
+                android:text="@string/easy_login_activity"
+                android:textColor="@color/light_gray" />
+
+            <View
+                android:layout_width="@dimen/login_divider_view_weight"
+                android:layout_height="@dimen/login_divider_view_height"
+                android:layout_gravity="center"
+                android:background="@color/light_gray" />
+
+        </LinearLayout>
+
+        <com.dev.playground.presentation.ui.login.LoginButtonView
+            android:id="@+id/btLogin"
+            android:layout_width="@dimen/login_view_constraintLayout_width"
+            android:layout_height="@dimen/login_view_constraintLayout_height"
+            android:layout_marginTop="@dimen/login_button_view_marginTop"
+            android:background="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/llDivisionLogin"
+            app:symbol="@drawable/ic_kakao_logo"
+            app:text="@string/kakao_login_view"
+            app:textColor="@color/kakaoText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
