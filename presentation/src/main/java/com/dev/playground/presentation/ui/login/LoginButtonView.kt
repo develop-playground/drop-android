@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.login
+package com.dev.playground.presentation.ui.login
 
 import android.annotation.SuppressLint
 import android.content.Context

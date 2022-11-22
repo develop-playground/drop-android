@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.login
+package com.dev.playground.presentation.ui.login
 
 import android.content.Context
 import com.kakao.sdk.auth.model.OAuthToken

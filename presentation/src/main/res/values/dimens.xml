@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- spacing - using padding & margin -->
+    <dimen name="spacing_0">0dp</dimen>
+    <dimen name="spacing_2">2dp</dimen>
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_12">12dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_32">32dp</dimen>
+    <dimen name="spacing_48">48dp</dimen>
+
+    <!-- main -->
+    <dimen name="bottom_navigation_height">52dp</dimen>
+
+    <!-- login -->
     <dimen name="login_linearLayout_marginTop">248dp</dimen>
     <dimen name="login_textView_drop_marginStart">5dp</dimen>
     <dimen name="login_imageView_width">200dp</dimen>
@@ -15,6 +31,15 @@
     <dimen name="login_view_constraintLayout_height">48dp</dimen>
     <dimen name="login_view_imageView_marginStart">12dp</dimen>
     <dimen name="login_button_view_marginTop">16dp</dimen>
+
+    <!-- feed -->
+    <dimen name="feed_toolbar_height">52dp</dimen>
+
+    <!-- image pager -->
+    <dimen name="image_pager_tab_indicator_thickness">2dp</dimen>
+    <dimen name="image_pager_tab_height">4dp</dimen>
+
+    <!-- custom login button -->
     <dimen name="round_rect_outline_provider_button_radius">5dp</dimen>
 
 </resources>

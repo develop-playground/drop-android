@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name="com.dev.playground.drop.DropApplication"
+        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -20,29 +20,32 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="lvdv2fig1b" />
+
         <activity
-            android:name="com.dev.playground.presentation.splash.SplashActivity"
+            android:name="com.dev.playground.presentation.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="com.dev.playground.presentation.main.MainActivity"/>
-        <activity android:name="com.dev.playground.presentation.login.LoginActivity"/>
-        
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+
+        <activity android:name="com.dev.playground.presentation.ui.main.MainActivity" />
+        <activity android:name="com.dev.playground.presentation.ui.login.LoginActivity" />
+
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
                 <data
                     android:host="oauth"
-                    android:scheme="@string/manifest_kakao_native_app_key"/>
+                    android:scheme="@string/manifest_kakao_native_app_key" />
             </intent-filter>
 
         </activity>

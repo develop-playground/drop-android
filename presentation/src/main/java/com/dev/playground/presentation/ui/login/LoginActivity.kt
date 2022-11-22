@@ -1,17 +1,16 @@
-package com.dev.playground.presentation.login
+package com.dev.playground.presentation.ui.login
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Lifecycle.State.STARTED
 import com.dev.playground.domain.model.type.TokenType
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
-import com.dev.playground.presentation.login.LoginViewModel.LoginEvent.SaveSNSToken
-import com.dev.playground.presentation.login.LoginViewModel.LoginState.Failure
-import com.dev.playground.presentation.login.LoginViewModel.LoginState.Success
-import com.dev.playground.presentation.main.MainActivity
-import com.dev.playground.presentation.util.lifecycleScope
+import com.dev.playground.presentation.ui.login.LoginViewModel.LoginEvent.SaveSNSToken
+import com.dev.playground.presentation.ui.login.LoginViewModel.LoginState.Failure
+import com.dev.playground.presentation.ui.login.LoginViewModel.LoginState.Success
+import com.dev.playground.presentation.ui.main.MainActivity
+import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,7 +45,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     private fun initCollect() = with(viewModel) {
-        lifecycleScope(STARTED) {
+        repeatOnLifecycleState {
             loginEvent.collectLatest {
                 when (it) {
                     is SaveSNSToken -> requestLogin("KAKAO")
@@ -57,7 +56,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 }
             }
         }
-        lifecycleScope(STARTED) {
+        repeatOnLifecycleState {
             loginState.collect {
                 when (it) {
                     is Success -> storeToken(

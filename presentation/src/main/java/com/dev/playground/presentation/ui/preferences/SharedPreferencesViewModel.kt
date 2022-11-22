@@ -1,11 +1,11 @@
-package com.dev.playground.presentation.preferences
+package com.dev.playground.presentation.ui.preferences
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.usecase.login.GetTokenUseCase
 import com.dev.playground.domain.usecase.login.SetTokenUseCase
-import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State.Loading
+import com.dev.playground.presentation.ui.preferences.SharedPreferencesViewModel.State.Loading
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

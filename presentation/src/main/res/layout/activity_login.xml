@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_imageView_marginTop"
             android:layout_marginBottom="@dimen/login_imageView_marginBottom"
-            android:src="@drawable/ic_drop_logo"
+            android:src="@drawable/ic_drop_logo_black"
 
             app:layout_constraintBottom_toTopOf="@id/llDivisionLogin"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +82,7 @@
 
         </LinearLayout>
 
-        <com.dev.playground.presentation.login.LoginButtonView
+        <com.dev.playground.presentation.ui.login.LoginButtonView
             android:id="@+id/btLogin"
             android:layout_width="@dimen/login_view_constraintLayout_width"
             android:layout_height="@dimen/login_view_constraintLayout_height"

@@ -1,4 +1,4 @@
-package com.dev.playground.presentation.main
+package com.dev.playground.presentation.ui.map_container
 
 import com.naver.maps.geometry.LatLng
 import ted.gun0912.clustering.clustering.TedClusterItem

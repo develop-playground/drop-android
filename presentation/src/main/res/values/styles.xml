@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Gmarket" >
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Gmarket.Bold" parent="Gmarket">
+        <item name="fontFamily">@font/gmarket_sans_bold</item>
+    </style>
+
+    <style name="Gmarket.Medium" parent="Gmarket">
+        <item name="fontFamily">@font/gmarket_sans_medium</item>
+    </style>
+
+    <style name="Gmarket.Light" parent="Gmarket">
+        <item name="fontFamily">@font/gmarket_sans_light</item>
+    </style>
+</resources>

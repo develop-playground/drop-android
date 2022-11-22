@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <merge
+        tools:layout_height="wrap_content"
+        tools:layout_width="match_parent"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpImagePager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tlImagePager"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/image_pager_tab_height"
+            android:layout_marginVertical="@dimen/spacing_8"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vpImagePager"
+            app:tabBackground="@drawable/selector_image_pager_tab_indicator"
+            app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabPaddingEnd="@dimen/spacing_4"
+            app:tabPaddingStart="@dimen/spacing_4" />
+
+    </merge>
+</layout>
