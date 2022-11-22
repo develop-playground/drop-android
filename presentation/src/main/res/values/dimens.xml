@@ -12,20 +12,14 @@
     <dimen name="spacing_24">24dp</dimen>
     <dimen name="spacing_32">32dp</dimen>
     <dimen name="spacing_48">48dp</dimen>
+    <dimen name="spacing_100">100dp</dimen>
 
     <!-- main -->
     <dimen name="bottom_navigation_height">52dp</dimen>
 
     <!-- login -->
-    <dimen name="login_textView_drop_marginStart">5dp</dimen>
-    <dimen name="login_imageView_marginTop">16dp</dimen>
-    <dimen name="login_imageView_marginBottom">100dp</dimen>
-    <dimen name="login_textView_easy_paddingStart">10dp</dimen>
-    <dimen name="login_textView_easy_paddingEnd">10dp</dimen>
     <dimen name="login_divider_view_height">1dp</dimen>
     <dimen name="login_view_constraintLayout_height">48dp</dimen>
-    <dimen name="login_view_imageView_marginStart">12dp</dimen>
-    <dimen name="login_button_view_marginTop">16dp</dimen>
 
     <!-- feed -->
     <dimen name="feed_toolbar_height">52dp</dimen>
