@@ -37,7 +37,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.btLogin.setOnClickListener {
+        binding.cvLoginButton.setOnClickListener {
             kakaoManager.isKakaoLogin()
         }
 

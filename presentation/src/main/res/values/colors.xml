@@ -10,6 +10,5 @@
     <color name="gray_medium">#969696</color>
     <color name="gray_light">#D1D1D1</color>
 
-    <color name="naverText">#FFFFFF</color>
-    <color name="kakaoText">#261A00</color>
+    <color name="kakao_brown">#261A00</color>
 </resources>

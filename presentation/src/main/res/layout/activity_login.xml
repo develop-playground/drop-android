@@ -51,9 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_100"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/btLogin"
-            app:layout_constraintEnd_toEndOf="@id/btLogin"
-            app:layout_constraintStart_toStartOf="@id/btLogin"
+            app:layout_constraintBottom_toTopOf="@id/cvLoginButton"
+            app:layout_constraintEnd_toEndOf="@id/cvLoginButton"
+            app:layout_constraintStart_toStartOf="@id/cvLoginButton"
             app:layout_constraintTop_toBottomOf="@id/ivLogin">
 
             <View
@@ -81,7 +81,7 @@
         </LinearLayout>
 
         <com.dev.playground.presentation.ui.login.LoginButtonView
-            android:id="@+id/btLogin"
+            android:id="@+id/cvLoginButton"
             android:layout_width="0dp"
             android:layout_height="@dimen/login_view_constraintLayout_height"
             android:layout_marginTop="@dimen/spacing_16"
@@ -92,7 +92,7 @@
             app:layout_constraintTop_toBottomOf="@id/llDivisionLogin"
             app:symbol="@drawable/ic_kakao_logo"
             app:text="@string/kakao_login_view"
-            app:textColor="@color/kakaoText" />
+            app:textColor="@color/kakao_brown" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

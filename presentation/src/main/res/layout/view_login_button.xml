@@ -27,6 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/kakao_login_view"
-            tools:textColor="@color/kakaoText" />
+            tools:textColor="@color/kakao_brown" />
     </merge>
 </layout>
