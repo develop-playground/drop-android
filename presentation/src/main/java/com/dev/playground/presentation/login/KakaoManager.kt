@@ -1,26 +1,21 @@
 package com.dev.playground.presentation.login
 
 import android.content.Context
-import android.widget.Toast
-import com.dev.playground.domain.model.type.TokenType
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 
-class KakaoLogin(
+class KakaoManager(
     private val context: Context,
-    private val viewModel: LoginViewModel
+    private val onSuccessLogin: (String, String) -> Unit,
+    private val onFailureLogin: (Throwable) -> Unit
 ) {
 
     private val loginCallback: (OAuthToken?, Throwable?) -> Unit by lazy {
         { token, exception ->
             if (exception != null) {
-                Toast.makeText(context, "카카오 로그인 실패 $exception", Toast.LENGTH_SHORT).show()
+                onFailureLogin.invoke(exception)
             } else if (token != null) {
-                viewModel.storeToken(
-                    token.accessToken,
-                    token.refreshToken,
-                    TokenType.SNS
-                )
+                onSuccessLogin.invoke(token.accessToken, token.refreshToken)
             }
         }
     }

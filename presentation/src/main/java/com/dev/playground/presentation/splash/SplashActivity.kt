@@ -29,10 +29,11 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope(STARTED) {
             splashState.collect { uiState ->
                 when (uiState) {
-                    is Success -> startActivity<MainActivity> { finish() }
-                    is Failure -> startActivity<LoginActivity> { finish() }
+                    is Success -> startActivity<MainActivity> {  }
+                    is Failure -> startActivity<LoginActivity> {  }
                     else -> println("로딩중")
                 }
+                finish()
             }
         }
     }

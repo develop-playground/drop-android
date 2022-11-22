@@ -1,6 +1,7 @@
 package com.dev.playground.presentation.login
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle.State.STARTED
 import com.dev.playground.domain.model.type.TokenType
 import com.dev.playground.presentation.R
@@ -18,12 +19,27 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
     private val viewModel: LoginViewModel by viewModel()
+    private val kakaoManager: KakaoManager by lazy {
+        KakaoManager(this, onSuccessLogin, onFailureLogin)
+    }
+
+    private val onSuccessLogin: (String, String) -> Unit by lazy {
+        { accessToken, refreshToken ->
+            viewModel.storeToken(accessToken, refreshToken, TokenType.SNS)
+        }
+    }
+
+    private val onFailureLogin: (Throwable) -> Unit by lazy {
+        { throwable ->
+            Toast.makeText(this, "카카오 로그인 실패 $throwable", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.btLogin.setOnClickListener {
-            KakaoLogin(this, viewModel).isKakaoLogin()
+            kakaoManager.isKakaoLogin()
         }
 
         initCollect()

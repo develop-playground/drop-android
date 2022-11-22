@@ -10,7 +10,7 @@ class SetTokenUseCase(
     ioDispatcher: CoroutineDispatcher
 ) : CoroutineUseCase<Auth, Unit>(ioDispatcher) {
 
-    override suspend fun execute(param: Auth): Unit {
+    override suspend fun execute(param: Auth) {
         sharedPreferencesRepository.setToken(param)
     }
 

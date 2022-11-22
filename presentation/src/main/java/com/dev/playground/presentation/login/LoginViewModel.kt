@@ -50,8 +50,6 @@ class LoginViewModel(
                         else -> SaveDropToken
                     }
                     _loginEvent.emit(event)
-                }.onFailure {
-
                 }
         }
     }

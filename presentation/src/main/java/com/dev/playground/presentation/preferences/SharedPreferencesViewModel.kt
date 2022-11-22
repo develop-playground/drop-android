@@ -6,9 +6,7 @@ import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.usecase.login.GetTokenUseCase
 import com.dev.playground.domain.usecase.login.SetTokenUseCase
 import com.dev.playground.presentation.preferences.SharedPreferencesViewModel.State.Loading
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
