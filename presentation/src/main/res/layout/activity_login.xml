@@ -63,7 +63,7 @@
                 android:layout_width="@dimen/login_divider_view_weight"
                 android:layout_height="@dimen/login_divider_view_height"
                 android:layout_gravity="center"
-                android:background="@color/light_gray" />
+                android:background="@color/gray_medium" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,13 +72,13 @@
                 android:paddingStart="@dimen/login_textView_easy_paddingStart"
                 android:paddingEnd="@dimen/login_textView_easy_paddingEnd"
                 android:text="@string/easy_login_activity"
-                android:textColor="@color/light_gray" />
+                android:textColor="@color/gray_medium" />
 
             <View
                 android:layout_width="@dimen/login_divider_view_weight"
                 android:layout_height="@dimen/login_divider_view_height"
                 android:layout_gravity="center"
-                android:background="@color/light_gray" />
+                android:background="@color/gray_medium" />
 
         </LinearLayout>
 

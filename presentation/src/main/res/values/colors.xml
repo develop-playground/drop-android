@@ -2,14 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="yellow">#F9DF4A</color>
-    <color name="kakaoText">#261A00</color>
-    <color name="naverText">#FFFFFF</color>
-    <color name="light_gray">#969696</color>
     <color name="red">#F46047</color>
     <color name="green">#407348</color>
     <color name="lime">#C8D94D</color>
+    <color name="yellow">#F9DF4A</color>
     <color name="yellow_light">#FFF791</color>
     <color name="gray_medium">#969696</color>
     <color name="gray_light">#D1D1D1</color>
+
+    <color name="naverText">#FFFFFF</color>
+    <color name="kakaoText">#261A00</color>
 </resources>
