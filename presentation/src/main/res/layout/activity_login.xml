@@ -5,7 +5,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingHorizontal="@dimen/spacing_16">
 
         <LinearLayout
             android:id="@+id/llLogin"
@@ -43,7 +44,6 @@
             android:layout_marginTop="@dimen/login_imageView_marginTop"
             android:layout_marginBottom="@dimen/login_imageView_marginBottom"
             android:src="@drawable/ic_drop_logo_black"
-
             app:layout_constraintBottom_toTopOf="@id/llDivisionLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,9 +60,10 @@
             app:layout_constraintTop_toBottomOf="@id/ivLogin">
 
             <View
-                android:layout_width="@dimen/login_divider_view_weight"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/login_divider_view_height"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@color/gray_medium" />
 
             <TextView
@@ -75,8 +76,9 @@
                 android:textColor="@color/gray_medium" />
 
             <View
-                android:layout_width="@dimen/login_divider_view_weight"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/login_divider_view_height"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:background="@color/gray_medium" />
 
@@ -84,7 +86,7 @@
 
         <com.dev.playground.presentation.ui.login.LoginButtonView
             android:id="@+id/btLogin"
-            android:layout_width="@dimen/login_view_constraintLayout_width"
+            android:layout_width="0dp"
             android:layout_height="@dimen/login_view_constraintLayout_height"
             android:layout_marginTop="@dimen/login_button_view_marginTop"
             android:background="@color/yellow"
