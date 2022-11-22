@@ -22,15 +22,14 @@
 
             <TextView
                 android:id="@+id/tvPostGroupTitle"
-                style="@style/Gmarket.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_8"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{@string/feed_post_group_title_prefix(item.title)}"
+                android:textAppearance="@style/Gmarket.Bold"
                 android:textColor="@color/black"
-                android:textSize="22sp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
                 app:layout_constraintEnd_toStartOf="@id/tvPostGroupLocation"
@@ -49,8 +48,8 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.location}"
+                android:textAppearance="@style/Pretendard.Light.12"
                 android:textColor="@color/black"
-                android:textSize="12sp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tvPostGroupEdit"
@@ -82,12 +81,12 @@
         <kr.co.prnd.readmore.ReadMoreTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/black"
             android:layout_marginHorizontal="@dimen/spacing_16"
             android:text="@{item.description}"
-            app:readMoreMaxLine="2"
-            app:readMoreColor="@color/gray_medium"/>
+            android:textAppearance="@style/Pretendard.Light.14"
+            android:textColor="@color/black"
+            app:readMoreColor="@color/gray_medium"
+            app:readMoreMaxLine="2" />
 
     </LinearLayout>
 </layout>
