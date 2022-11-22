@@ -56,6 +56,9 @@ class FeedViewModel : BaseViewModel<FeedState, FeedEvent>(FeedState.Loading) {
 
         val isEmpty
             get() = this is Success && this.itemList.isEmpty()
+
+        val isLoading
+            get() = this is Loading
     }
 
 }
