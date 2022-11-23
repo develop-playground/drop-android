@@ -5,13 +5,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingHorizontal="@dimen/spacing_16">
 
         <LinearLayout
             android:id="@+id/llLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             app:layout_constraintBottom_toTopOf="@id/ivLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -21,29 +21,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
                 android:text="@string/head_login_activity"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textAppearance="@style/Pretendard.Light.14"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/login_textView_drop_marginStart"
-                android:fontFamily="@font/pretendard_bold"
+                android:layout_marginStart="@dimen/spacing_4"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textAppearance="@style/Pretendard.Bold"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/login_imageView_marginTop"
-            android:layout_marginBottom="@dimen/login_imageView_marginBottom"
+            android:layout_marginTop="@dimen/spacing_16"
             android:src="@drawable/ic_drop_logo_black"
-
             app:layout_constraintBottom_toTopOf="@id/llDivisionLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,40 +49,42 @@
             android:id="@+id/llDivisionLogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_100"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/btLogin"
-            app:layout_constraintEnd_toEndOf="@id/btLogin"
-            app:layout_constraintStart_toStartOf="@id/btLogin"
+            app:layout_constraintBottom_toTopOf="@id/cvLoginButton"
+            app:layout_constraintEnd_toEndOf="@id/cvLoginButton"
+            app:layout_constraintStart_toStartOf="@id/cvLoginButton"
             app:layout_constraintTop_toBottomOf="@id/ivLogin">
 
             <View
-                android:layout_width="@dimen/login_divider_view_weight"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/login_divider_view_height"
                 android:layout_gravity="center"
-                android:background="@color/light_gray" />
+                android:layout_weight="1"
+                android:background="@color/gray_medium" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
-                android:paddingStart="@dimen/login_textView_easy_paddingStart"
-                android:paddingEnd="@dimen/login_textView_easy_paddingEnd"
+                android:textAppearance="@style/Pretendard.Regular.14"
+                android:paddingStart="@dimen/spacing_8"
+                android:paddingEnd="@dimen/spacing_8"
                 android:text="@string/easy_login_activity"
-                android:textColor="@color/light_gray" />
+                android:textColor="@color/gray_medium" />
 
             <View
-                android:layout_width="@dimen/login_divider_view_weight"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/login_divider_view_height"
                 android:layout_gravity="center"
-                android:background="@color/light_gray" />
-
+                android:layout_weight="1"
+                android:background="@color/gray_medium" />
         </LinearLayout>
 
         <com.dev.playground.presentation.ui.login.LoginButtonView
-            android:id="@+id/btLogin"
-            android:layout_width="@dimen/login_view_constraintLayout_width"
+            android:id="@+id/cvLoginButton"
+            android:layout_width="0dp"
             android:layout_height="@dimen/login_view_constraintLayout_height"
-            android:layout_marginTop="@dimen/login_button_view_marginTop"
+            android:layout_marginTop="@dimen/spacing_16"
             android:background="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +92,7 @@
             app:layout_constraintTop_toBottomOf="@id/llDivisionLogin"
             app:symbol="@drawable/ic_kakao_logo"
             app:text="@string/kakao_login_view"
-            app:textColor="@color/kakaoText" />
+            app:textColor="@color/kakao_brown" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <merge
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         tools:background="@color/yellow"
         tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
@@ -13,7 +11,7 @@
             android:id="@+id/ivLoginView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/login_view_imageView_marginStart"
+            android:layout_marginStart="@dimen/spacing_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,13 +21,12 @@
             android:id="@+id/tvLoginView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_regular"
-            android:textSize="16sp"
+            android:textAppearance="@style/Pretendard.Regular.16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/kakao_login_view"
-            tools:textColor="@color/kakaoText" />
+            tools:textColor="@color/kakao_brown" />
     </merge>
 </layout>

@@ -11,7 +11,7 @@
     <!-- login -->
     <string name="head_login_activity">나의 어떤 매일을 기록하다,</string>
     <string name="naver_login_view">네이버로 로그인</string>
-    <string name="easy_login_activity">간편 로그인</string>
+    <string name="easy_login_activity">간편로그인</string>
 
     <string name="menu_title_feed">Feed</string>
     <string name="menu_title_map">Map</string>

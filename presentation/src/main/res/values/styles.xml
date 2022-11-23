@@ -6,6 +6,7 @@
     </style>
 
     <style name="Gmarket.Bold" parent="Gmarket">
+        <item name="android:textSize">22sp</item>
         <item name="fontFamily">@font/gmarket_sans_bold</item>
     </style>
 
@@ -13,7 +14,53 @@
         <item name="fontFamily">@font/gmarket_sans_medium</item>
     </style>
 
+    <style name="Gmarket.Medium.18" parent="Gmarket.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Gmarket.Medium.12" parent="Gmarket.Medium">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="Gmarket.Light" parent="Gmarket">
         <item name="fontFamily">@font/gmarket_sans_light</item>
     </style>
+
+    <style name="Pretendard" >
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Pretendard.Regular" parent="Pretendard">
+        <item name="fontFamily">@font/pretendard_regular</item>
+    </style>
+
+    <style name="Pretendard.Regular.18" parent="Pretendard.Regular">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Pretendard.Regular.16" parent="Pretendard.Regular">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Pretendard.Regular.14" parent="Pretendard.Regular">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Pretendard.Bold" parent="Pretendard">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Pretendard.Light" parent="Pretendard">
+        <item name="fontFamily">@font/pretendard_light</item>
+    </style>
+
+    <style name="Pretendard.Light.14" parent="Pretendard.Light">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Pretendard.Light.12" parent="Pretendard.Light">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
