@@ -66,6 +66,9 @@ dependencies {
     // clustering
     implementation(Dep.clustering)
 
+    // balloon
+    implementation(Dep.balloon)
+
     // test
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.junitExt)

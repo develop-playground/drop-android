@@ -41,12 +41,17 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
             ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
             ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
         ),
-    ) {
-        event(FeedEvent.Edit(it))
-    }
+        onClickEdit = {
+            event(FeedEvent.Edit(it))
+        },
+        onClickRemove = {
+            event(FeedEvent.Remove(it))
+        }
+    )
 
     sealed interface FeedEvent : Event {
         data class Edit(val id: String) : FeedEvent
+        data class Remove(val id: String) : FeedEvent
     }
 
 }
