@@ -16,30 +16,37 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clPostGroupTitle"
+            android:id="@+id/clMemoryTitleArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvPostGroupTitle"
+            <ImageView
+                android:id="@+id/ivMemoryPrefix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8"
+                android:src="@drawable/ic_memory_prefix"
+                app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMemoryTitle"
+                style="@style/Gmarket.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{@string/feed_post_group_title_prefix(item.title)}"
-                android:textAppearance="@style/Gmarket.Bold"
+                android:text="@{item.title}"
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
-                app:layout_constraintEnd_toStartOf="@id/tvPostGroupLocation"
-                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="|돝고기506" />
+                app:layout_constraintStart_toEndOf="@id/ivMemoryPrefix"
+                tools:text="돝고기506" />
 
             <TextView
                 android:id="@+id/tvPostGroupLocation"
+                style="@style/Pretendard.Light.12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/spacing_8"
@@ -48,12 +55,11 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.location}"
-                android:textAppearance="@style/Pretendard.Light.12"
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tvPostGroupEdit"
-                app:layout_constraintStart_toEndOf="@id/tvPostGroupTitle"
+                app:layout_constraintStart_toEndOf="@id/tvMemoryTitle"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="서울시 역삼동" />
 
@@ -79,11 +85,11 @@
             app:itemList="@{item.imageList}" />
 
         <kr.co.prnd.readmore.ReadMoreTextView
+            style="@style/Pretendard.Light.14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_16"
             android:text="@{item.description}"
-            android:textAppearance="@style/Pretendard.Light.14"
             android:textColor="@color/black"
             app:readMoreColor="@color/gray_medium"
             app:readMoreMaxLine="2" />

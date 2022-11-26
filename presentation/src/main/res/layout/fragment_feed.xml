@@ -36,20 +36,20 @@
 
             <TextView
                 android:id="@+id/tvFeedPostTitle"
+                style="@style/Gmarket.Medium.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_4"
                 android:text="@string/feed_post_title_text"
-                android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
                 app:layout_constraintEnd_toStartOf="@id/tvFeedPostCount" />
 
             <TextView
                 android:id="@+id/tvFeedPostCount"
+                style="@style/Gmarket.Medium.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/lime"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
                 app:layout_constraintEnd_toEndOf="parent"
