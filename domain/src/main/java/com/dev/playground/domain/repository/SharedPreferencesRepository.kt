@@ -1,11 +1,13 @@
 package com.dev.playground.domain.repository
 
+import com.dev.playground.domain.model.Auth
+
 interface SharedPreferencesRepository {
 
-    suspend fun getKakaoToken(): Map<String, String?>
+    suspend fun getToken(): Auth?
 
-    suspend fun setKakaoToken(token: Map<String, String>)
+    suspend fun setToken(token: Auth)
 
-    suspend fun removeKakaoToken()
+    suspend fun removeToken()
 
 }

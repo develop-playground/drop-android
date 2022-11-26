@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_drop_logo"
+                android:src="@drawable/ic_drop_logo_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,23 +49,21 @@
 
             <TextView
                 android:id="@+id/tvFeedPostTitle"
-                style="@style/Gmarket.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_4"
                 android:text="@string/feed_post_title_text"
+                android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/white"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
                 app:layout_constraintEnd_toStartOf="@id/tvFeedPostCount" />
 
             <TextView
                 android:id="@+id/tvFeedPostCount"
-                style="@style/Gmarket.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/lime"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="32" />

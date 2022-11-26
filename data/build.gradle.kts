@@ -32,10 +32,11 @@ dependencies {
     implementation(Dep.AndroidX.coreKtx)
 
     // network
-
     implementation(Dep.Square.retrofit)
     implementation(platform(Dep.Square.OkHttp.bom))
     implementation(Dep.Square.OkHttp.interceptor)
+    implementation(Dep.gson)
+    implementation(Dep.Square.gsonConverter)
 
     // ksp
     implementation(Dep.ksp)

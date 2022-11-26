@@ -50,6 +50,9 @@ dependencies {
     implementation(Dep.Koin.core)
     implementation(Dep.Koin.android)
 
+    // kakao
+    implementation(Dep.kakaoUser)
+
     // glide
     implementation(Dep.Glide.glide)
     annotationProcessor(Dep.Glide.glideCompiler)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- spacing - using padding & margin -->
     <dimen name="spacing_0">0dp</dimen>
     <dimen name="spacing_2">2dp</dimen>
@@ -11,9 +12,14 @@
     <dimen name="spacing_24">24dp</dimen>
     <dimen name="spacing_32">32dp</dimen>
     <dimen name="spacing_48">48dp</dimen>
+    <dimen name="spacing_100">100dp</dimen>
 
     <!-- main -->
     <dimen name="bottom_navigation_height">52dp</dimen>
+
+    <!-- login -->
+    <dimen name="login_divider_view_height">1dp</dimen>
+    <dimen name="login_view_constraintLayout_height">48dp</dimen>
 
     <!-- feed -->
     <dimen name="feed_toolbar_height">52dp</dimen>
@@ -25,5 +31,8 @@
     <!-- image pager -->
     <dimen name="image_pager_tab_indicator_thickness">2dp</dimen>
     <dimen name="image_pager_tab_height">4dp</dimen>
+
+    <!-- custom login button -->
+    <dimen name="round_rect_outline_provider_button_radius">5dp</dimen>
 
 </resources>

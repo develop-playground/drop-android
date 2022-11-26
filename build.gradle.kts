@@ -17,6 +17,7 @@ allprojects {
         mavenCentral()
         maven(url = "https://jitpack.io")
         maven(url = "https://naver.jfrog.io/artifactory/maven/")
+        maven(url = "https://devrepo.kakao.com/nexus/content/groups/public/")
     }
 }
 
