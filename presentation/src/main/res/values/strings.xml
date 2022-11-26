@@ -19,7 +19,7 @@
 
     <!-- feed -->
     <string name="feed_post_title_text">drop point</string>
-    <string name="feed_empty_memory_text">게시물이 없습니다</string>
+    <string name="feed_empty_memory_text">기록된 추억이 없습니다</string>
 
     <!-- post group item -->
     <string name="post_group_edit_button_text">수정</string>

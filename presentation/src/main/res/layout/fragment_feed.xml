@@ -99,13 +99,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/feed_empty_memory_text"
+                android:textAppearance="@style/Pretendard.Light.14"
                 android:textColor="@color/white" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:layout_marginTop="@dimen/spacing_20"
-                android:src="@drawable/ic_map_pin"
+                android:src="@drawable/ic_empty"
                 app:tint="@color/white" />
 
         </LinearLayout>
@@ -176,7 +178,7 @@
                 app:layout_constraintHorizontal_weight="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vSkeletonDescription2"
-                app:radius="@{@dimen/feed_skeleton_radius}"/>
+                app:radius="@{@dimen/feed_skeleton_radius}" />
 
             <View
                 android:layout_width="0dp"
@@ -187,7 +189,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vSkeletonTitle2"
-                app:radius="@{@dimen/feed_skeleton_radius}"/>
+                app:radius="@{@dimen/feed_skeleton_radius}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
