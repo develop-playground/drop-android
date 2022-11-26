@@ -62,6 +62,7 @@
                 android:id="@+id/tvFeedPostCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{vm.currentState.itemSize}"
                 android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/lime"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"

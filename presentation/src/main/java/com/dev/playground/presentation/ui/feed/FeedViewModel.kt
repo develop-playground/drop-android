@@ -59,6 +59,13 @@ class FeedViewModel : BaseViewModel<FeedState, FeedEvent>(FeedState.Loading) {
 
         val isLoading
             get() = this is Loading
+
+        val itemSize: String
+            get() = if (this is Success && this.itemList.isNotEmpty()) {
+                itemList.size.toString()
+            } else {
+                "0"
+            }
     }
 
 }

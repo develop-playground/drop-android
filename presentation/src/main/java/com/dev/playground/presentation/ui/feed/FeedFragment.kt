@@ -55,7 +55,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                 when (state) {
                     is FeedViewModel.FeedState.Success -> {
                         feedAdapter.submitList(state.itemList)
-                        binding.tvFeedPostCount.text = state.itemList.size.toString()
                     }
                     else -> Unit
                 }
