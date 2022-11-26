@@ -10,5 +10,5 @@ data class MemoryUIModel(
     val description: String,
     val location: String,
     val imageList: List<ImageCarouselItemUIModel>,
-    val onEditPost: (String) -> Unit
+    val onEditMemory: (String) -> Unit
 ) : SimpleUIModel(R.layout.item_memory), SimpleItemDiffCallback.DiffCallback

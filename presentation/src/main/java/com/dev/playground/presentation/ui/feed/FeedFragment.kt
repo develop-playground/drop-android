@@ -52,7 +52,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         viewLifecycleOwner.repeatOnLifecycleState {
             itemList.collectLatest {
                 feedAdapter.submitList(it)
-                binding.tvFeedPostCount.text = it.size.toString()
+                binding.tvFeedMemoryCount.text = it.size.toString()
             }
         }
     }

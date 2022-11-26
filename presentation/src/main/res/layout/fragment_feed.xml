@@ -30,23 +30,23 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_map_pin"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
-                app:layout_constraintEnd_toStartOf="@id/tvFeedPostTitle"
-                app:layout_constraintTop_toTopOf="@id/tvFeedPostTitle"
+                app:layout_constraintEnd_toStartOf="@id/tvFeedMemoryTitle"
+                app:layout_constraintTop_toTopOf="@id/tvFeedMemoryTitle"
                 app:tint="@color/white" />
 
             <TextView
-                android:id="@+id/tvFeedPostTitle"
+                android:id="@+id/tvFeedMemoryTitle"
                 style="@style/Gmarket.Medium.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_4"
-                android:text="@string/feed_post_title_text"
+                android:text="@string/feed_memory_title_text"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
-                app:layout_constraintEnd_toStartOf="@id/tvFeedPostCount" />
+                app:layout_constraintEnd_toStartOf="@id/tvFeedMemoryCount" />
 
             <TextView
-                android:id="@+id/tvFeedPostCount"
+                android:id="@+id/tvFeedMemoryCount"
                 style="@style/Gmarket.Medium.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

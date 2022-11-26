@@ -18,9 +18,9 @@
     <string name="menu_title_setting">Setting</string>
 
     <!-- feed -->
-    <string name="feed_post_title_text">drop point</string>
+    <string name="feed_memory_title_text">drop point</string>
 
-    <!-- post group item -->
-    <string name="post_group_edit_button_text">수정</string>
+    <!-- memory item -->
+    <string name="memory_edit_button_text">수정</string>
 
 </resources>

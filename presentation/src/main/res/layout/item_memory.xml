@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_memory_prefix"
-                app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
+                app:layout_constraintBottom_toBottomOf="@id/tvMemoryLocation"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -39,13 +39,13 @@
                 android:text="@{item.title}"
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
+                app:layout_constraintBottom_toBottomOf="@id/tvMemoryLocation"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@id/ivMemoryPrefix"
                 tools:text="돝고기506" />
 
             <TextView
-                android:id="@+id/tvPostGroupLocation"
+                android:id="@+id/tvMemoryLocation"
                 style="@style/Pretendard.Light.12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -58,18 +58,18 @@
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvPostGroupEdit"
+                app:layout_constraintEnd_toStartOf="@id/tvMemoryEdit"
                 app:layout_constraintStart_toEndOf="@id/tvMemoryTitle"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="서울시 역삼동" />
 
             <TextView
-                android:id="@+id/tvPostGroupEdit"
+                android:id="@+id/tvMemoryEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_16"
-                android:onClick="@{() -> item.onEditPost.invoke(item.id)}"
-                android:text="@string/post_group_edit_button_text"
+                android:onClick="@{() -> item.onEditMemory.invoke(item.id)}"
+                android:text="@string/memory_edit_button_text"
                 android:textColor="@color/gray_medium"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
