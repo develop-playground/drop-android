@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clMemoryTitleArea"
@@ -51,30 +52,47 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/spacing_8"
                 android:layout_marginStart="@dimen/spacing_4"
-                android:layout_marginEnd="@dimen/spacing_16"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.location}"
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvMemoryEdit"
+                app:layout_constraintEnd_toStartOf="@id/llMemoryEdit"
                 app:layout_constraintStart_toEndOf="@id/tvMemoryTitle"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="서울시 역삼동" />
 
-            <TextView
-                android:id="@+id/tvMemoryEdit"
+            <LinearLayout
+                android:id="@+id/llMemoryEdit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_height="0dp"
+                android:gravity="center"
                 android:onClick="@{() -> item.onEditMemory.invoke(item.id)}"
-                android:text="@string/memory_edit_button_text"
-                android:textColor="@color/gray_medium"
-                android:textSize="11sp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/spacing_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/shape_memory_item_edit_dot" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:background="@drawable/shape_memory_item_edit_dot" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:background="@drawable/shape_memory_item_edit_dot" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
