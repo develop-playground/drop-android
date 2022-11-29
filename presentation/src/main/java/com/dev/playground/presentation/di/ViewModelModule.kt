@@ -17,5 +17,5 @@ val viewModelModule = module {
             requestLoginUseCase = get()
         )
     }
-    viewModel { FeedViewModel() }
+    viewModel { FeedViewModel(getMemoryListUseCase = get()) }
 }
