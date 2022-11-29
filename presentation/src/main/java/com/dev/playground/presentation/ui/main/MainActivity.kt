@@ -7,8 +7,8 @@ import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.ActivityMainBinding
 import com.dev.playground.presentation.extension.hideKeyboard
-import com.dev.playground.presentation.ui.map_container.MapContainerFragment
 import com.dev.playground.presentation.ui.feed.FeedFragment
+import com.dev.playground.presentation.ui.map_container.MapContainerFragment
 import com.dev.playground.presentation.ui.setting.SettingFragment
 import com.google.android.material.navigation.NavigationBarView
 
@@ -45,7 +45,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
 
         val tag = getTagByNavigationId(id)
         val foundFragment = supportFragmentManager.findFragmentByTag(tag)
-        (foundFragment as? ScrollableScreen)?.scrollTop()
+        if (foundFragment?.isResumed == true) {
+            (foundFragment as? ScrollableScreen)?.scrollTop()
+        }
     }
 
     private fun showFragment(tag: String) {

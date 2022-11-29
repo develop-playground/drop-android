@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <data>
+
+        <variable
+            name="vm"
+            type="com.dev.playground.presentation.ui.feed.FeedViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:id="@+id/cvFeedToolbar"
+            android:layout_width="0dp"
             android:layout_height="@dimen/feed_toolbar_height"
             android:background="@color/black"
-            android:paddingHorizontal="@dimen/spacing_16">
+            android:paddingHorizontal="@dimen/spacing_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivFeedToolbarLogo"
@@ -49,6 +62,7 @@
                 android:id="@+id/tvFeedPostCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{vm.currentState.itemSize}"
                 android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/lime"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
@@ -59,11 +73,125 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFeed"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:paddingVertical="@dimen/spacing_20"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:visibility="@{vm.currentState.isSuccess ? View.VISIBLE : View.INVISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvFeedToolbar" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{vm.currentState.isEmpty ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvFeedToolbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feed_empty_memory_text"
+                android:textAppearance="@style/Pretendard.Light.14"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:src="@drawable/ic_empty"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_16"
+            android:paddingTop="@dimen/spacing_20"
+            android:visibility="@{vm.currentState.isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvFeedToolbar">
+
+            <View
+                android:id="@+id/vSkeletonTitle1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/feed_skeleton_title_height"
+                android:background="@color/gray_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:radius="@{@dimen/feed_skeleton_radius}" />
+
+            <View
+                android:id="@+id/vSkeletonContent1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/feed_skeleton_content_height"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@color/gray_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vSkeletonTitle1"
+                app:radius="@{@dimen/feed_skeleton_radius}" />
+
+            <View
+                android:id="@+id/vSkeletonDescription1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/feed_skeleton_description_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:background="@color/gray_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vSkeletonContent1"
+                app:radius="@{@dimen/feed_skeleton_radius}" />
+
+            <View
+                android:id="@+id/vSkeletonDescription2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/feed_skeleton_description_height"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:background="@color/gray_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vSkeletonDescription1"
+                app:radius="@{@dimen/feed_skeleton_radius}" />
+
+            <View
+                android:id="@+id/vSkeletonTitle2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/feed_skeleton_content_height"
+                android:layout_marginTop="@dimen/spacing_32"
+                android:background="@color/gray_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vSkeletonDescription2"
+                app:radius="@{@dimen/feed_skeleton_radius}" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@color/gray_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vSkeletonTitle2"
+                app:radius="@{@dimen/feed_skeleton_radius}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
