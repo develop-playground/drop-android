@@ -4,16 +4,12 @@ import androidx.lifecycle.viewModelScope
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.ImageCarouselItemUIModel
 import com.dev.playground.presentation.model.MemoryUIModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.dev.playground.presentation.ui.feed.FeedViewModel.FeedEvent
+import com.dev.playground.presentation.ui.feed.FeedViewModel.FeedState
 import kotlinx.coroutines.launch
 
 // TODO 로컬 DB or 네트워크에서 실제 데이터 받아와야 함.
-class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
-
-    private val _itemList: MutableStateFlow<List<MemoryUIModel>> = MutableStateFlow(emptyList())
-    val itemList: StateFlow<List<MemoryUIModel>> = _itemList.asStateFlow()
+class FeedViewModel : BaseViewModel<FeedState, FeedEvent>(FeedState.Loading) {
 
     init {
         fetch()
@@ -21,13 +17,15 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
 
     private fun fetch() {
         viewModelScope.launch {
-            _itemList.emit(
-                listOf(
-                    itemOf("0"),
-                    itemOf("1"),
-                    itemOf("2")
+            updateState {
+                FeedState.Success(
+                    itemList = listOf(
+                        itemOf("0"),
+                        itemOf("1"),
+                        itemOf("2")
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -49,9 +47,30 @@ class FeedViewModel : BaseViewModel<FeedViewModel.FeedEvent>() {
         }
     )
 
-    sealed interface FeedEvent : Event {
+    sealed interface FeedEvent : UiEvent {
         data class Edit(val id: String) : FeedEvent
         data class Remove(val id: String) : FeedEvent
+    }
+
+    sealed interface FeedState : UiState {
+        data class Success(val itemList: List<MemoryUIModel>) : FeedState
+        object Loading : FeedState
+
+        val isSuccess
+            get() = this is Success && this.itemList.isNotEmpty()
+
+        val isEmpty
+            get() = this is Success && this.itemList.isEmpty()
+
+        val isLoading
+            get() = this is Loading
+
+        val itemSize: String
+            get() = if (this is Success && this.itemList.isNotEmpty()) {
+                itemList.size.toString()
+            } else {
+                "0"
+            }
     }
 
 }
