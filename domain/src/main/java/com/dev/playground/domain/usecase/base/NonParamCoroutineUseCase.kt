@@ -6,14 +6,10 @@ import kotlinx.coroutines.withContext
 abstract class NonParamCoroutineUseCase<R>(private val coroutineDispatcher: CoroutineDispatcher) {
 
     suspend operator fun invoke(): Result<R> {
-        return try {
+        return runCatching {
             withContext(coroutineDispatcher) {
-                execute().let {
-                    Result.success(it)
-                }
+                execute()
             }
-        } catch (e: Exception) {
-            Result.failure(e)
         }
     }
 
