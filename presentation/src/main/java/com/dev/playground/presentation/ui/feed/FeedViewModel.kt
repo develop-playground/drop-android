@@ -21,7 +21,9 @@ class FeedViewModel(
         fetch()
     }
 
-    private fun fetch() {
+    fun fetch() {
+        updateState { FeedState.Loading }
+
         viewModelScope.launch {
             // TODO paging 처리
             val result = getMemoryListUseCase.invoke(0)

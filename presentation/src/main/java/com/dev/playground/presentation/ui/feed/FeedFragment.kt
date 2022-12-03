@@ -31,11 +31,17 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         initCollects()
     }
 
-    private fun initViews() = with(binding.rvFeed) {
-        binding.vm = viewModel
-        itemAnimator = null
-        adapter = feedAdapter
-        addItemDecoration(FeedItemDecoration())
+    private fun initViews() = with(binding) {
+        vm = viewModel
+        srlFeed.setOnRefreshListener {
+            viewModel.fetch()
+        }
+
+        rvFeed.apply {
+            itemAnimator = null
+            adapter = feedAdapter
+            addItemDecoration(FeedItemDecoration())
+        }
     }
 
     private fun initCollects() = with(viewModel) {
@@ -58,6 +64,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                     }
                     else -> Unit
                 }
+                binding.srlFeed.isRefreshing = false
             }
         }
     }
