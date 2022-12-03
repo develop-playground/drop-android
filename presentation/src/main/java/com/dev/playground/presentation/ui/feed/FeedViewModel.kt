@@ -53,6 +53,9 @@ class FeedViewModel(
         val isSuccess
             get() = this is Success && this.itemList.isNotEmpty()
 
+        val hasError
+            get() = this is Failure
+
         val isEmpty
             get() = this is Success && this.itemList.isEmpty()
 

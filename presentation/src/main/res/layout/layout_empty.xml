@@ -14,10 +14,11 @@
             android:text="@string/feed_empty_memory_text"
             android:textAppearance="@style/Pretendard.Light.14"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/ivEmpty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <ImageView
             android:id="@+id/ivEmpty"
@@ -27,13 +28,14 @@
             android:layout_marginTop="@dimen/spacing_20"
             android:contentDescription="@null"
             android:src="@drawable/ic_map_pin_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvEmptyTitle" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="4dp"
+            android:layout_height="@dimen/line_empty_or_failure_height"
             android:layout_marginEnd="@dimen/spacing_24"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/ivEmpty"
