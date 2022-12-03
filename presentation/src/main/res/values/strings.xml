@@ -19,6 +19,7 @@
 
     <!-- feed -->
     <string name="feed_memory_title_text">drop point</string>
+    <string name="feed_empty_memory_text">기록된 추억이 없습니다</string>
 
     <!-- memory item -->
     <string name="memory_edit">수정</string>

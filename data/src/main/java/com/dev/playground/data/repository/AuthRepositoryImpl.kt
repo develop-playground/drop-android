@@ -7,11 +7,9 @@ import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(
-    private val authService: AuthService
-) : AuthRepository{
+    private val service: AuthService,
+) : AuthRepository {
 
-    override suspend fun requestLogin(memberType: String): Auth {
-        return authService.requestLogin(MemberType(memberType)).toDomain()
-    }
+    override suspend fun requestLogin(memberType: String) = service.requestLogin(MemberType(memberType)).toDomain()
 
 }

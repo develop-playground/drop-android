@@ -37,13 +37,13 @@
                 android:layout_marginStart="@dimen/spacing_4"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.title}"
+                android:text="@{item.createdDate}"
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@id/tvMemoryLocation"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@id/ivMemoryPrefix"
-                tools:text="돝고기506" />
+                tools:text="2021-12-01" />
 
             <TextView
                 android:id="@+id/tvMemoryLocation"
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_16"
-            android:text="@{item.description}"
+            android:text="@{item.content}"
             android:textColor="@color/black"
             app:readMoreColor="@color/gray_medium"
             app:readMoreMaxLine="2" />
