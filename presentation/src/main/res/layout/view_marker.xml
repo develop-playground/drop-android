@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <merge
+        android:background="@color/white"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivMarkerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:background="@drawable/shape_marker_box"
+            tools:gravity="center"
+            tools:layout_editor_absoluteX="53dp"
+            tools:layout_editor_absoluteY="111dp"
+            tools:layout_height="55dp"
+            tools:layout_width="55dp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivDownArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vector_triangle"
+            app:layout_constraintEnd_toEndOf="@id/ivMarkerView"
+            app:layout_constraintStart_toStartOf="@id/ivMarkerView"
+            app:layout_constraintTop_toBottomOf="@id/ivMarkerView" />
+
+
+        <TextView
+            android:id="@+id/tvDropPoint"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            tools:background="@drawable/shape_drop_point"
+            app:layout_constraintEnd_toEndOf="@id/ivMarkerView"
+            app:layout_constraintTop_toTopOf="@id/ivMarkerView"
+            app:layout_constraintStart_toEndOf="@id/ivMarkerView"
+            app:layout_constraintBottom_toTopOf="@id/ivMarkerView"
+            />
+
+    </merge>
+</layout>
