@@ -16,62 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cvFeedToolbar"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/feed_toolbar_height"
-            android:background="@color/black"
-            android:paddingHorizontal="@dimen/spacing_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivFeedToolbarLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_drop_logo_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/spacing_4"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_map_pin"
-                app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
-                app:layout_constraintEnd_toStartOf="@id/tvFeedMemoryTitle"
-                app:layout_constraintTop_toTopOf="@id/tvFeedMemoryTitle"
-                app:tint="@color/white" />
-
-            <TextView
-                android:id="@+id/tvFeedMemoryTitle"
-                style="@style/Gmarket.Medium.12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_4"
-                android:text="@string/feed_memory_title_text"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
-                app:layout_constraintEnd_toStartOf="@id/tvFeedMemoryCount" />
-
-            <TextView
-                android:id="@+id/tvFeedMemoryCount"
-                style="@style/Gmarket.Medium.12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{vm.currentState.itemSize}"
-                android:textAppearance="@style/Gmarket.Medium.12"
-                android:textColor="@color/lime"
-                app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="32" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFeed"
             android:layout_width="0dp"
@@ -84,34 +28,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cvFeedToolbar" />
 
-        <LinearLayout
+        <include
+            layout="@layout/layout_empty"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/gray_light"
-            android:gravity="center"
-            android:orientation="vertical"
             android:visibility="@{vm.currentState.isEmpty ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvFeedToolbar">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/feed_empty_memory_text"
-                android:textAppearance="@style/Pretendard.Light.14"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="@dimen/spacing_20"
-                android:src="@drawable/ic_empty"
-                app:tint="@color/white" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -191,6 +116,63 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vSkeletonTitle2"
                 app:radius="@{@dimen/feed_skeleton_radius}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cvFeedToolbar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/feed_toolbar_height"
+            android:background="@color/black"
+            android:paddingHorizontal="@dimen/spacing_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivFeedToolbarLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_drop_logo_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/spacing_4"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_map_pin"
+                app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
+                app:layout_constraintEnd_toStartOf="@id/tvFeedMemoryTitle"
+                app:layout_constraintTop_toTopOf="@id/tvFeedMemoryTitle"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvFeedMemoryTitle"
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_4"
+                android:text="@string/feed_memory_title_text"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
+                app:layout_constraintEnd_toStartOf="@id/tvFeedMemoryCount" />
+
+            <TextView
+                android:id="@+id/tvFeedMemoryCount"
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.currentState.itemSize}"
+                android:textAppearance="@style/Gmarket.Medium.12"
+                android:textColor="@color/lime"
+                app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="32" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
