@@ -18,6 +18,16 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
 
     private fun initViews() = with(binding) {
         vm = viewModel
+
+        tvClose.setOnClickListener {
+            finish()
+        }
+        flAddMemory.setOnClickListener {
+
+        }
+        btAddMemory.setOnClickListener {
+
+        }
     }
 
     private fun initCollects() {

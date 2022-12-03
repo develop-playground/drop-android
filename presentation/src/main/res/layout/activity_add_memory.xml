@@ -23,8 +23,9 @@
             android:background="@color/black">
 
             <TextView
-                android:layout_height="match_parent"
+                android:id="@+id/tvClose"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/add_memory_cancel"
                 android:textAppearance="@style/Pretendard.Light.14"
@@ -60,10 +61,10 @@
                 android:id="@+id/ivAddMemoryLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_map_pin"
                 android:visibility="@{vm.currentState.isEmpty ? View.VISIBLE : View.GONE}"
-                app:tint="@color/gray_medium"
-                android:contentDescription="@null" />
+                app:tint="@color/gray_medium" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,6 +91,7 @@
             android:layout_marginTop="@dimen/spacing_8">
 
             <FrameLayout
+                android:id="@+id/flAddMemory"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@color/gray_light"
@@ -106,8 +108,8 @@
                     android:background="@color/white"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    app:radius="@{@dimen/spacing_100}"
-                    android:src="@drawable/ic_plus" />
+                    android:src="@drawable/ic_plus"
+                    app:radius="@{@dimen/spacing_100}" />
             </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -133,15 +135,17 @@
             android:background="@drawable/bg_add_memory_content"
             android:gravity="top"
             android:hint="@string/add_memory_content_hint"
+            android:inputType="text"
             android:minHeight="@dimen/add_memory_content_min_height"
             android:paddingHorizontal="@dimen/spacing_8"
             android:paddingVertical="@dimen/spacing_4"
+            android:text="@={vm.content}"
             android:textAppearance="@style/Pretendard.Light.14"
             android:textColor="@color/black"
-            android:textColorHint="@color/gray_medium"
-            android:inputType="text" />
+            android:textColorHint="@color/gray_medium" />
 
         <Button
+            android:id="@+id/btAddMemory"
             android:layout_width="match_parent"
             android:layout_height="@dimen/add_memory_drop_button_height"
             android:layout_marginHorizontal="@dimen/spacing_16"
