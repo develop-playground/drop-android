@@ -11,8 +11,6 @@ import retrofit2.http.Query
 interface AuthService {
 
     @POST("auth/login")
-    suspend fun requestLogin(
-        @Body memberType: MemberType
-    ): AuthData
+    suspend fun requestLogin(@Body memberType: MemberType): AuthData
 
 }
