@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface DropApi {
 
-    @POST("api/auth/login")
+    @POST("auth/login")
     suspend fun requestLogin(
         @Body memberType: MemberType
     ): AuthData
