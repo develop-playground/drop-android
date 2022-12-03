@@ -104,6 +104,13 @@ object Dep {
         const val archTest = "androidx.arch.core:core-testing:2.1.0"
     }
 
+    object Firebase {
+        private const val version = "31.1.0"
+
+        const val platformBom = "com.google.firebase:firebase-bom:$version"
+        const val storage =	"com.google.firebase:firebase-storage-ktx"
+    }
+
     const val ksp = "com.google.devtools.ksp:symbol-processing-api:1.6.10-1.0.4"
     const val naverMap = "com.naver.maps:map-sdk:3.16.0"
     const val readMoreTextView = "kr.co.prnd:readmore-textview:1.0.0"
@@ -111,4 +118,6 @@ object Dep {
     const val lottie = "com.airbnb.android:lottie:5.0.3"
     const val gson = "com.google.code.gson:gson:2.8.7"
     const val kakaoUser = "com.kakao.sdk:v2-user:2.11.2"
+
+    const val googleService = "com.google.gms:google-services:4.3.13"
 }

@@ -1,4 +1,4 @@
-package com.dev.playground.data.util
+package com.dev.playground.data.data_source.local
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,7 +6,7 @@ import androidx.core.content.edit
 import com.dev.playground.data.R
 import com.dev.playground.domain.model.Auth
 
-class SharedPreferencesManager(context: Context) {
+class SharedPreferencesDataSource(context: Context) {
     companion object {
         private const val KEY_ACCESS_TOKEN: String = "access_token"
         private const val KEY_REFRESH_TOKEN: String = "refresh_token"

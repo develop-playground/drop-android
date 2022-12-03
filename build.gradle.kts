@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath(Dep.androidGradlePlugin)
         classpath(Dep.Kotlin.gradlePlugin)
+        classpath(Dep.googleService)
     }
 }
 

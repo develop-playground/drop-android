@@ -1,10 +1,11 @@
 package com.dev.playground.data.util
 
+import com.dev.playground.data.data_source.local.SharedPreferencesDataSource
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class AuthenticationInterceptor(
-    private val preferencesManager: SharedPreferencesManager
+    private val preferencesManager: SharedPreferencesDataSource
 ) : Interceptor {
 
     companion object {

@@ -1,6 +1,6 @@
 package com.dev.playground.data.di
 
-import com.dev.playground.data.api.DropApi
+import com.dev.playground.data.data_source.remote.DropApi
 import com.dev.playground.data.util.AuthenticationInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

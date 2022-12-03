@@ -1,6 +1,6 @@
 package com.dev.playground.data.repository
 
-import com.dev.playground.data.api.DropApi
+import com.dev.playground.data.data_source.remote.DropApi
 import com.dev.playground.data.model.MemberType
 import com.dev.playground.data.model.toDomain
 import com.dev.playground.domain.model.Auth
