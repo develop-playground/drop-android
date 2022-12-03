@@ -1,5 +1,6 @@
 package com.dev.playground.presentation.di
 
+import com.dev.playground.presentation.ui.add.AddMemoryViewModel
 import com.dev.playground.presentation.ui.login.LoginViewModel
 import com.dev.playground.presentation.ui.splash.SplashViewModel
 import com.dev.playground.presentation.ui.feed.FeedViewModel
@@ -18,4 +19,5 @@ val viewModelModule = module {
         )
     }
     viewModel { FeedViewModel() }
+    viewModel { AddMemoryViewModel() }
 }
