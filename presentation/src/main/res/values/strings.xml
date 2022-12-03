@@ -25,4 +25,11 @@
     <string name="post_group_edit_button_text">수정</string>
     <string name="feed_post_group_title_prefix">|%s</string>
 
+    <!-- add memory -->
+    <string name="add_memory_empty_location">위치 정보 없음</string>
+    <string name="add_memory_cancel">취소</string>
+    <string name="add_memory_title">새로운 추억</string>
+    <string name="add_memory_content_hint">내용을 입력하세요</string>
+    <string name="add_memory_drop_button">드롭하기</string>
+
 </resources>

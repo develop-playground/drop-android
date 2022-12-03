@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.dev.playground.presentation.ui.add.AddMemoryViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@color/black">
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/add_memory_cancel"
+                android:textAppearance="@style/Pretendard.Light.14"
+                android:textColor="@color/white"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add_memory_title"
+                android:textAppearance="@style/Pretendard.Regular.16"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:background="@{vm.currentState.isEmpty ? @color/gray_light : @color/lime}"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:radius="@{@dimen/add_memory_location_radius}">
+
+            <ImageView
+                android:id="@+id/ivAddMemoryLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_map_pin"
+                android:visibility="@{vm.currentState.isEmpty ? View.VISIBLE : View.GONE}"
+                app:tint="@color/gray_medium"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:text="@string/add_memory_empty_location"
+                android:textAppearance="@style/Pretendard.Light.14"
+                android:textColor="@color/gray_medium"
+                android:visibility="@{ivAddMemoryLocation.visibility}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Pretendard.Regular.14"
+                android:textColor="@color/gray_medium"
+                android:visibility="@{vm.currentState.isEmpty ? View.GONE : View.VISIBLE}" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_8">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/gray_light"
+                android:visibility="@{ivAddMemoryLocation.visibility}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:radius="@{@dimen/add_memory_photo_radius}">
+
+                <ImageView
+                    android:layout_width="@dimen/add_memory_photo_button_size"
+                    android:layout_height="@dimen/add_memory_photo_button_size"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    app:radius="@{@dimen/spacing_100}"
+                    android:src="@drawable/ic_plus" />
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tlImagePager"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/image_pager_tab_height"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:background="@color/white"
+            android:visibility="@{ivAddMemoryLocation.visibility}"
+            app:tabBackground="@drawable/selector_image_pager_tab_indicator"
+            app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabPaddingEnd="@dimen/spacing_4"
+            app:tabPaddingStart="@dimen/spacing_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:background="@drawable/bg_add_memory_content"
+            android:gravity="top"
+            android:hint="@string/add_memory_content_hint"
+            android:minHeight="@dimen/add_memory_content_min_height"
+            android:paddingHorizontal="@dimen/spacing_8"
+            android:paddingVertical="@dimen/spacing_4"
+            android:textAppearance="@style/Pretendard.Light.14"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_medium"
+            android:inputType="text" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/add_memory_drop_button_height"
+            android:layout_marginHorizontal="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_20"
+            android:background="@{vm.currentState.isEmpty ? @color/gray_light : @color/lime}"
+            android:enabled="@{!vm.currentState.isEmpty}"
+            android:text="@string/add_memory_drop_button"
+            android:textAppearance="@style/Gmarket.Medium.18"
+            android:textColor="@{vm.currentState.isEmpty ? @color/white : @color/black}"
+            app:radius="@{@dimen/add_memory_drop_button_radius}" />
+
+    </LinearLayout>
+
+
+</layout>
