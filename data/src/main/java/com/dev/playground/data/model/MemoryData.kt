@@ -9,6 +9,7 @@ data class MemoryData(
     val imageUrlList: List<String>,
     val content: String,
     val location: LocationData,
+    val address: String,
     @SerializedName("created_date")
     val createdDate: String,
 ) {
@@ -29,6 +30,7 @@ fun MemoryData.toDomain() = run {
             latitude = location.latitude,
             longitude = location.longitude
         ),
+        address = address,
         createdDate = createdDate
     )
 }

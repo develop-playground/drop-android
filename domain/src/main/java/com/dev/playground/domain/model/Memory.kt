@@ -5,6 +5,7 @@ data class Memory(
     val imageUrlList: List<String>,
     val content: String,
     val location: Location,
+    val address: String,
     val createdDate: String,
 ) {
     data class Location(

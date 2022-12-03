@@ -9,7 +9,8 @@ data class MemoryUIModel(
     val id: Int,
     val imageList: List<ImageCarouselItemUIModel>,
     val content: String,
-    val location: String,
+    val location: Memory.Location,
+    val address: String,
     val createdDate: String,
     val onClickEdit: (Int) -> Unit,
     val onClickRemove: (Int) -> Unit,
@@ -17,14 +18,14 @@ data class MemoryUIModel(
 
 fun Memory.toPresentation(
     onClickEdit: (Int) -> Unit,
-    onClickRemove: (Int) -> Unit
+    onClickRemove: (Int) -> Unit,
 ) = run {
     MemoryUIModel(
         id = id,
         imageList = imageUrlList.map { ImageCarouselItemUIModel(it) },
         content = content,
-        // TODO real data 사용
-        location = "TEST",
+        location = location,
+        address = address,
         createdDate = createdDate,
         onClickEdit = onClickEdit,
         onClickRemove = onClickRemove
