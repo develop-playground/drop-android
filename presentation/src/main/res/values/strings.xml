@@ -31,5 +31,6 @@
     <string name="add_memory_title">새로운 추억</string>
     <string name="add_memory_content_hint">내용을 입력하세요</string>
     <string name="add_memory_drop_button">드롭하기</string>
+    <string name="add_memory_request_permission">추억을 등록하기 위해 권한이 필요합니다.</string>
 
 </resources>
