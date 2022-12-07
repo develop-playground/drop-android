@@ -19,18 +19,18 @@
             app:layout_constraintVertical_chainStyle="packed">
 
             <TextView
+                style="@style/Pretendard.Light.14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/head_login_activity"
-                android:textAppearance="@style/Pretendard.Light.14"
                 android:textColor="@color/black" />
 
             <TextView
+                style="@style/Pretendard.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_4"
                 android:text="@string/app_name"
-                android:textAppearance="@style/Pretendard.Bold"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -64,9 +64,9 @@
                 android:background="@color/gray_medium" />
 
             <TextView
+                style="@style/Pretendard.Regular.14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Pretendard.Regular.14"
                 android:paddingStart="@dimen/spacing_8"
                 android:paddingEnd="@dimen/spacing_8"
                 android:text="@string/easy_login_activity"

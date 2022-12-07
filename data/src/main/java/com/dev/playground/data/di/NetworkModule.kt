@@ -1,6 +1,7 @@
 package com.dev.playground.data.di
 
-import com.dev.playground.data.api.DropApi
+import com.dev.playground.data.api.AuthService
+import com.dev.playground.data.api.MemoryService
 import com.dev.playground.data.util.AuthenticationInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,5 +49,6 @@ val networkModule = module {
             .build()
     }
 
-    single { get<Retrofit>().create(DropApi::class.java) }
+    single { get<Retrofit>().create(AuthService::class.java) }
+    single { get<Retrofit>().create(MemoryService::class.java) }
 }
