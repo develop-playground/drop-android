@@ -19,15 +19,13 @@ data class MemoryUIModel(
 fun Memory.toPresentation(
     onClickEdit: (Int) -> Unit,
     onClickRemove: (Int) -> Unit,
-) = run {
-    MemoryUIModel(
-        id = id,
-        imageList = imageUrlList.map { ImageCarouselItemUIModel(it) },
-        content = content,
-        location = location,
-        address = address,
-        createdDate = createdDate,
-        onClickEdit = onClickEdit,
-        onClickRemove = onClickRemove
-    )
-}
+) = MemoryUIModel(
+    id = id,
+    imageList = imageUrlList.map { ImageCarouselItemUIModel(it) },
+    content = content,
+    location = location,
+    address = address,
+    createdDate = createdDate,
+    onClickEdit = onClickEdit,
+    onClickRemove = onClickRemove
+)

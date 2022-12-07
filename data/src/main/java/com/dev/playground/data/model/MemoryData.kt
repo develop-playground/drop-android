@@ -21,16 +21,14 @@ data class MemoryData(
 
 }
 
-fun MemoryData.toDomain() = run {
-    Memory(
-        id = id,
-        imageUrlList = imageUrlList,
-        content = content,
-        location = Memory.Location(
-            latitude = location.latitude,
-            longitude = location.longitude
-        ),
-        address = address,
-        createdDate = createdDate
-    )
-}
+fun MemoryData.toDomain() = Memory(
+    id = id,
+    imageUrlList = imageUrlList,
+    content = content,
+    location = Memory.Location(
+        latitude = location.latitude,
+        longitude = location.longitude
+    ),
+    address = address,
+    createdDate = createdDate
+)
