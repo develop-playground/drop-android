@@ -5,11 +5,9 @@ import com.dev.playground.data.model.MemberType
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface DropApi {
+interface AuthService {
 
-    @POST("api/auth/login")
-    suspend fun requestLogin(
-        @Body memberType: MemberType
-    ): AuthData
+    @POST("auth/login")
+    suspend fun requestLogin(@Body memberType: MemberType): AuthData
 
 }

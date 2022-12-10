@@ -1,17 +1,12 @@
 package com.dev.playground.data.repository
 
-import com.dev.playground.data.data_source.remote.DropApi
+import com.dev.playground.data.data_source.remote.AuthService
 import com.dev.playground.data.model.MemberType
 import com.dev.playground.data.model.toDomain
-import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.repository.AuthRepository
 
-class AuthRepositoryImpl(
-    private val dropApi: DropApi
-) : AuthRepository{
+class AuthRepositoryImpl(private val service: AuthService) : AuthRepository {
 
-    override suspend fun requestLogin(memberType: String): Auth {
-        return dropApi.requestLogin(MemberType(memberType)).toDomain()
-    }
+    override suspend fun requestLogin(memberType: String) = service.requestLogin(MemberType(memberType)).toDomain()
 
 }

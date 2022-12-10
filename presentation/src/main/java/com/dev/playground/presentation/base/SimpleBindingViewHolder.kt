@@ -8,7 +8,7 @@ open class SimpleBindingViewHolder<T>(
     private val binding: ViewDataBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(item: T) = with(binding) {
+    open fun onBind(item: T) = with(binding) {
         setVariable(BR.item, item)
         executePendingBindings()
     }

@@ -17,7 +17,7 @@ android {
         buildConfigField(
             "String",
             "BASE_URL",
-            "\"http://3.34.194.171/\""
+            "\"http://3.34.194.171/api/\""
         )
     }
 
@@ -32,10 +32,6 @@ android {
 
         debug {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {

@@ -6,11 +6,9 @@ import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
-import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.model.MemoryUIModel
+import com.dev.playground.presentation.ui.feed.FeedViewModel.FeedEvent
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import com.dev.playground.presentation.util.showToast
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,7 +22,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
 
     private val viewModel by viewModel<FeedViewModel>()
     private val feedAdapter by lazy {
-        SimpleBindingAdapter<MemoryUIModel, SimpleBindingViewHolder<MemoryUIModel>>()
+        SimpleBindingAdapter(FeedViewHolder::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,19 +31,27 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         initCollects()
     }
 
-    private fun initViews() = with(binding.rvFeed) {
-        binding.vm = viewModel
-        itemAnimator = null
-        adapter = feedAdapter
-        addItemDecoration(FeedItemDecoration())
+    private fun initViews() = with(binding) {
+        vm = viewModel
+        srlFeed.setOnRefreshListener {
+            viewModel.fetch()
+        }
+
+        rvFeed.apply {
+            itemAnimator = null
+            adapter = feedAdapter
+            addItemDecoration(FeedItemDecoration())
+        }
     }
 
     private fun initCollects() = with(viewModel) {
         viewLifecycleOwner.repeatOnLifecycleState {
             eventFlow.collect {
                 when (it) {
-                    is FeedViewModel.FeedEvent.Edit -> {
-                        context?.showToast(it.id)
+                    is FeedEvent.Edit -> {
+
+                    }
+                    is FeedEvent.Remove -> {
                     }
                 }
             }
@@ -58,6 +64,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                     }
                     else -> Unit
                 }
+                binding.srlFeed.isRefreshing = false
             }
         }
     }
