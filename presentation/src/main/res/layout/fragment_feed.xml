@@ -100,82 +100,11 @@
                     android:layout_height="match_parent"
                     android:visibility="@{vm.currentState.hasError ? View.VISIBLE : View.GONE}" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <include
+                    layout="@layout/layout_feed_skeleton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/spacing_16"
-                    android:paddingTop="@dimen/spacing_20"
-                    android:visibility="@{vm.currentState.isLoading ? View.VISIBLE : View.GONE}">
-
-                    <View
-                        android:id="@+id/vSkeletonTitle1"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/feed_skeleton_title_height"
-                        android:background="@color/gray_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:radius="@{@dimen/feed_skeleton_radius}" />
-
-                    <View
-                        android:id="@+id/vSkeletonContent1"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/feed_skeleton_content_height"
-                        android:layout_marginTop="@dimen/spacing_8"
-                        android:background="@color/gray_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vSkeletonTitle1"
-                        app:radius="@{@dimen/feed_skeleton_radius}" />
-
-                    <View
-                        android:id="@+id/vSkeletonDescription1"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/feed_skeleton_description_height"
-                        android:layout_marginTop="@dimen/spacing_12"
-                        android:background="@color/gray_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vSkeletonContent1"
-                        app:radius="@{@dimen/feed_skeleton_radius}" />
-
-                    <View
-                        android:id="@+id/vSkeletonDescription2"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/feed_skeleton_description_height"
-                        android:layout_marginTop="@dimen/spacing_4"
-                        android:background="@color/gray_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vSkeletonDescription1"
-                        app:radius="@{@dimen/feed_skeleton_radius}" />
-
-                    <View
-                        android:id="@+id/vSkeletonTitle2"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/feed_skeleton_content_height"
-                        android:layout_marginTop="@dimen/spacing_32"
-                        android:background="@color/gray_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vSkeletonDescription2"
-                        app:radius="@{@dimen/feed_skeleton_radius}" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/spacing_8"
-                        android:background="@color/gray_light"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vSkeletonTitle2"
-                        app:radius="@{@dimen/feed_skeleton_radius}" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:visibility="@{vm.currentState.isLoading ? View.VISIBLE : View.GONE}" />
 
             </FrameLayout>
 
