@@ -1,16 +1,19 @@
 package com.dev.playground.domain.usecase.memory
 
-import com.dev.playground.domain.model.Memory
 import com.dev.playground.domain.repository.MemoryRepository
-import com.dev.playground.domain.usecase.base.CoroutineUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class GetMemoryListUseCase(
     private val repository: MemoryRepository,
-    ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : CoroutineUseCase<Int, List<Memory>>(ioDispatcher) {
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+) {
 
-    override suspend fun execute(param: Int): List<Memory> = repository.getMemoryList(param)
+    suspend operator fun invoke(param: Int) = withContext(ioDispatcher) {
+        runCatching {
+            repository.getMemoryList(param)
+        }
+    }
 
 }
