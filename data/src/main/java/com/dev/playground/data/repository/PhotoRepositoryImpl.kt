@@ -1,7 +1,6 @@
 package com.dev.playground.data.repository
 
 import com.dev.playground.data.data_source.remote.FirebaseDataSource
-import com.dev.playground.domain.model.photo.PhotoDeleteInput
 import com.dev.playground.domain.repository.PhotoRepository
 import java.io.File
 
@@ -11,6 +10,6 @@ class PhotoRepositoryImpl(
 
     override fun uploadPhotoList(inputList: List<File>) = dataSource.uploadPhotoList(inputList)
 
-    override fun deletePhoto(input: PhotoDeleteInput) = dataSource.deletePhoto(input)
+    override fun deletePhoto(input: String) = dataSource.deletePhoto(input)
 
 }

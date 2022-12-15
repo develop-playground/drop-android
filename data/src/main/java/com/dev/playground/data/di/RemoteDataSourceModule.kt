@@ -4,5 +4,5 @@ import com.dev.playground.data.data_source.remote.FirebaseDataSource
 import org.koin.dsl.module
 
 val remoteDataSourceModule = module {
-    factory { FirebaseDataSource() }
+    single { FirebaseDataSource() }
 }

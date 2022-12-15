@@ -1,10 +1,10 @@
 package com.dev.playground.data.data_source.remote
 
 import androidx.core.net.toUri
-import com.dev.playground.domain.model.photo.PhotoDeleteInput
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.io.File
@@ -17,7 +17,7 @@ class FirebaseDataSource {
 
     private val storageRef = Firebase.storage.reference
 
-    fun uploadPhotoList(photoList: List<File>): Flow<List<String?>> = flow {
+    fun uploadPhotoList(photoList: List<File>): Flow<Result<List<String>>> = flow {
         val resultList = photoList.map {
             storageRef
                 .child("$PATH_PREFIX${it.name}")
@@ -26,21 +26,21 @@ class FirebaseDataSource {
                 .storage
                 .downloadUrl
                 .await()
-                ?.toString()
+                .toString()
         }
-        emit(resultList)
+        emit(Result.success(resultList))
+    }.catch {
+        emit(Result.failure(it))
     }
 
-    fun deletePhoto(input: PhotoDeleteInput) {
+    fun deletePhoto(input: String): Flow<Result<String>> = flow {
         storageRef
-            .child("$PATH_PREFIX${input.fileName}")
+            .child("$PATH_PREFIX${input}")
             .delete()
-            .addOnSuccessListener {
-                input.deleteListener.onSuccess()
-            }
-            .addOnFailureListener {
-                input.deleteListener.onFailure(it)
-            }
+            .await()
+        emit(Result.success(input))
+    }.catch {
+        emit(Result.failure(it))
     }
 
 }
