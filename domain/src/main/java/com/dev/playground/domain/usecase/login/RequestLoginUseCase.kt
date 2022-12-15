@@ -6,10 +6,10 @@ import kotlinx.coroutines.withContext
 
 class RequestLoginUseCase(
     private val authRepository: AuthRepository,
-    private val ioDispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke(param: String) = withContext(ioDispatcher) {
+    suspend operator fun invoke(params: String) = withContext(dispatcher) {
         runCatching {
             authRepository.requestLogin(param)
         }

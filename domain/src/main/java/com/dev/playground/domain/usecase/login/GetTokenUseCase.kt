@@ -6,10 +6,10 @@ import kotlinx.coroutines.withContext
 
 class GetTokenUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val ioDispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke() = withContext(ioDispatcher) {
+    suspend operator fun invoke() = withContext(dispatcher) {
         runCatching {
             sharedPreferencesRepository.getToken()
                 ?: throw IllegalArgumentException("Access token has expired or is null")

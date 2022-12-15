@@ -6,10 +6,10 @@ import kotlinx.coroutines.withContext
 
 class RemoveKakaoTokenUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val ioDispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke() = withContext(ioDispatcher) {
+    suspend operator fun invoke() = withContext(dispatcher) {
         runCatching {
             sharedPreferencesRepository.removeToken()
         }

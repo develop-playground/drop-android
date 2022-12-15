@@ -7,10 +7,10 @@ import kotlinx.coroutines.withContext
 
 class SetTokenUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val ioDispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke(param: Auth) = withContext(ioDispatcher) {
+    suspend operator fun invoke(params: Auth) = withContext(dispatcher) {
         runCatching {
             sharedPreferencesRepository.setToken(param)
         }

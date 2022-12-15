@@ -5,6 +5,8 @@ import com.dev.playground.domain.usecase.login.RemoveKakaoTokenUseCase
 import com.dev.playground.domain.usecase.login.RequestLoginUseCase
 import com.dev.playground.domain.usecase.login.SetTokenUseCase
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
+import com.dev.playground.domain.usecase.photo.RemovePhotoUseCase
+import com.dev.playground.domain.usecase.photo.UploadPhotoUseCase
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -14,4 +16,6 @@ val useCaseModule = module {
     factory { RemoveKakaoTokenUseCase(get(), get(named(IO))) }
     factory { RequestLoginUseCase(get(), get(named(IO))) }
     factory { GetMemoryListUseCase(get(), get(named(IO))) }
+    factory { UploadPhotoUseCase(get(), get(named(IO))) }
+    factory { RemovePhotoUseCase(get(), get(named(IO))) }
 }
