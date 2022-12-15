@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 
 class GetTokenUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    ioDispatcher: CoroutineDispatcher
+    ioDispatcher: CoroutineDispatcher,
 ) : NonParamCoroutineUseCase<Auth>(ioDispatcher) {
 
     override suspend fun execute(): Auth {
