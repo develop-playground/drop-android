@@ -5,5 +5,4 @@ import java.io.File
 
 interface PhotoRepository {
     fun uploadPhotoList(inputList: List<File>): Flow<Result<List<String>>>
-    fun deletePhoto(input: String): Flow<Result<String>>
 }

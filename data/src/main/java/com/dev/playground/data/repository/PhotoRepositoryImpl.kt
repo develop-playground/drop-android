@@ -10,6 +10,4 @@ class PhotoRepositoryImpl(
 
     override fun uploadPhotoList(inputList: List<File>) = dataSource.uploadPhotoList(inputList)
 
-    override fun deletePhoto(input: String) = dataSource.deletePhoto(input)
-
 }

@@ -9,7 +9,9 @@ data class Memory(
     val createdDate: String,
 ) {
     data class Location(
-        val latitude: Double,
         val longitude: Double,
-    )
+        val latitude: Double,
+    ) {
+        fun toCoordinate() = "${longitude.toFloat()},${latitude.toFloat()}"
+    }
 }

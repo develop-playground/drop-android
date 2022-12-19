@@ -3,7 +3,9 @@ package com.dev.playground.data.data_source.remote
 import androidx.core.net.toUri
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -29,16 +31,6 @@ class FirebaseDataSource {
                 .toString()
         }
         emit(Result.success(resultList))
-    }.catch {
-        emit(Result.failure(it))
-    }
-
-    fun deletePhoto(input: String): Flow<Result<String>> = flow {
-        storageRef
-            .child("$PATH_PREFIX${input}")
-            .delete()
-            .await()
-        emit(Result.success(input))
     }.catch {
         emit(Result.failure(it))
     }
