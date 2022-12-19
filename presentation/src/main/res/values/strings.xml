@@ -48,4 +48,9 @@
     <string name="add_memory_please_grant_permissions">필요한 권한을 허용해주세요.</string>
     <string name="add_memory_permission_denied">권한이 거절되었습니다!</string>
 
+    <!-- drop dialog -->
+    <string name="drop_dialog_content_remove_memory">기록된 추억을 삭제하시겠습니까?</string>
+    <string name="drop_dialog_cancel">취소</string>
+    <string name="drop_dialog_delete">삭제</string>
+
 </resources>

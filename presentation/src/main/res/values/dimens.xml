@@ -46,12 +46,17 @@
     <dimen name="add_memory_drop_button_radius">5dp</dimen>
     <dimen name="add_memory_drop_button_height">44dp</dimen>
 
+    <dimen name="photo_remove_button_size">36dp</dimen>
+
     <!-- image pager -->
     <dimen name="image_pager_tab_indicator_thickness">2dp</dimen>
     <dimen name="image_pager_tab_height">4dp</dimen>
 
     <!-- custom login button -->
     <dimen name="round_rect_outline_provider_button_radius">5dp</dimen>
-    <dimen name="photo_remove_size">36dp</dimen>
+
+    <!-- drop dialog -->
+    <dimen name="drop_dialog_warning_icon_height">32dp</dimen>
+    <dimen name="drop_dialog_radius">5dp</dimen>
 
 </resources>

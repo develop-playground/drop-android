@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/ivWarning"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/drop_dialog_warning_icon_height"
+            android:background="@color/black"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_warning_lime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/Pretendard.Light.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/spacing_20"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivWarning"
+            tools:text="안내 안내 안내 안내" />
+
+        <View
+            android:id="@+id/vHorizontalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/tvContent" />
+
+        <TextView
+            android:id="@+id/tvLeft"
+            style="@style/Pretendard.Light.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/spacing_12"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/vVerticalDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vHorizontalDivider"
+            tools:text="취소" />
+
+        <View
+            android:id="@+id/vVerticalDivider"
+            android:layout_width="0.5dp"
+            android:layout_height="0dp"
+            android:background="@color/gray_light"
+            app:layout_constraintBottom_toBottomOf="@id/tvLeft"
+            app:layout_constraintEnd_toStartOf="@id/tvRight"
+            app:layout_constraintStart_toEndOf="@id/tvLeft"
+            app:layout_constraintTop_toTopOf="@id/tvLeft" />
+
+        <TextView
+            android:id="@+id/tvRight"
+            style="@style/Pretendard.Light.14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/spacing_12"
+            android:textColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/vVerticalDivider"
+            app:layout_constraintTop_toBottomOf="@id/vHorizontalDivider"
+            tools:text="삭제" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -7,8 +7,11 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
+import com.dev.playground.presentation.ui.dialog.DropDialog
+import com.dev.playground.presentation.ui.dialog.show
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import kotlinx.coroutines.flow.collectLatest
@@ -53,7 +56,19 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                     is ShowEditPage -> {
 
                     }
-                    is ShowRemoveDialog -> {
+                    is ShowRemoveDialog -> context?.let { c ->
+                        DropDialog(c).show {
+                            contentText = getString(R.string.drop_dialog_content_remove_memory)
+                            leftText = getString(R.string.drop_dialog_cancel)
+                            rightText = getString(R.string.drop_dialog_delete)
+                            onLeftClick = {
+                                dismiss()
+                            }
+                            onRightClick = {
+                                setEvent(OnClickDeleteMemory(it.id))
+                                dismiss()
+                            }
+                        }
                     }
                 }
             }
