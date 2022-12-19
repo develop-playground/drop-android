@@ -12,7 +12,7 @@ class SetTokenUseCase(
 
     suspend operator fun invoke(params: Auth) = withContext(dispatcher) {
         runCatching {
-            sharedPreferencesRepository.setToken(param)
+            sharedPreferencesRepository.setToken(params)
         }
     }
 

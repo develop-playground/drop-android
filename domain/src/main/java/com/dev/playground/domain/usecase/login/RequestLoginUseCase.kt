@@ -11,7 +11,7 @@ class RequestLoginUseCase(
 
     suspend operator fun invoke(params: String) = withContext(dispatcher) {
         runCatching {
-            authRepository.requestLogin(param)
+            authRepository.requestLogin(params)
         }
     }
 
