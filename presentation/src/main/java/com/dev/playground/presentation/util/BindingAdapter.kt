@@ -2,6 +2,7 @@ package com.dev.playground.presentation.util
 
 import android.graphics.Outline
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
@@ -9,13 +10,24 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.dev.playground.presentation.R
+import java.io.File
 
 @BindingAdapter("imageUrl")
 fun ImageView.setImageUrl(url: String?) {
     url ?: return
     Glide.with(this)
         .load(url)
-        .centerCrop()
+        .fitCenter()
+        .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.gray_medium)))
+        .into(this)
+}
+
+@BindingAdapter("imageFile")
+fun ImageView.setImageUri(file: File?) {
+    file ?: return
+    Glide.with(this)
+        .load(file)
+        .fitCenter()
         .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.gray_medium)))
         .into(this)
 }

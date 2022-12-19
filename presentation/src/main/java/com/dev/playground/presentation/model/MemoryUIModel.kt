@@ -14,7 +14,17 @@ data class MemoryUIModel(
     val createdDate: String,
     val onClickEdit: (Int) -> Unit,
     val onClickRemove: (Int) -> Unit,
-) : SimpleUIModel(R.layout.item_memory), SimpleItemDiffCallback.DiffCallback
+) : SimpleUIModel(R.layout.item_memory) {
+
+    override fun areItemsTheSame(other: SimpleItemDiffCallback.DiffCallback): Boolean {
+        return if (other is MemoryUIModel) {
+            other.id == this.id
+        } else {
+            super.areItemsTheSame(other)
+        }
+    }
+
+}
 
 fun Memory.toPresentation(
     onClickEdit: (Int) -> Unit,

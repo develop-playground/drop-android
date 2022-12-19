@@ -33,7 +33,9 @@
 
         <activity android:name="com.dev.playground.presentation.ui.main.MainActivity" />
         <activity android:name="com.dev.playground.presentation.ui.login.LoginActivity" />
-        <activity android:name="com.dev.playground.presentation.ui.add.AddMemoryActivity" />
+        <activity
+            android:name="com.dev.playground.presentation.ui.add.AddMemoryActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

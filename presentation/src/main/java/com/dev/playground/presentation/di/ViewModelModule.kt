@@ -18,6 +18,12 @@ val viewModelModule = module {
             requestLoginUseCase = get()
         )
     }
-    viewModel { AddMemoryViewModel(uploadPhoto = get(), removePhoto = get()) }
+    viewModel {
+        AddMemoryViewModel(
+            uploadPhoto = get(),
+            postMemory = get(),
+            getAddress = get()
+        )
+    }
     viewModel { FeedViewModel(getMemoryListUseCase = get()) }
 }
