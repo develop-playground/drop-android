@@ -1,7 +1,8 @@
 package com.dev.playground.data.di
 
-import com.dev.playground.data.api.AuthService
-import com.dev.playground.data.api.MemoryService
+import com.dev.playground.data.data_source.remote.AuthService
+import com.dev.playground.data.data_source.remote.LocationService
+import com.dev.playground.data.data_source.remote.MemoryService
 import com.dev.playground.data.util.AuthenticationInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +17,10 @@ import java.util.concurrent.TimeUnit
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 1L
 private const val READ_TIMEOUT = 20L
+
 const val BASE_URL_KEY = "base_url_key"
+const val X_NCP_APIGW_API_KEY_ID = "X-NCP-APIGW-API-KEY-ID"
+const val X_NCP_APIGW_API_KEY = "X-NCP-APIGW-API-KEY"
 
 val networkModule = module {
 
@@ -51,4 +55,5 @@ val networkModule = module {
 
     single { get<Retrofit>().create(AuthService::class.java) }
     single { get<Retrofit>().create(MemoryService::class.java) }
+    single { get<Retrofit>().create(LocationService::class.java) }
 }

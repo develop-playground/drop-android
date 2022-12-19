@@ -1,17 +1,18 @@
 package com.dev.playground.domain.usecase.login
 
-import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.repository.AuthRepository
-import com.dev.playground.domain.usecase.base.CoroutineUseCase
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
 class RequestLoginUseCase(
     private val authRepository: AuthRepository,
-    ioDispatcher: CoroutineDispatcher,
-) : CoroutineUseCase<String, Auth>(ioDispatcher) {
+    private val dispatcher: CoroutineDispatcher,
+) {
 
-    override suspend fun execute(param: String): Auth {
-        return authRepository.requestLogin(param)
+    suspend operator fun invoke(params: String) = withContext(dispatcher) {
+        runCatching {
+            authRepository.requestLogin(params)
+        }
     }
 
 }

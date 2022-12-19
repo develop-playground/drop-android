@@ -49,4 +49,8 @@ dependencies {
     implementation(Dep.AndroidX.Room.runtime)
     implementation(Dep.AndroidX.Room.ktx)
     implementation(Dep.AndroidX.Room.test)
+
+    // firebase
+    implementation(platform(Dep.Firebase.platformBom))
+    implementation(Dep.Firebase.storage)
 }

@@ -8,6 +8,10 @@
     <string name="kakao_native_app_key">642127e0f11def53eeec49c714efe72d</string>
     <string name="manifest_kakao_native_app_key">kakao642127e0f11def53eeec49c714efe72d</string>
 
+    <!-- naver -->
+    <string name="naver_client_id">lvdv2fig1b</string>
+    <string name="naver_client_secret">mUxOpl2cVrogmlcTUAuXaXQLBobuo4fvPGu53kSd</string>
+
     <!-- login -->
     <string name="head_login_activity">나의 어떤 매일을 기록하다,</string>
     <string name="naver_login_view">네이버로 로그인</string>
@@ -24,8 +28,24 @@
     <!-- memory item -->
     <string name="memory_edit">수정</string>
     <string name="memory_remove">삭제</string>
+    <string name="memory_content_more">더보기</string>
     
     <string name="failure_title">Error!</string>
     <string name="failure_subtitle">네트워크를 확인하세요</string>
+
+    <!-- add memory -->
+    <string name="add_memory_empty_location">위치 정보 없음</string>
+    <string name="add_memory_cancel">취소</string>
+    <string name="add_memory_title">새로운 추억</string>
+    <string name="add_memory_content_hint">내용을 입력하세요</string>
+    <string name="add_memory_drop_button">드롭하기</string>
+
+    <string name="add_memory_fail_upload">이미지 업로드에 실패했습니다! 다시 시도해주세요.</string>
+    <string name="add_memory_not_select_photo">선택된 사진이 없습니다.</string>
+    <string name="add_memory_missing_locate_information">선택된 사진에 위치 정보가 없습니다\n위치 정보가 포함된 사진을 선택하시거나, 사진을 찍을 때 위치 옵션을 활성화 해주세요.</string>
+
+    <string name="add_memory_request_permission">추억을 등록하기 위해 권한이 필요합니다.</string>
+    <string name="add_memory_please_grant_permissions">필요한 권한을 허용해주세요.</string>
+    <string name="add_memory_permission_denied">권한이 거절되었습니다!</string>
 
 </resources>

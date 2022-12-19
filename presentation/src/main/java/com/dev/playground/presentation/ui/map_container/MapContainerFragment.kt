@@ -6,6 +6,8 @@ import android.widget.TextView
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
+import com.dev.playground.presentation.ui.add.AddMemoryActivity
+import com.dev.playground.presentation.util.startActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
@@ -88,7 +90,9 @@ class MapContainerFragment :
     }
 
     private fun initViews() = with(binding) {
-
+        ivAddMemory.setOnClickListener {
+            context?.startActivity<AddMemoryActivity> { }
+        }
     }
 
     private fun generateItems(map: NaverMap): ArrayList<MapItem> {
