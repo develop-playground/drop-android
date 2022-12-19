@@ -8,6 +8,10 @@
     <string name="kakao_native_app_key">642127e0f11def53eeec49c714efe72d</string>
     <string name="manifest_kakao_native_app_key">kakao642127e0f11def53eeec49c714efe72d</string>
 
+    <!-- naver -->
+    <string name="naver_client_id">lvdv2fig1b</string>
+    <string name="naver_client_secret">mUxOpl2cVrogmlcTUAuXaXQLBobuo4fvPGu53kSd</string>
+
     <!-- login -->
     <string name="head_login_activity">나의 어떤 매일을 기록하다,</string>
     <string name="naver_login_view">네이버로 로그인</string>

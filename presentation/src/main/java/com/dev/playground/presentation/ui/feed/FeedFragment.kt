@@ -7,7 +7,9 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.ui.feed.FeedViewModel.FeedEvent
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
+import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,22 +48,20 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
 
     private fun initCollects() = with(viewModel) {
         viewLifecycleOwner.repeatOnLifecycleState {
-            eventFlow.collect {
+            effect.collect {
                 when (it) {
-                    is FeedEvent.Edit -> {
+                    is ShowEditPage -> {
 
                     }
-                    is FeedEvent.Remove -> {
+                    is ShowRemoveDialog -> {
                     }
                 }
             }
         }
         viewLifecycleOwner.repeatOnLifecycleState {
-            currentState.collectLatest { state ->
+            uiState.collectLatest { state ->
                 when (state) {
-                    is FeedViewModel.FeedState.Success -> {
-                        feedAdapter.submitList(state.itemList)
-                    }
+                    is Success -> feedAdapter.submitList(state.itemList)
                     else -> Unit
                 }
                 binding.srlFeed.isRefreshing = false

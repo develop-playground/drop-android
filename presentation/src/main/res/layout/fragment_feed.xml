@@ -61,7 +61,7 @@
                 style="@style/Gmarket.Medium.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.currentState.itemSize}"
+                android:text="@{vm.uiState.itemSize}"
                 android:textAppearance="@style/Gmarket.Medium.12"
                 android:textColor="@color/lime"
                 app:layout_constraintBottom_toBottomOf="@id/ivFeedToolbarLogo"
@@ -85,26 +85,26 @@
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:paddingVertical="@dimen/spacing_20"
-                    android:visibility="@{vm.currentState.isSuccess ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.uiState.isSuccess ? View.VISIBLE : View.INVISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <include
                     layout="@layout/layout_empty"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="@{vm.currentState.isEmpty ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{vm.uiState.isEmpty ? View.VISIBLE : View.GONE}" />
 
                 <include
                     layout="@layout/layout_failure"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="@{vm.currentState.hasError ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{vm.uiState.hasError ? View.VISIBLE : View.GONE}" />
 
                 <include
                     layout="@layout/layout_feed_skeleton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="@{vm.currentState.isLoading ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{vm.uiState.isLoading ? View.VISIBLE : View.GONE}" />
 
             </FrameLayout>
 
