@@ -121,5 +121,6 @@ object Dep {
     const val kakaoUser = "com.kakao.sdk:v2-user:2.11.2"
     const val googleService = "com.google.gms:google-services:4.3.13"
     const val balloon = "com.github.skydoves:balloon:1.4.7"
+    const val pickle = "com.charlezz:pickle:1.0.0-beta02"
 
 }
