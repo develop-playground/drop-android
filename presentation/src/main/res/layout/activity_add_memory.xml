@@ -171,8 +171,8 @@
                 android:layout_marginHorizontal="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_20"
                 android:background="@{vm.uiState.addMemoryState.isEmpty ? @color/gray_light : @color/lime}"
-                android:stateListAnimator="@null"
                 android:enabled="@{!vm.uiState.addMemoryState.isEmpty}"
+                android:stateListAnimator="@null"
                 android:text="@string/add_memory_drop_button"
                 android:textAppearance="@style/Gmarket.Medium.18"
                 android:textColor="@{vm.uiState.addMemoryState.isEmpty ? @color/white : @color/black}"
@@ -180,13 +180,23 @@
 
         </LinearLayout>
 
-        <ProgressBar
-            android:layout_width="@dimen/spacing_48"
-            android:layout_height="@dimen/spacing_48"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/lime"
-            android:visibility="@{vm.uiState.isLoading ? View.VISIBLE : View.GONE}" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@color/black"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="@{vm.uiState.isLoading ? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                android:layout_width="@dimen/spacing_48"
+                android:layout_height="@dimen/spacing_48"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/lime" />
+
+        </FrameLayout>
 
     </FrameLayout>
 
