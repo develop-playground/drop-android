@@ -35,4 +35,9 @@ class FirebaseDataSource {
         emit(Result.failure(it))
     }
 
+    fun deletePhotoList(photoList: List<File>) = photoList.forEach {
+        storageRef
+            .child("$PATH_PREFIX${it.name}")
+            .delete()
+    }
 }

@@ -4,5 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface PhotoRepository {
-    fun uploadPhotoList(inputList: List<File>): Flow<Result<List<String>>>
+    fun uploadPhotoList(params: List<File>): Flow<Result<List<String>>>
+    fun deletePhotoList(params: List<File>)
 }

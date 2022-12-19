@@ -20,9 +20,10 @@ val viewModelModule = module {
     }
     viewModel {
         AddMemoryViewModel(
-            uploadPhoto = get(),
-            postMemory = get(),
-            getAddress = get()
+            uploadPhotoUseCase = get(),
+            deletePhotoUseCase = get(),
+            postMemoryUseCase = get(),
+            getAddressUseCase = get()
         )
     }
     viewModel { FeedViewModel(getMemoryListUseCase = get()) }

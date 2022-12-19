@@ -5,6 +5,7 @@ import com.dev.playground.domain.model.Memory
 import com.dev.playground.domain.model.MemoryInput
 import com.dev.playground.domain.usecase.location.GetAddressUseCase
 import com.dev.playground.domain.usecase.memory.PostMemoryUseCase
+import com.dev.playground.domain.usecase.photo.DeletePhotoUseCase
 import com.dev.playground.domain.usecase.photo.UploadPhotoUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.PhotoUIModel
@@ -22,9 +23,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 class AddMemoryViewModel(
-    private val uploadPhoto: UploadPhotoUseCase,
-    private val postMemory: PostMemoryUseCase,
-    private val getAddress: GetAddressUseCase,
+    private val uploadPhotoUseCase: UploadPhotoUseCase,
+    private val deletePhotoUseCase: DeletePhotoUseCase,
+    private val postMemoryUseCase: PostMemoryUseCase,
+    private val getAddressUseCase: GetAddressUseCase,
 ) : BaseViewModel<State, Event, Effect>(State(Empty)) {
 
     companion object {
@@ -58,7 +60,7 @@ class AddMemoryViewModel(
                     longitude = longitude,
                     latitude = latitude
                 )
-                getAddress.invoke(location)
+                getAddressUseCase.invoke(location)
                     .onSuccess {
                         setState {
                             copy(
@@ -94,7 +96,7 @@ class AddMemoryViewModel(
                 is SelectedPhoto -> {
                     setState { copy(isLoading = true) }
 
-                    uploadPhoto.invoke(state.fileList).collectLatest { result ->
+                    uploadPhotoUseCase.invoke(state.fileList).collectLatest { result ->
                         result
                             .onSuccess { urlList ->
                                 postMemory(urlList = urlList, oldState = state)
@@ -114,7 +116,7 @@ class AddMemoryViewModel(
         urlList: List<String>,
         oldState: SelectedPhoto,
     ) {
-        postMemory.invoke(
+        postMemoryUseCase.invoke(
             MemoryInput(
                 imageUrls = urlList,
                 content = content.value,
@@ -124,9 +126,14 @@ class AddMemoryViewModel(
         ).onSuccess {
             setEffect { Dropped }
         }.onFailure {
+            deletePhoto(oldState.fileList)
             setEffect { FailUpload }
         }
         setState { copy(isLoading = false) }
+    }
+
+    private suspend fun deletePhoto(params: List<File>) {
+        deletePhotoUseCase.invoke(params)
     }
 
     private fun removePhoto(index: Int) {

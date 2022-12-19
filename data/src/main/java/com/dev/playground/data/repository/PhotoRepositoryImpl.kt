@@ -8,6 +8,8 @@ class PhotoRepositoryImpl(
     private val dataSource: FirebaseDataSource,
 ) : PhotoRepository {
 
-    override fun uploadPhotoList(inputList: List<File>) = dataSource.uploadPhotoList(inputList)
+    override fun uploadPhotoList(params: List<File>) = dataSource.uploadPhotoList(params)
+
+    override fun deletePhotoList(params: List<File>) = dataSource.deletePhotoList(params)
 
 }
