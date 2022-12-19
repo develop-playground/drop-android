@@ -23,6 +23,7 @@
         <ImageButton
             android:layout_width="@dimen/photo_remove_size"
             android:layout_height="@dimen/photo_remove_size"
+            android:background="@drawable/ic_remove_x"
             android:layout_gravity="top|end"
             android:onClick="@{() -> item.onClickRemove.invoke(item.index)}" />
 

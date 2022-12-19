@@ -42,7 +42,7 @@
 
     <string name="add_memory_fail_upload">이미지 업로드에 실패했습니다! 다시 시도해주세요.</string>
     <string name="add_memory_not_select_photo">선택된 사진이 없습니다.</string>
-    <string name="add_memory_missing_locate_information">첫 번째로 선택한 사진에 위치 정보가 없습니다\n위치 정보가 포함된 사진을 선택하시거나, 사진을 찍을 때 위치 옵션을 활성화 해주세요.</string>
+    <string name="add_memory_missing_locate_information">선택된 사진에 위치 정보가 없습니다\n위치 정보가 포함된 사진을 선택하시거나, 사진을 찍을 때 위치 옵션을 활성화 해주세요.</string>
 
     <string name="add_memory_request_permission">추억을 등록하기 위해 권한이 필요합니다.</string>
     <string name="add_memory_please_grant_permissions">필요한 권한을 허용해주세요.</string>

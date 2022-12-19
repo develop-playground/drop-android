@@ -52,7 +52,7 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
     })
 
     private fun onSelectedPhotoList(result: ArrayList<Media>) {
-        val latLng = result.firstOrNull()?.getLatLng(this)
+        val latLng = result.findLatLng(this)
 
         viewModel.selectPhotoList(
             result = result.mapNotNull { it.mapToFile(this) },

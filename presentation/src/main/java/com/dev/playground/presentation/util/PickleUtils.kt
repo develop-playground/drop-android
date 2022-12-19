@@ -15,7 +15,17 @@ private fun Media.getRealPath(context: Context): String? {
 
 fun Media.mapToFile(context: Context): File? = getRealPath(context)?.let { path -> File(path) }
 
-fun Media.getLatLng(context: Context): FloatArray? {
+fun List<Media>.findLatLng(context: Context): FloatArray? {
+    forEach {
+        val latLng = it.getLatLng(context)
+        if (latLng != null) {
+            return latLng
+        }
+    }
+    return null
+}
+
+private fun Media.getLatLng(context: Context): FloatArray? {
     return try {
         getRealPath(context)?.let {
             val exif = ExifInterface(it)
