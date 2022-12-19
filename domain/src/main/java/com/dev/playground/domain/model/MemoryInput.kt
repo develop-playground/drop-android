@@ -1,8 +1,8 @@
 package com.dev.playground.domain.model
 
 data class MemoryInput(
-    val imageUrlList: List<String>,
-    val createdDate: String,
+    val imageUrls: List<String>,
+    val content: String,
+    val location: Memory.Location,
     val address: String,
-    val content: String?
 )
