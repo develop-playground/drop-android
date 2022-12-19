@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
             type="com.dev.playground.presentation.model.MemoryUIModel" />
@@ -101,15 +100,17 @@
             android:layout_height="wrap_content"
             app:itemList="@{item.imageList}" />
 
-        <kr.co.prnd.readmore.ReadMoreTextView
+        <com.webtoonscorp.android.readmore.ReadMoreTextView
             style="@style/Pretendard.Light.14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_16"
             android:text="@{item.content}"
             android:textColor="@color/black"
-            app:readMoreColor="@color/gray_medium"
-            app:readMoreMaxLine="2" />
+            app:readMoreTextAppearance="@style/Pretendard.Light.14"
+            app:readMoreTextColor="@color/gray_medium"
+            app:readMoreText="@string/memory_content_more"
+            app:readMoreMaxLines="2" />
 
     </LinearLayout>
 </layout>

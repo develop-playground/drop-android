@@ -113,7 +113,8 @@ object Dep {
 
     const val ksp = "com.google.devtools.ksp:symbol-processing-api:1.6.10-1.0.4"
     const val naverMap = "com.naver.maps:map-sdk:3.16.0"
-    const val readMoreTextView = "kr.co.prnd:readmore-textview:1.0.0"
+    const val readMoreTextView = "com.webtoonscorp.android:readmore-view:1.1.4-SNAPSHOT"
+
     const val clustering = "io.github.ParkSangGwon:tedclustering-naver:1.0.2"
     const val lottie = "com.airbnb.android:lottie:5.0.3"
     const val gson = "com.google.code.gson:gson:2.8.7"

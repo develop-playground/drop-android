@@ -28,6 +28,7 @@
     <!-- memory item -->
     <string name="memory_edit">수정</string>
     <string name="memory_remove">삭제</string>
+    <string name="memory_content_more">더보기</string>
     
     <string name="failure_title">Error!</string>
     <string name="failure_subtitle">네트워크를 확인하세요</string>
