@@ -19,9 +19,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvLoginView"
+            style="@style/Pretendard.Regular.16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Pretendard.Regular.16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

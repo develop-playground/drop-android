@@ -1,71 +1,55 @@
 package com.dev.playground.presentation.ui.feed
 
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
-import com.dev.playground.presentation.model.ImageCarouselItemUIModel
-import com.dev.playground.presentation.model.MemoryUIModel
-import com.dev.playground.presentation.ui.feed.FeedViewModel.FeedEvent
-import com.dev.playground.presentation.ui.feed.FeedViewModel.FeedState
+import com.dev.playground.presentation.model.toPresentation
+import com.dev.playground.presentation.ui.feed.FeedContract.*
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickEdit
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickRemove
+import com.dev.playground.presentation.ui.feed.FeedContract.State.*
 import kotlinx.coroutines.launch
 
-// TODO 로컬 DB or 네트워크에서 실제 데이터 받아와야 함.
-class FeedViewModel : BaseViewModel<FeedState, FeedEvent>(FeedState.Loading) {
+class FeedViewModel(
+    private val getMemoryListUseCase: GetMemoryListUseCase,
+) : BaseViewModel<State, Event, Effect>(Loading) {
 
     init {
         fetch()
     }
 
-    private fun fetch() {
+    fun fetch() {
         viewModelScope.launch {
-            updateState {
-                FeedState.Success(
-                    itemList = listOf(
-                        itemOf("0"),
-                        itemOf("1"),
-                        itemOf("2")
+            // TODO paging 처리
+            val result = getMemoryListUseCase.invoke(0)
+            result.onSuccess {
+                setState {
+                    Success(
+                        it.map { memory ->
+                            memory.toPresentation(
+                                onClickEdit = { id -> setEvent(OnClickEdit(id)) },
+                                onClickRemove = { id -> setEvent(OnClickRemove(id)) }
+                            )
+                        }
                     )
-                )
+                }
+            }.onFailure {
+                setState {
+                    Failure(it)
+                }
             }
         }
     }
 
-    private fun itemOf(id: String) = MemoryUIModel(
-        id = id,
-        title = "돌고기506",
-        description = "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세",
-        location = "서울시 역삼동",
-        imageList = listOf(
-            ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
-            ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
-            ImageCarouselItemUIModel("https://m.convenii.com/web/upload/NNEditor/20210806/mobile/a0b819501ea9caeccd00d197066ba2d0_1628245087.jpg"),
-        ),
-    ) {
-        event(FeedEvent.Edit(it))
-    }
-
-    sealed interface FeedEvent : UiEvent {
-        data class Edit(val id: String) : FeedEvent
-    }
-
-    sealed interface FeedState : UiState {
-        data class Success(val itemList: List<MemoryUIModel>) : FeedState
-        object Loading : FeedState
-
-        val isSuccess
-            get() = this is Success && this.itemList.isNotEmpty()
-
-        val isEmpty
-            get() = this is Success && this.itemList.isEmpty()
-
-        val isLoading
-            get() = this is Loading
-
-        val itemSize: String
-            get() = if (this is Success && this.itemList.isNotEmpty()) {
-                itemList.size.toString()
-            } else {
-                "0"
+    override fun handleEvent(event: Event) {
+        setEffect {
+            when (event) {
+                is OnClickEdit -> ShowEditPage(event.id)
+                is OnClickRemove -> ShowRemoveDialog(event.id)
             }
+        }
     }
 
 }

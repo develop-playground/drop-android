@@ -66,6 +66,12 @@ dependencies {
     // clustering
     implementation(Dep.clustering)
 
+    // balloon
+    implementation(Dep.balloon)
+
+    // image picker
+    implementation(Dep.pickle)
+
     // test
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.junitExt)

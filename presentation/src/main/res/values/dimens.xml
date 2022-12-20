@@ -4,6 +4,7 @@
     <!-- spacing - using padding & margin -->
     <dimen name="spacing_0">0dp</dimen>
     <dimen name="spacing_2">2dp</dimen>
+    <dimen name="spacing_3">3dp</dimen>
     <dimen name="spacing_4">4dp</dimen>
     <dimen name="spacing_8">8dp</dimen>
     <dimen name="spacing_10">10dp</dimen>
@@ -11,9 +12,14 @@
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="spacing_20">20dp</dimen>
     <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_28">28dp</dimen>
     <dimen name="spacing_32">32dp</dimen>
     <dimen name="spacing_48">48dp</dimen>
     <dimen name="spacing_100">100dp</dimen>
+
+    <!-- common -->
+    <dimen name="toolbar_height">52dp</dimen>
+    <dimen name="line_empty_or_failure_height">4dp</dimen>
 
     <!-- main -->
     <dimen name="bottom_navigation_height">52dp</dimen>
@@ -23,11 +29,23 @@
     <dimen name="login_view_constraintLayout_height">48dp</dimen>
 
     <!-- feed -->
-    <dimen name="feed_toolbar_height">52dp</dimen>
     <dimen name="feed_skeleton_title_height">28dp</dimen>
     <dimen name="feed_skeleton_content_height">360dp</dimen>
     <dimen name="feed_skeleton_description_height">20dp</dimen>
     <dimen name="feed_skeleton_radius">5dp</dimen>
+
+    <!-- map container -->
+    <dimen name="map_container_add_button_size">48dp</dimen>
+
+    <!-- add memory -->
+    <dimen name="add_memory_location_radius">50dp</dimen>
+    <dimen name="add_memory_photo_radius">10dp</dimen>
+    <dimen name="add_memory_photo_button_size">48dp</dimen>
+    <dimen name="add_memory_content_min_height">100dp</dimen>
+    <dimen name="add_memory_content_bg_stroke_width">1dp</dimen>
+    <dimen name="add_memory_content_bg_radius">5dp</dimen>
+    <dimen name="add_memory_drop_button_radius">5dp</dimen>
+    <dimen name="add_memory_drop_button_height">44dp</dimen>
 
     <!-- image pager -->
     <dimen name="image_pager_tab_indicator_thickness">2dp</dimen>
@@ -35,5 +53,6 @@
 
     <!-- custom login button -->
     <dimen name="round_rect_outline_provider_button_radius">5dp</dimen>
+    <dimen name="photo_remove_size">36dp</dimen>
 
 </resources>

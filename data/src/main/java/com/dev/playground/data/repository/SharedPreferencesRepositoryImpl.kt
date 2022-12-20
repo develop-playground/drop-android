@@ -1,23 +1,23 @@
 package com.dev.playground.data.repository
 
-import com.dev.playground.data.util.SharedPreferencesManager
+import com.dev.playground.data.data_source.local.SharedPreferencesDataSource
 import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.repository.SharedPreferencesRepository
 
 class SharedPreferencesRepositoryImpl(
-    private val sharedPreferencesManager: SharedPreferencesManager
+    private val sharedPreferencesDataSource: SharedPreferencesDataSource
 ) : SharedPreferencesRepository {
 
     override suspend fun getToken(): Auth? {
-        return sharedPreferencesManager.getToken()
+        return sharedPreferencesDataSource.getToken()
     }
 
     override suspend fun setToken(token: Auth) {
-        return sharedPreferencesManager.setToken(token)
+        return sharedPreferencesDataSource.setToken(token)
     }
 
     override suspend fun removeToken() {
-        return sharedPreferencesManager.removeToken()
+        return sharedPreferencesDataSource.removeToken()
     }
 
 }

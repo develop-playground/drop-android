@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
             type="com.dev.playground.presentation.model.MemoryUIModel" />
@@ -13,62 +12,85 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clPostGroupTitle"
+            android:id="@+id/clMemoryTitleArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvPostGroupTitle"
+            <ImageView
+                android:id="@+id/ivMemoryPrefix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{@string/feed_post_group_title_prefix(item.title)}"
-                android:textAppearance="@style/Gmarket.Bold"
-                android:textColor="@color/black"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="@id/tvPostGroupLocation"
-                app:layout_constraintEnd_toStartOf="@id/tvPostGroupLocation"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="|돝고기506" />
+                android:src="@drawable/ic_memory_prefix"
+                app:layout_constraintBottom_toBottomOf="@id/tvMemoryAddress"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvPostGroupLocation"
+                android:id="@+id/tvMemoryTitle"
+                style="@style/Gmarket.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.createdDate}"
+                android:textColor="@color/black"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@id/tvMemoryAddress"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/ivMemoryPrefix"
+                tools:text="2021-12-01" />
+
+            <TextView
+                android:id="@+id/tvMemoryAddress"
+                style="@style/Pretendard.Light.12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/spacing_8"
                 android:layout_marginStart="@dimen/spacing_4"
-                android:layout_marginEnd="@dimen/spacing_16"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.location}"
-                android:textAppearance="@style/Pretendard.Light.12"
+                android:text="@{item.address}"
                 android:textColor="@color/black"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvPostGroupEdit"
-                app:layout_constraintStart_toEndOf="@id/tvPostGroupTitle"
+                app:layout_constraintEnd_toStartOf="@id/llMemoryEdit"
+                app:layout_constraintStart_toEndOf="@id/tvMemoryTitle"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="서울시 역삼동" />
 
-            <TextView
-                android:id="@+id/tvPostGroupEdit"
+            <LinearLayout
+                android:id="@+id/llMemoryEdit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_16"
-                android:onClick="@{() -> item.onEditPost.invoke(item.id)}"
-                android:text="@string/post_group_edit_button_text"
-                android:textColor="@color/gray_medium"
-                android:textSize="11sp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/spacing_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/shape_memory_item_edit_dot" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:background="@drawable/shape_memory_item_edit_dot" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:background="@drawable/shape_memory_item_edit_dot" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,15 +100,17 @@
             android:layout_height="wrap_content"
             app:itemList="@{item.imageList}" />
 
-        <kr.co.prnd.readmore.ReadMoreTextView
+        <com.webtoonscorp.android.readmore.ReadMoreTextView
+            style="@style/Pretendard.Light.14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_16"
-            android:text="@{item.description}"
-            android:textAppearance="@style/Pretendard.Light.14"
+            android:text="@{item.content}"
             android:textColor="@color/black"
-            app:readMoreColor="@color/gray_medium"
-            app:readMoreMaxLine="2" />
+            app:readMoreTextAppearance="@style/Pretendard.Light.14"
+            app:readMoreTextColor="@color/gray_medium"
+            app:readMoreText="@string/memory_content_more"
+            app:readMoreMaxLines="2" />
 
     </LinearLayout>
 </layout>
