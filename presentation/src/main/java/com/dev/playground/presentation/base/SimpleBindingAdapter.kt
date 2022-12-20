@@ -25,7 +25,8 @@ open class SimpleBindingAdapter<T, VH>(
             parent,
             false
         )
-        return (viewHolderClazz?.getDeclaredConstructor(ViewDataBinding::class.java)?.newInstance(binding) ?: SimpleBindingViewHolder(binding)) as VH
+        return (viewHolderClazz?.getDeclaredConstructor(ViewDataBinding::class.java)
+            ?.newInstance(binding) ?: SimpleBindingViewHolder(binding)) as VH
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
