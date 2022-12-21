@@ -9,7 +9,6 @@ import com.dev.playground.presentation.databinding.FragmentSettingBinding
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.FailLoadEmail
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,14 +35,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     private fun initCollects() = with(viewModel) {
         repeatOnLifecycleState {
             launch {
-                uiState.collectLatest { state ->
+                uiState.collect { state ->
                     when (state) {
                         is Success -> binding.tvEmail.text = state.email
                     }
                 }
             }
             launch {
-                effect.collectLatest {
+                effect.collect {
                     when (it) {
                         FailLoadEmail -> {}
                     }

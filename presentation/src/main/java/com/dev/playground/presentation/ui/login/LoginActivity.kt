@@ -12,7 +12,6 @@ import com.dev.playground.presentation.ui.main.MainActivity
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
 import com.dev.playground.presentation.util.startActivity
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -59,7 +58,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 }
             }
             launch {
-                loginEvent.collectLatest {
+                loginEvent.collect {
                     when (it) {
                         is SaveSNSToken -> requestLogin("KAKAO")
                         else -> {

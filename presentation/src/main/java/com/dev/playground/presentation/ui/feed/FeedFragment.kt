@@ -14,7 +14,6 @@ import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDia
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,6 +52,15 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     private fun initCollects() = with(viewModel) {
         repeatOnLifecycleState {
             launch {
+                uiState.collect { state ->
+                    when (state) {
+                        is Success -> feedAdapter.submitList(state.itemList)
+                        else -> Unit
+                    }
+                    binding.srlFeed.isRefreshing = false
+                }
+            }
+            launch {
                 effect.collect {
                     when (it) {
                         is ShowEditPage -> {
@@ -73,15 +81,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                             }
                         }
                     }
-                }
-            }
-            launch {
-                uiState.collectLatest { state ->
-                    when (state) {
-                        is Success -> feedAdapter.submitList(state.itemList)
-                        else -> Unit
-                    }
-                    binding.srlFeed.isRefreshing = false
                 }
             }
         }
