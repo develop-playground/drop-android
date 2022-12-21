@@ -3,7 +3,7 @@ package com.dev.playground.presentation.ui.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.model.Auth
-import com.dev.playground.domain.usecase.login.GetTokenUseCase
+import com.dev.playground.domain.usecase.user.login.GetTokenUseCase
 import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

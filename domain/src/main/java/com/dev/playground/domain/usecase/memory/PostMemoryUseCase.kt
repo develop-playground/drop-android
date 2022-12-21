@@ -5,15 +5,10 @@ import com.dev.playground.domain.repository.MemoryRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-class PostMemoryUseCase(
-    private val repository: MemoryRepository,
-    private val dispatcher: CoroutineDispatcher,
-) {
+class PostMemoryUseCase(private val repository: MemoryRepository) {
 
-    suspend operator fun invoke(params: MemoryInput) = withContext(dispatcher) {
-        runCatching {
-            repository.postMemory(params)
-        }
+    suspend operator fun invoke(params: MemoryInput) = runCatching {
+        repository.postMemory(params)
     }
 
 }

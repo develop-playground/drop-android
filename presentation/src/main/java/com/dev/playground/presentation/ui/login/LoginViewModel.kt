@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.model.Auth
 import com.dev.playground.domain.model.type.TokenType
-import com.dev.playground.domain.usecase.login.RequestLoginUseCase
-import com.dev.playground.domain.usecase.login.SetTokenUseCase
+import com.dev.playground.domain.usecase.user.login.RequestLoginUseCase
+import com.dev.playground.domain.usecase.user.login.SetTokenUseCase
 import com.dev.playground.presentation.ui.login.LoginViewModel.LoginEvent.SaveDropToken
 import com.dev.playground.presentation.ui.login.LoginViewModel.LoginEvent.SaveSNSToken
 import com.dev.playground.presentation.ui.login.LoginViewModel.LoginState.*
