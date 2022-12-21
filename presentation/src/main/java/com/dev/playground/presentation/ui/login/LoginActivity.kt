@@ -13,6 +13,7 @@ import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
@@ -44,28 +45,31 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun initCollect() = with(viewModel) {
         repeatOnLifecycleState {
-            loginEvent.collectLatest {
-                when (it) {
-                    is SaveSNSToken -> requestLogin("KAKAO")
-                    else -> {
-                        startActivity<MainActivity> { }
-                        finish()
+            launch {
+                loginState.collect {
+                    when (it) {
+                        is Success -> storeToken(
+                            it.data.accessToken,
+                            it.data.refreshToken,
+                            TokenType.DROP
+                        )
+                        is Failure -> showToast("로그인 실패 ${it.error}")
+                        else -> Unit
                     }
                 }
             }
-        }
-        repeatOnLifecycleState {
-            loginState.collect {
-                when (it) {
-                    is Success -> storeToken(
-                        it.data.accessToken,
-                        it.data.refreshToken,
-                        TokenType.DROP
-                    )
-                    is Failure -> showToast("로그인 실패 ${it.error}")
-                    else -> Unit
+            launch {
+                loginEvent.collectLatest {
+                    when (it) {
+                        is SaveSNSToken -> requestLogin("KAKAO")
+                        else -> {
+                            startActivity<MainActivity> { }
+                            finish()
+                        }
+                    }
                 }
             }
+
         }
     }
 

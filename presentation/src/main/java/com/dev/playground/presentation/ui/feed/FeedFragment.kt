@@ -15,6 +15,7 @@ import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteM
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), ScrollableScreen {
@@ -50,36 +51,38 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     }
 
     private fun initCollects() = with(viewModel) {
-        viewLifecycleOwner.repeatOnLifecycleState {
-            effect.collect {
-                when (it) {
-                    is ShowEditPage -> {
+        repeatOnLifecycleState {
+            launch {
+                effect.collect {
+                    when (it) {
+                        is ShowEditPage -> {
 
-                    }
-                    is ShowRemoveDialog -> context?.let { c ->
-                        DropDialog(c).show {
-                            contentText = getString(R.string.drop_dialog_content_remove_memory)
-                            leftText = getString(R.string.drop_dialog_cancel)
-                            rightText = getString(R.string.drop_dialog_delete)
-                            onLeftClick = {
-                                dismiss()
-                            }
-                            onRightClick = {
-                                setEvent(OnClickDeleteMemory(it.id))
-                                dismiss()
+                        }
+                        is ShowRemoveDialog -> context?.let { c ->
+                            DropDialog(c).show {
+                                contentText = getString(R.string.drop_dialog_content_remove_memory)
+                                leftText = getString(R.string.drop_dialog_cancel)
+                                rightText = getString(R.string.drop_dialog_delete)
+                                onLeftClick = {
+                                    dismiss()
+                                }
+                                onRightClick = {
+                                    setEvent(OnClickDeleteMemory(it.id))
+                                    dismiss()
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        viewLifecycleOwner.repeatOnLifecycleState {
-            uiState.collectLatest { state ->
-                when (state) {
-                    is Success -> feedAdapter.submitList(state.itemList)
-                    else -> Unit
+            launch {
+                uiState.collectLatest { state ->
+                    when (state) {
+                        is Success -> feedAdapter.submitList(state.itemList)
+                        else -> Unit
+                    }
+                    binding.srlFeed.isRefreshing = false
                 }
-                binding.srlFeed.isRefreshing = false
             }
         }
     }
