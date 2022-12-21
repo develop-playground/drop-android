@@ -12,4 +12,6 @@ interface SharedPreferencesRepository {
 
     suspend fun getLoginType(): String?
 
+    suspend fun clearAuth()
+
 }

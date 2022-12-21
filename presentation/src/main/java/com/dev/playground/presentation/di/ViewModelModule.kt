@@ -14,10 +14,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        LoginViewModel(
-            setTokenUseCase = get(),
-            requestLoginUseCase = get()
-        )
+        LoginViewModel(requestLoginUseCase = get())
     }
     viewModel {
         AddMemoryViewModel(

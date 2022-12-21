@@ -16,11 +16,14 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
     factory { GetTokenUseCase(get()) }
-    factory { SetTokenUseCase(get()) }
 
-    factory { RemoveKakaoTokenUseCase(get()) }
-    factory { RequestLoginUseCase(get()) }
     factory { GetUserUseCase(get()) }
+    factory {
+        RequestLoginUseCase(
+            authRepository = get(),
+            sharedPreferencesRepository = get()
+        )
+    }
     factory { GetLoginTypeUseCase(get()) }
 
     factory { GetMemoryListUseCase(get()) }

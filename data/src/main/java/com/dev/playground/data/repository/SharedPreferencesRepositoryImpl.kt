@@ -23,6 +23,9 @@ class SharedPreferencesRepositoryImpl(
     override suspend fun setLoginType(type: String) {
         return sharedPreferencesDataSource.setLoginType(type)
     }
+
+    override suspend fun clearAuth() {
+        return sharedPreferencesDataSource.removeAuth()
     }
 
 }

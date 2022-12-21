@@ -1,13 +1,13 @@
 package com.dev.playground.presentation.ui.login
 
+import android.content.Intent
 import android.os.Bundle
-import com.dev.playground.domain.model.type.TokenType
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
-import com.dev.playground.presentation.ui.login.LoginViewModel.LoginEvent.SaveSNSToken
-import com.dev.playground.presentation.ui.login.LoginViewModel.LoginState.Failure
-import com.dev.playground.presentation.ui.login.LoginViewModel.LoginState.Success
+import com.dev.playground.presentation.ui.login.LoginContract.Effect.RouteMainPage
+import com.dev.playground.presentation.ui.login.LoginContract.Effect.ShowFailRequestLoginToast
+import com.dev.playground.presentation.ui.login.LoginContract.Event.OnSnsLoginComplete
 import com.dev.playground.presentation.ui.main.MainActivity
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
@@ -17,54 +17,43 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
+    private val kakaoLoginManager: KakaoLoginManager by lazy {
+        KakaoLoginManager(this)
+    }
     private val viewModel: LoginViewModel by viewModel()
-    private val kakaoManager: KakaoManager by lazy {
-        KakaoManager(this, onSuccessLogin, onFailureLogin)
-    }
-
-    private val onSuccessLogin: (String, String) -> Unit by lazy {
-        { accessToken, refreshToken ->
-            viewModel.storeToken(accessToken, refreshToken, TokenType.SNS)
-        }
-    }
-
-    private val onFailureLogin: (Throwable) -> Unit by lazy {
-        { throwable -> showToast("카카오 로그인 실패 $throwable") }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding.cvLoginButton.setOnClickListener {
-            kakaoManager.isKakaoLogin()
-        }
-
+        initViews()
         initCollect()
+    }
+
+    private fun initViews() = with(binding) {
+        cvLoginButton.setOnClickListener {
+            kakaoLoginManager.login(
+                onSuccess = { token, type ->
+                    viewModel.setEvent(
+                        OnSnsLoginComplete(token, type)
+                    )
+                },
+                onFailure = {
+                    showToast(getString(R.string.failure_kakao_login))
+                }
+            )
+        }
     }
 
     private fun initCollect() = with(viewModel) {
         repeatOnLifecycleState {
             launch {
-                loginState.collect {
+                effect.collect {
                     when (it) {
-                        is Success -> storeToken(
-                            it.data.accessToken,
-                            it.data.refreshToken,
-                            TokenType.DROP
-                        )
-                        is Failure -> showToast("로그인 실패 ${it.error}")
-                        else -> Unit
-                    }
-                }
-            }
-            launch {
-                loginEvent.collect {
-                    when (it) {
-                        is SaveSNSToken -> requestLogin("KAKAO")
-                        else -> {
-                            startActivity<MainActivity> { }
-                            finish()
+                        RouteMainPage -> startActivity<MainActivity> {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         }
+                        is ShowFailRequestLoginToast -> showToast(
+                            getString(R.string.failure_request_login)
+                        )
                     }
                 }
             }
