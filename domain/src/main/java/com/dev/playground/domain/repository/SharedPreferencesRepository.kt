@@ -9,5 +9,8 @@ interface SharedPreferencesRepository {
     suspend fun setToken(token: Auth)
 
     suspend fun removeToken()
+    suspend fun setLoginType(type: String)
+
+    suspend fun getLoginType(): String?
 
 }

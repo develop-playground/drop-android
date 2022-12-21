@@ -18,6 +18,13 @@ class SharedPreferencesRepositoryImpl(
 
     override suspend fun removeToken() {
         return sharedPreferencesDataSource.removeToken()
+    override suspend fun getLoginType(): String? {
+        return sharedPreferencesDataSource.getLoginType()
+    }
+
+    override suspend fun setLoginType(type: String) {
+        return sharedPreferencesDataSource.setLoginType(type)
+    }
     }
 
 }
