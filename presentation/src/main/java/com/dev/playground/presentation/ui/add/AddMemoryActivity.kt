@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.charlezz.pickle.Config
 import com.charlezz.pickle.Pickle
@@ -22,7 +21,7 @@ import com.dev.playground.presentation.model.PhotoUIModel
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowErrorToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
 import com.dev.playground.presentation.util.*
 import com.google.android.material.tabs.TabLayoutMediator
