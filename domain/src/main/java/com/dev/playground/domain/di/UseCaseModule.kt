@@ -25,6 +25,12 @@ val useCaseModule = module {
         )
     }
     factory { GetLoginTypeUseCase(get()) }
+    factory {
+        RequestLogoutUseCase(
+            authRepository = get(),
+            sharedPreferencesRepository = get()
+        )
+    }
 
     factory { GetMemoryListUseCase(get()) }
     factory { PostMemoryUseCase(get()) }

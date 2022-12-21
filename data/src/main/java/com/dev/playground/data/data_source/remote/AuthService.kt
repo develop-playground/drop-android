@@ -15,4 +15,7 @@ interface AuthService {
     @GET("auth/user")
     suspend fun getUser(): UserData
 
+    @POST("auth/logout")
+    suspend fun postLogout()
+
 }

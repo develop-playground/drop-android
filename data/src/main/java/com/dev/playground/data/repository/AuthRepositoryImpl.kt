@@ -12,4 +12,6 @@ class AuthRepositoryImpl(private val service: AuthService) : AuthRepository {
 
     override suspend fun getUser(): User = service.getUser().toDomain()
 
+    override suspend fun postLogout() = service.postLogout()
+
 }

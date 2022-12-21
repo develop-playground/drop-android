@@ -8,4 +8,7 @@ interface AuthRepository {
     suspend fun requestLogin(memberType: String): Token
 
     suspend fun getUser(): User
+
+    suspend fun postLogout()
+
 }

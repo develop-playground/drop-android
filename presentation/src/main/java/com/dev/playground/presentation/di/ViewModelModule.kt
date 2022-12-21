@@ -33,6 +33,7 @@ val viewModelModule = module {
     viewModel {
         SettingViewModel(
             getUserUseCase = get()
+            requestLogoutUseCase = get()
         )
     }
 }
