@@ -56,4 +56,7 @@
     <string name="drop_dialog_cancel">취소</string>
     <string name="drop_dialog_delete">삭제</string>
 
+    <!-- setting -->
+    <string name="setting_title">회원 정보</string>
+
 </resources>

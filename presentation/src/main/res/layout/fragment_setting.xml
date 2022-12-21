@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.dev.playground.presentation.ui.setting.SettingViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_16"
-                android:text="회원 정보"
+                android:text="@string/setting_title"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,10 +61,15 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:background="@drawable/bg_setting_sns_icon"
+                android:padding="@dimen/spacing_2"
                 android:scaleType="centerInside"
+                android:src="@{context.getDrawable(vm.uiState.loginIcon)}"
+                android:visibility="@{vm.uiState.isSuccess ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@id/tvEmail"
                 app:layout_constraintStart_toStartOf="@id/ivLogo"
-                app:layout_constraintTop_toTopOf="@id/tvEmail" />
+                app:layout_constraintTop_toTopOf="@id/tvEmail"
+                app:tint="@color/black"
+                tools:src="@drawable/ic_kakao_logo"/>
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -64,7 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_4"
                 android:layout_marginTop="@dimen/spacing_8"
+                android:text="@{vm.uiState.userEmail}"
                 android:textColor="@color/gray_medium"
+                android:visibility="@{vm.uiState.isSuccess ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toEndOf="@id/ivSnsIcon"
                 app:layout_constraintTop_toBottomOf="@id/ivLogo"
                 tools:text="drop@naver.com" />
