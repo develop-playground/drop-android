@@ -19,6 +19,7 @@ val useCaseModule = module {
 
     factory { RemoveKakaoTokenUseCase(get(), get(named(IO))) }
     factory { RequestLoginUseCase(get(), get(named(IO))) }
+    factory { GetUserUseCase(get()) }
 
     factory { GetMemoryListUseCase(get(), get(named(IO))) }
     factory { PostMemoryUseCase(get(), get(named(IO))) }
