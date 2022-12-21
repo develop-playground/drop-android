@@ -26,5 +26,10 @@ val viewModelModule = module {
             getAddressUseCase = get()
         )
     }
-    viewModel { FeedViewModel(getMemoryListUseCase = get()) }
+    viewModel {
+        FeedViewModel(
+            getMemoryListUseCase = get(),
+            deleteMemoryUseCase = get()
+        )
+    }
 }

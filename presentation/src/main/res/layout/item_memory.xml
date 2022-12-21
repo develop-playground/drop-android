@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="com.dev.playground.presentation.model.MemoryUIModel" />
@@ -66,6 +67,7 @@
                 android:id="@+id/llMemoryEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/spacing_16"
@@ -107,10 +109,10 @@
             android:layout_marginHorizontal="@dimen/spacing_16"
             android:text="@{item.content}"
             android:textColor="@color/black"
-            app:readMoreTextAppearance="@style/Pretendard.Light.14"
-            app:readMoreTextColor="@color/gray_medium"
+            app:readMoreMaxLines="2"
             app:readMoreText="@string/memory_content_more"
-            app:readMoreMaxLines="2" />
+            app:readMoreTextAppearance="@style/Pretendard.Light.14"
+            app:readMoreTextColor="@color/gray_medium" />
 
     </LinearLayout>
 </layout>

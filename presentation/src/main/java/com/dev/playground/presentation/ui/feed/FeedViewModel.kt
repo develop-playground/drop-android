@@ -1,6 +1,7 @@
 package com.dev.playground.presentation.ui.feed
 
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.usecase.memory.DeleteMemoryUseCase
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.toPresentation
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 
 class FeedViewModel(
     private val getMemoryListUseCase: GetMemoryListUseCase,
+    private val deleteMemoryUseCase: DeleteMemoryUseCase,
 ) : BaseViewModel<State, Event, Effect>(Loading) {
 
     init {
@@ -43,12 +45,22 @@ class FeedViewModel(
         }
     }
 
+    private fun deleteMemory(id: Int) {
+        viewModelScope.launch {
+            deleteMemoryUseCase.invoke(id)
+            fetch()
+        }
+    }
+
     override fun handleEvent(event: Event) {
-        setEffect {
-            when (event) {
-                is OnClickEdit -> ShowEditPage(event.id)
-                is OnClickRemove -> ShowRemoveDialog(event.id)
+        when (event) {
+            is OnClickEdit -> setEffect {
+                ShowEditPage(event.id)
             }
+            is OnClickRemove -> setEffect {
+                ShowRemoveDialog(event.id)
+            }
+            is Event.OnClickDeleteMemory -> deleteMemory(event.id)
         }
     }
 

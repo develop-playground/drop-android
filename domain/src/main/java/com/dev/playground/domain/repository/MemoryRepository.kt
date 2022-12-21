@@ -9,4 +9,6 @@ interface MemoryRepository {
 
     suspend fun postMemory(params: MemoryInput): Memory
 
+    suspend fun deleteMemory(params: Int)
+
 }
