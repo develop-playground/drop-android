@@ -9,7 +9,7 @@ import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
@@ -40,6 +40,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         vm = viewModel
         srlFeed.setOnRefreshListener {
             viewModel.fetch()
+            binding.srlFeed.isRefreshing = false
         }
 
         rvFeed.apply {
@@ -57,13 +58,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                         is Success -> feedAdapter.submitList(state.itemList)
                         else -> Unit
                     }
-                    binding.srlFeed.isRefreshing = false
                 }
             }
             launch {
                 effect.collect {
                     when (it) {
-                        is ShowEditPage -> {
+                        is RouteEditPage -> {
 
                         }
                         is ShowRemoveDialog -> context?.let { c ->
