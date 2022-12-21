@@ -13,12 +13,14 @@
     <dimen name="spacing_24">24dp</dimen>
     <dimen name="spacing_28">28dp</dimen>
     <dimen name="spacing_32">32dp</dimen>
+    <dimen name="spacing_36">36dp</dimen>
     <dimen name="spacing_48">48dp</dimen>
     <dimen name="spacing_100">100dp</dimen>
 
     <!-- common -->
     <dimen name="toolbar_height">52dp</dimen>
     <dimen name="line_empty_or_failure_height">4dp</dimen>
+    <dimen name="common_divider_height">0.5dp</dimen>
 
     <!-- main -->
     <dimen name="bottom_navigation_height">52dp</dimen>
