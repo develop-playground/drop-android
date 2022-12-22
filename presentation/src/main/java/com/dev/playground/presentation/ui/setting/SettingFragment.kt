@@ -1,13 +1,11 @@
 package com.dev.playground.presentation.ui.setting
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.charlezz.pickle.util.ext.showToast
 import com.dev.playground.domain.model.type.LoginType
-import com.dev.playground.presentation.BuildConfig
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
@@ -17,7 +15,7 @@ import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLo
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
 import com.dev.playground.presentation.ui.setting.SettingContract.Event.*
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
-import com.dev.playground.presentation.util.VERSION_CODE
+import com.dev.playground.presentation.util.VERSION_NAME
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
@@ -34,7 +32,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     private val viewModel by viewModel<SettingViewModel>()
-    private val versionNumber: String by inject(named(VERSION_CODE))
+    private val versionNumber: String by inject(named(VERSION_NAME))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
