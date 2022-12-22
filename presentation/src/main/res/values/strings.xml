@@ -27,6 +27,9 @@
     <!-- feed -->
     <string name="feed_memory_title_text">drop point</string>
     <string name="feed_empty_memory_text">기록된 추억이 없습니다</string>
+    <string name="feed_delete_memory_content">기록된 추억을 삭제하시겠습니까?</string>
+    <string name="feed_delete_cancel">취소</string>
+    <string name="feed_delete_ok">삭제</string>
 
     <!-- memory item -->
     <string name="memory_edit">수정</string>
@@ -51,11 +54,6 @@
     <string name="add_memory_please_grant_permissions">필요한 권한을 허용해주세요.</string>
     <string name="add_memory_permission_denied">권한이 거절되었습니다!</string>
 
-    <!-- drop dialog -->
-    <string name="drop_dialog_content_remove_memory">기록된 추억을 삭제하시겠습니까?</string>
-    <string name="drop_dialog_cancel">취소</string>
-    <string name="drop_dialog_delete">삭제</string>
-
     <!-- setting -->
     <string name="setting_title">회원 정보</string>
     <string name="setting_service_terms">서비스 이용약관</string>
@@ -63,5 +61,12 @@
     <string name="setting_current_version">현재 버전</string>
     <string name="setting_logout">로그아웃</string>
     <string name="setting_sign_out">회원 탈퇴</string>
+    <string name="setting_failure_load_user_information">사용자 정보를 불러오는데 실패했습니다.</string>
+    <string name="setting_failure_logout_please_retry">로그아웃에 실패했습니다. 다시 시도해주세요</string>
+    <string name="setting_failure_sign_out_please_retry">회원탈퇴에 실패했습니다. 다시 시도해주세요</string>
+
+    <string name="setting_sign_out_content">탈퇴하시면 기록된 모든 추억이 삭제됩니다.\n회원을 탈퇴하시겠습니까?</string>
+    <string name="setting_sign_out_cancel">취소</string>
+    <string name="setting_sign_out_ok">탈퇴</string>
 
 </resources>

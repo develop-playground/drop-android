@@ -1,6 +1,7 @@
 package com.dev.playground.presentation.ui.setting
 
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.usecase.user.DeleteUserUseCase
 import com.dev.playground.domain.usecase.user.GetUserEmailUseCase
 import com.dev.playground.domain.usecase.user.login.GetLoginTypeUseCase
 import com.dev.playground.domain.usecase.user.login.RequestLogoutUseCase
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 
 class SettingViewModel(
     private val getUserEmailUseCase: GetUserEmailUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase,
     private val getLoginTypeUseCase: GetLoginTypeUseCase,
     private val requestLogoutUseCase: RequestLogoutUseCase,
 ) : BaseViewModel<State, Event, Effect>(Idle) {
@@ -61,7 +63,17 @@ class SettingViewModel(
 
     private fun signOut() {
         viewModelScope.launch {
-
+            deleteUserUseCase.invoke()
+                .onSuccess {
+                    setEffect {
+                        RouteLoginPage
+                    }
+                }
+                .onFailure {
+                    setEffect {
+                        ShowToast.FailSignOut
+                    }
+                }
         }
     }
 

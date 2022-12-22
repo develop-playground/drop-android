@@ -46,6 +46,7 @@ class SettingContract {
         sealed interface ShowToast : Effect {
             object FailLoadUserInformation : Effect
             object FailLogout : Effect
+            object FailSignOut : Effect
         }
     }
 

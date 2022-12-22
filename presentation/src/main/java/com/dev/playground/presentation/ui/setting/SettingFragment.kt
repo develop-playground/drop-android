@@ -3,18 +3,20 @@ package com.dev.playground.presentation.ui.setting
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.charlezz.pickle.util.ext.showToast
-import com.dev.playground.domain.model.type.LoginType
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.FragmentSettingBinding
+import com.dev.playground.presentation.ui.dialog.DropDialog
+import com.dev.playground.presentation.ui.dialog.show
+import com.dev.playground.presentation.ui.login.KakaoLoginManager
 import com.dev.playground.presentation.ui.login.LoginActivity
+import com.dev.playground.presentation.ui.login.LoginManager
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLoginPage
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.*
-import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
 import com.dev.playground.presentation.util.VERSION_NAME
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
@@ -27,12 +29,12 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     companion object {
         fun newInstance() = SettingFragment()
-
         val TAG: String = SettingFragment::class.java.simpleName
     }
 
     private val viewModel by viewModel<SettingViewModel>()
     private val versionNumber: String by inject(named(VERSION_NAME))
+    private val loginManager: LoginManager = KakaoLoginManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,7 +55,16 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             viewModel.setEvent(OnLogout)
         }
         tvSignOut.setOnClickListener {
-            viewModel.setEvent(OnSignOut)
+            context?.let {
+                DropDialog(it).show {
+                    contentText = getString(R.string.setting_sign_out_content)
+                    leftText = getString(R.string.setting_sign_out_cancel)
+                    rightText = getString(R.string.setting_sign_out_ok)
+                    onRightClick = {
+                        viewModel.setEvent(OnSignOut)
+                    }
+                }
+            }
         }
     }
 
@@ -63,13 +74,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 effect.collect {
                     when (it) {
                         RouteLoginPage -> {
+                            loginManager.logout {
+                                // no-op
+                            }
                             showToast(getString(R.string.logged_out))
-                            context?.startActivity<LoginActivity> {
-                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            activity?.let { a ->
+                                a.startActivity<LoginActivity> { }
+                                a.finish()
                             }
                         }
-                        ShowToast.FailLoadUserInformation -> showToast("사용자 정보를 불러오는데 실패했습니다.")
-                        ShowToast.FailLogout -> showToast("로그아웃에 실패했습니다. 다시 시도해주세요")
+                        ShowToast.FailLoadUserInformation -> showToast(getString(R.string.setting_failure_load_user_information))
+                        ShowToast.FailLogout -> showToast(getString(R.string.setting_failure_logout_please_retry))
+                        ShowToast.FailSignOut -> showToast(getString(R.string.setting_failure_sign_out_please_retry))
                     }
                 }
             }
@@ -77,6 +93,5 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     override fun scrollTop() = Unit
-
 
 }
