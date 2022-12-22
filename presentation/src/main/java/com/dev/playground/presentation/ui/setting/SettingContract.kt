@@ -38,6 +38,7 @@ class SettingContract {
 
     sealed interface Event : UiEvent {
         object OnLogout : Event
+        object OnSignOut: Event
     }
 
     sealed interface Effect : UiEffect {

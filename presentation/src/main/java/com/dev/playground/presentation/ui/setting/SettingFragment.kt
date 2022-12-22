@@ -1,11 +1,13 @@
 package com.dev.playground.presentation.ui.setting
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.charlezz.pickle.util.ext.showToast
 import com.dev.playground.domain.model.type.LoginType
+import com.dev.playground.presentation.BuildConfig
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
@@ -13,11 +15,15 @@ import com.dev.playground.presentation.databinding.FragmentSettingBinding
 import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLoginPage
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.*
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
+import com.dev.playground.presentation.util.VERSION_CODE
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_setting), ScrollableScreen {
 
@@ -28,6 +34,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     private val viewModel by viewModel<SettingViewModel>()
+    private val versionNumber: String by inject(named(VERSION_CODE))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,6 +44,19 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     private fun initViews() = with(binding) {
         vm = viewModel
+        tvServiceTerms.setOnClickListener {
+            showToast("TODO : 서비스 이용약관 WebView 표시!")
+        }
+        tvPrivateTerms.setOnClickListener {
+            showToast("TODO : 개인정보 취급방침 WebView 표시!")
+        }
+        tvCurrentVersion.text = versionNumber
+        tvLogout.setOnClickListener {
+            viewModel.setEvent(OnLogout)
+        }
+        tvSignOut.setOnClickListener {
+            viewModel.setEvent(OnSignOut)
+        }
     }
 
     private fun initCollects() = with(viewModel) {

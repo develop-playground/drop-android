@@ -15,6 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,7 @@
                 app:layout_constraintStart_toStartOf="@id/ivLogo"
                 app:layout_constraintTop_toTopOf="@id/tvEmail"
                 app:tint="@color/black"
-                tools:src="@drawable/ic_kakao_logo"/>
+                tools:src="@drawable/ic_kakao_logo" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -86,6 +87,86 @@
                 tools:text="drop@naver.com" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvServiceTerms"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/spacing_32"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_service_terms"
+            android:textAppearance="@style/Pretendard.Regular.14"
+            android:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrivateTerms"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_private_terms"
+            android:textAppearance="@style/Pretendard.Regular.14"
+            android:textColor="@color/black" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="@dimen/spacing_36">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_current_version"
+                android:textAppearance="@style/Pretendard.Regular.14"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCurrentVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Pretendard.Regular.14"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1.0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvLogout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_36"
+            android:layout_marginTop="@dimen/spacing_20"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_logout"
+            android:textAppearance="@style/Pretendard.Regular.18"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_36"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_sign_out"
+            android:textAppearance="@style/Pretendard.Regular.18"
+            android:textColor="@color/red" />
 
     </LinearLayout>
 

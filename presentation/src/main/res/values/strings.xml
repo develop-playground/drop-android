@@ -58,5 +58,10 @@
 
     <!-- setting -->
     <string name="setting_title">회원 정보</string>
+    <string name="setting_service_terms">서비스 이용약관</string>
+    <string name="setting_private_terms">개인정보 취급방침</string>
+    <string name="setting_current_version">현재 버전</string>
+    <string name="setting_logout">로그아웃</string>
+    <string name="setting_sign_out">회원 탈퇴</string>
 
 </resources>

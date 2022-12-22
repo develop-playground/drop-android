@@ -9,6 +9,7 @@ import com.dev.playground.presentation.ui.setting.SettingContract.*
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLoginPage
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
 import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Idle
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
 import kotlinx.coroutines.flow.catch
@@ -58,10 +59,17 @@ class SettingViewModel(
         }
     }
 
+    private fun signOut() {
+        viewModelScope.launch {
+
+        }
+    }
+
 
     override fun handleEvent(event: Event) {
         when (event) {
             OnLogout -> logout()
+            OnSignOut -> signOut()
         }
     }
 
