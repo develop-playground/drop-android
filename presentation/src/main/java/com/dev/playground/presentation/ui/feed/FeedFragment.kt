@@ -55,7 +55,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             launch {
                 uiState.collect { state ->
                     when (state) {
-                        is Success -> feedAdapter.submitList(state.itemList)
+                        is Success -> feedAdapter.submitList(state.itemList) {
+                            scrollTop()
+                        }
                         else -> Unit
                     }
                 }
@@ -68,12 +70,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                         }
                         is ShowRemoveDialog -> context?.let { c ->
                             DropDialog(c).show {
-                                contentText = getString(R.string.drop_dialog_content_remove_memory)
-                                leftText = getString(R.string.drop_dialog_cancel)
-                                rightText = getString(R.string.drop_dialog_delete)
-                                onLeftClick = {
-                                    dismiss()
-                                }
+                                contentText = getString(R.string.feed_delete_memory_content)
+                                leftText = getString(R.string.feed_delete_cancel)
+                                rightText = getString(R.string.feed_delete_ok)
                                 onRightClick = {
                                     setEvent(OnClickDeleteMemory(it.id))
                                 }
