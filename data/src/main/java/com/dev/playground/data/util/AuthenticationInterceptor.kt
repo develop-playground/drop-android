@@ -12,22 +12,14 @@ class AuthenticationInterceptor(
     companion object {
         const val KEY_AUTH = "Authorization"
         const val TYPE_AUTH = "Bearer"
-        const val URL_LOGOUT = "logout"
-        const val URL_USER = "user"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val token = preferencesManager.getToken() ?: throw IOException()
-        val headerValue = if (
-            listOf(URL_USER, URL_LOGOUT).any { request().url.encodedPath.contains(it) }
-        ) {
-            token.refreshToken
-        } else {
-            token.accessToken
-        }
+        val headerToken = token.getHeaderToken(request().url.encodedPath)
 
         val newRequest = request().newBuilder()
-            .addHeader(KEY_AUTH, "$TYPE_AUTH $headerValue")
+            .addHeader(KEY_AUTH, "$TYPE_AUTH $headerToken")
             .build()
 
         proceed(newRequest)
