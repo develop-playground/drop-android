@@ -17,10 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
-    private val kakaoLoginManager: KakaoLoginManager by lazy {
-        KakaoLoginManager(this)
-    }
     private val viewModel: LoginViewModel by viewModel()
+    private val loginManager: LoginManager = KakaoLoginManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +28,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun initViews() = with(binding) {
         cvLoginButton.setOnClickListener {
-            kakaoLoginManager.login(
+            loginManager.login(
+                this@LoginActivity,
                 onSuccess = { token, type ->
                     viewModel.setEvent(
                         OnSnsLoginComplete(token, type)

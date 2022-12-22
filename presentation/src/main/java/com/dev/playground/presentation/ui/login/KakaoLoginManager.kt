@@ -6,11 +6,12 @@ import com.dev.playground.domain.model.type.LoginType
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 
-class KakaoLoginManager(private val context: Context) : LoginManager {
+class KakaoLoginManager : LoginManager {
 
     private val client = UserApiClient.instance
 
     override fun login(
+        context: Context,
         onSuccess: (Token, LoginType) -> Unit,
         onFailure: (Throwable) -> Unit,
     ) = with(client) {
