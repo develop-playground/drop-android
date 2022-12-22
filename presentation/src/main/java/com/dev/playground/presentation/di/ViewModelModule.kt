@@ -33,6 +33,7 @@ val viewModelModule = module {
     viewModel {
         SettingViewModel(
             getUserEmailUseCase = get(),
+            deleteUserUseCase = get(),
             getLoginTypeUseCase = get(),
             requestLogoutUseCase = get()
         )
