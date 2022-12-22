@@ -42,9 +42,11 @@ class DropDialog(context: Context) : Dialog(context) {
 
         tvLeft.setOnClickListener {
             onLeftClick?.invoke()
+            dismiss()
         }
         tvRight.setOnClickListener {
             onRightClick?.invoke()
+            dismiss()
         }
     }
 

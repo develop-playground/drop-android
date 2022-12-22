@@ -76,7 +76,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                                 }
                                 onRightClick = {
                                     setEvent(OnClickDeleteMemory(it.id))
-                                    dismiss()
                                 }
                             }
                         }
