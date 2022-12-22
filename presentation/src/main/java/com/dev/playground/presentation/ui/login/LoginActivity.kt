@@ -47,8 +47,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             launch {
                 effect.collect {
                     when (it) {
-                        RouteMainPage -> startActivity<MainActivity> {
-                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        RouteMainPage -> {
+                            startActivity<MainActivity> {}
+                            finish()
                         }
                         is ShowFailRequestLoginToast -> showToast(
                             getString(R.string.failure_request_login)
