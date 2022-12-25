@@ -12,6 +12,7 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.MarkerIcons
 import ted.gun0912.clustering.naver.TedNaverClustering
 
@@ -72,7 +73,8 @@ class MapContainerFragment :
                 TedNaverClustering.with<MapItem>(c, this)
                     .customMarker { clusterItem ->
                         Marker(clusterItem.position).apply {
-                            icon = MarkerIcons.RED
+                            val markerView = layoutInflater.inflate(R.layout.item_marker, null)
+                            icon = OverlayImage.fromView(markerView)
                         }
                     }
                     .customCluster {
