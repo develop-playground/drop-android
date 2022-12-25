@@ -3,6 +3,7 @@ package com.dev.playground.presentation.ui.map_container
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
@@ -13,7 +14,7 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
-import com.naver.maps.map.util.MarkerIcons
+import com.skydoves.balloon.textForm
 import ted.gun0912.clustering.naver.TedNaverClustering
 
 class MapContainerFragment :
@@ -77,12 +78,9 @@ class MapContainerFragment :
                             icon = OverlayImage.fromView(markerView)
                         }
                     }
-                    .customCluster {
-                        TextView(c).apply {
-                            setBackgroundColor(android.graphics.Color.GREEN)
-                            setTextColor(android.graphics.Color.WHITE)
-                            text = "${it.size}개"
-                            setPadding(10, 10, 10, 10)
+                    .customCluster { cluster ->
+                        MarkerView(c).apply {
+                            // TODO cluster size 만큼 item_marker TextView에 매핑
                         }
                     }
                     .items(generateItems(this))
@@ -98,6 +96,7 @@ class MapContainerFragment :
     }
 
     private fun generateItems(map: NaverMap): ArrayList<MapItem> {
+        // TODO 추억 리스트를 조회하여 각 추억 위경도를 받아 매핑시켜야 함
         return ArrayList<MapItem>().apply {
             repeat(50) {
                 val bounds = map.contentBounds
