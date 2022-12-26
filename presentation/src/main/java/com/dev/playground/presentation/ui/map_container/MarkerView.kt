@@ -37,13 +37,14 @@ constructor(
 
         val imgResId = typedArray.getResourceId(R.styleable.MarkerView_image, R.color.white)
         val text = typedArray.getString(R.styleable.MarkerView_pointText)
+
         val bgText = typedArray.getResourceId(
             R.styleable.MarkerView_bgPointText,
             R.drawable.shape_drop_point
         )
 
         with(binding) {
-            if (text.isNullOrEmpty()) tvDropPoint.text = "0"
+            if (text.isNullOrEmpty()) tvDropPoint.text = "1"
             else tvDropPoint.text = text
 
             tvDropPoint.setBackgroundResource(bgText)
@@ -53,5 +54,8 @@ constructor(
         typedArray.recycle()
     }
 
+    fun setMarkerPoint(point: Int) = with(binding) {
+        tvDropPoint.text = point.toString()
+    }
 
 }

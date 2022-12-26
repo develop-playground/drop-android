@@ -2,19 +2,20 @@ package com.dev.playground.presentation.ui.map_container
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import com.dev.playground.domain.model.Memory
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
 import com.dev.playground.presentation.ui.add.AddMemoryActivity
+import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
+import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
-import com.skydoves.balloon.textForm
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
 
 class MapContainerFragment :
@@ -22,6 +23,9 @@ class MapContainerFragment :
     OnMapReadyCallback {
 
     private lateinit var map: NaverMap
+    private var mapItem: TedNaverClustering<MapItem>? = null
+
+    private val viewModel by viewModel<MapContainerViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,6 +33,7 @@ class MapContainerFragment :
         binding.mapView.getMapAsync(this)
 
         initViews()
+        initCollects()
     }
 
     override fun onStart() {
@@ -38,6 +43,7 @@ class MapContainerFragment :
 
     override fun onResume() {
         super.onResume()
+        viewModel.fetch()
         binding.mapView.onResume()
     }
 
@@ -71,7 +77,7 @@ class MapContainerFragment :
 
         with(map) {
             context?.let { c ->
-                TedNaverClustering.with<MapItem>(c, this)
+                mapItem = TedNaverClustering.with<MapItem>(c, this)
                     .customMarker { clusterItem ->
                         Marker(clusterItem.position).apply {
                             val markerView = layoutInflater.inflate(R.layout.item_marker, null)
@@ -80,34 +86,42 @@ class MapContainerFragment :
                     }
                     .customCluster { cluster ->
                         MarkerView(c).apply {
-                            // TODO cluster size 만큼 item_marker TextView에 매핑
+                            setMarkerPoint(cluster.size)
                         }
                     }
-                    .items(generateItems(this))
+                    .minClusterSize(1)
                     .make()
             }
         }
     }
 
     private fun initViews() = with(binding) {
+        viewModel.fetch()
+
         ivAddMemory.setOnClickListener {
             context?.startActivity<AddMemoryActivity> { }
         }
+
     }
 
-    private fun generateItems(map: NaverMap): ArrayList<MapItem> {
-        // TODO 추억 리스트를 조회하여 각 추억 위경도를 받아 매핑시켜야 함
-        return ArrayList<MapItem>().apply {
-            repeat(50) {
-                val bounds = map.contentBounds
-                val temp = MapItem(
-                    LatLng(
-                        (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-                        (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-                    )
-                )
-                add(temp)
+    private fun initCollects() = with(viewModel) {
+        viewLifecycleOwner.repeatOnLifecycleState {
+            uiState.collect { state ->
+                when (state) {
+                    is Success -> {
+                        generateItems(state.itemList)
+                    }
+                    else -> Unit
+                }
             }
+        }
+    }
+
+    private fun generateItems(updateList: List<Memory>): List<MapItem> {
+        return ArrayList<MapItem>().apply {
+            val temp =
+                updateList.map { MapItem(LatLng(it.location.latitude, it.location.longitude)) }
+            mapItem?.addItems(temp)
         }
     }
 
@@ -116,5 +130,4 @@ class MapContainerFragment :
 
         val TAG: String = MapContainerFragment::class.java.simpleName
     }
-
 }
