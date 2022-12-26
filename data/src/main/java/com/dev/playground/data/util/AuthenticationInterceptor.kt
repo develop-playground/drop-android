@@ -6,7 +6,7 @@ import okhttp3.Response
 import java.io.IOException
 
 class AuthenticationInterceptor(
-    private val preferencesManager: SharedPreferencesDataSource
+    private val preferencesManager: SharedPreferencesDataSource,
 ) : Interceptor {
 
     companion object {
@@ -15,14 +15,14 @@ class AuthenticationInterceptor(
     }
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
-        val accessToken = preferencesManager.getToken()?.accessToken ?: throw IOException()
+        val token = preferencesManager.getToken() ?: throw IOException()
+        val headerToken = token.getHeaderToken(request().url.encodedPath)
 
         val newRequest = request().newBuilder()
-            .addHeader(KEY_AUTH, "$TYPE_AUTH $accessToken")
+            .addHeader(KEY_AUTH, "$TYPE_AUTH $headerToken")
             .build()
 
         proceed(newRequest)
-
     }
 
 }

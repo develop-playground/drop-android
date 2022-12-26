@@ -2,8 +2,8 @@ package com.dev.playground.presentation.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dev.playground.domain.model.Auth
-import com.dev.playground.domain.usecase.login.GetTokenUseCase
+import com.dev.playground.domain.model.Token
+import com.dev.playground.domain.usecase.user.login.GetTokenUseCase
 import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,7 +34,7 @@ class SplashViewModel(
     }
 
     sealed class SplashState {
-        data class Success(val data: Auth) : SplashState()
+        data class Success(val data: Token) : SplashState()
         data class Failure(val error: Throwable) : SplashState()
         object Loading : SplashState()
     }

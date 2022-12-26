@@ -44,10 +44,10 @@ class AddMemoryContract {
 
     sealed interface Effect : UiEffect {
         object Dropped : Effect
-        sealed interface ShowErrorToast : Effect {
-            object FailUpload : ShowErrorToast
-            object NotSelectPhoto : ShowErrorToast
-            object EmptyLocation : ShowErrorToast
+        sealed interface ShowToast : Effect {
+            object FailUpload : ShowToast
+            object NotSelectPhoto : ShowToast
+            object EmptyLocation : ShowToast
         }
     }
 

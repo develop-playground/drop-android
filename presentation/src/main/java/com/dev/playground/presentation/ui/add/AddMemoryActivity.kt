@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.charlezz.pickle.Config
 import com.charlezz.pickle.Pickle
@@ -22,10 +21,11 @@ import com.dev.playground.presentation.model.PhotoUIModel
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowErrorToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
 import com.dev.playground.presentation.util.*
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activity_add_memory) {
@@ -97,25 +97,27 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
 
     private fun initCollects() = with(viewModel) {
         repeatOnLifecycleState {
-            uiState.collect { state ->
-                when (state.addMemoryState) {
-                    is SelectedPhoto -> photoAdapter.submitList(
-                        viewModel.mapToUIModel(state.addMemoryState)
-                    )
-                    is Empty -> {
-                        binding.tvAddMemoryLocation.text = ""
-                        photoAdapter.submitList(emptyList())
+            launch {
+                uiState.collect { state ->
+                    when (state.addMemoryState) {
+                        is SelectedPhoto -> photoAdapter.submitList(
+                            viewModel.mapToUIModel(state.addMemoryState)
+                        )
+                        is Empty -> {
+                            binding.tvAddMemoryLocation.text = ""
+                            photoAdapter.submitList(emptyList())
+                        }
                     }
                 }
             }
-        }
-        repeatOnLifecycleState(state = Lifecycle.State.RESUMED) {
-            effect.collect {
-                when (it) {
-                    Dropped -> finish()
-                    FailUpload -> showToast(getString(R.string.add_memory_fail_upload))
-                    NotSelectPhoto -> showToast(getString(R.string.add_memory_not_select_photo))
-                    EmptyLocation -> showToast(getString(R.string.add_memory_missing_locate_information))
+            launch {
+                effect.collect {
+                    when (it) {
+                        Dropped -> finish()
+                        FailUpload -> showToast(getString(R.string.add_memory_fail_upload))
+                        NotSelectPhoto -> showToast(getString(R.string.add_memory_not_select_photo))
+                        EmptyLocation -> showToast(getString(R.string.add_memory_missing_locate_information))
+                    }
                 }
             }
         }

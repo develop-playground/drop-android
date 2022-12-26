@@ -1,8 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="vm"
+            type="com.dev.playground.presentation.ui.setting.SettingViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:paddingBottom="@dimen/spacing_16">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/Pretendard.Regular.16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/setting_title"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/vDivider"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/common_divider_height"
+                android:layout_marginHorizontal="@dimen/spacing_16"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:background="@color/gray_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_36"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:background="@drawable/ic_drop_logo_rectangle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vDivider" />
+
+            <ImageView
+                android:id="@+id/ivSnsIcon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_setting_sns_icon"
+                android:padding="@dimen/spacing_2"
+                android:scaleType="centerInside"
+                android:src="@{context.getDrawable(vm.uiState.loginIcon)}"
+                android:visibility="@{vm.uiState.isSuccess ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tvEmail"
+                app:layout_constraintStart_toStartOf="@id/ivLogo"
+                app:layout_constraintTop_toTopOf="@id/tvEmail"
+                app:tint="@color/black"
+                tools:src="@drawable/ic_kakao_logo" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                style="@style/Pretendard.Light.14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@{vm.uiState.userEmail}"
+                android:textColor="@color/gray_medium"
+                android:visibility="@{vm.uiState.isSuccess ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toEndOf="@id/ivSnsIcon"
+                app:layout_constraintTop_toBottomOf="@id/ivLogo"
+                tools:text="drop@naver.com" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvServiceTerms"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/spacing_32"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_service_terms"
+            android:textAppearance="@style/Pretendard.Regular.14"
+            android:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrivateTerms"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_private_terms"
+            android:textAppearance="@style/Pretendard.Regular.14"
+            android:textColor="@color/black" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="@dimen/spacing_36">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_current_version"
+                android:textAppearance="@style/Pretendard.Regular.14"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCurrentVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Pretendard.Regular.14"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1.0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvLogout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_36"
+            android:layout_marginTop="@dimen/spacing_20"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_logout"
+            android:textAppearance="@style/Pretendard.Regular.18"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_36"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/spacing_36"
+            android:text="@string/setting_sign_out"
+            android:textAppearance="@style/Pretendard.Regular.18"
+            android:textColor="@color/red" />
+
+    </LinearLayout>
+
 </layout>

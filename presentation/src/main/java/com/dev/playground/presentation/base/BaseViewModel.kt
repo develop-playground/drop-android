@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  */
 
 abstract class BaseViewModel<State : UiState, Event : UiEvent, Effect : UiEffect>(
-    initialState: State
+    initialState: State,
 ) : ViewModel() {
 
     val currentState: State
@@ -50,7 +50,7 @@ abstract class BaseViewModel<State : UiState, Event : UiEvent, Effect : UiEffect
 
     protected fun setState(reduce: State.() -> State) {
         val newState = currentState.reduce()
-        _uiState.value = newState
+        _uiState.update { newState }
     }
 
     protected fun setEffect(builder: () -> Effect) {

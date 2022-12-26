@@ -13,7 +13,7 @@ import com.dev.playground.presentation.ui.add.AddMemoryContract.*
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowErrorToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickRemovePhoto
 import com.dev.playground.presentation.util.currentDate

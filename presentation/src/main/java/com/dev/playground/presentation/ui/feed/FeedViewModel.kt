@@ -6,7 +6,7 @@ import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.toPresentation
 import com.dev.playground.presentation.ui.feed.FeedContract.*
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickEdit
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickRemove
@@ -25,6 +25,9 @@ class FeedViewModel(
     fun fetch() {
         viewModelScope.launch {
             // TODO paging 처리
+            setState {
+                Loading
+            }
             val result = getMemoryListUseCase.invoke(0)
             result.onSuccess {
                 setState {
@@ -55,7 +58,7 @@ class FeedViewModel(
     override fun handleEvent(event: Event) {
         when (event) {
             is OnClickEdit -> setEffect {
-                ShowEditPage(event.id)
+                RouteEditPage(event.id)
             }
             is OnClickRemove -> setEffect {
                 ShowRemoveDialog(event.id)

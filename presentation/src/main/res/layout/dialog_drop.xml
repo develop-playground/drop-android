@@ -35,7 +35,7 @@
         <View
             android:id="@+id/vHorizontalDivider"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="@dimen/common_divider_height"
             android:background="@color/gray_light"
             app:layout_constraintTop_toBottomOf="@id/tvContent" />
 
@@ -55,7 +55,7 @@
 
         <View
             android:id="@+id/vVerticalDivider"
-            android:layout_width="0.5dp"
+            android:layout_width="@dimen/common_divider_height"
             android:layout_height="0dp"
             android:background="@color/gray_light"
             app:layout_constraintBottom_toBottomOf="@id/tvLeft"
