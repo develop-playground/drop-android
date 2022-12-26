@@ -4,7 +4,10 @@ import com.naver.maps.geometry.LatLng
 import ted.gun0912.clustering.clustering.TedClusterItem
 import ted.gun0912.clustering.geometry.TedLatLng
 
-class MapItem(val position: LatLng) : TedClusterItem {
+data class MapItem(
+    val position: LatLng,
+    val image: String,
+) : TedClusterItem {
 
     override fun getTedLatLng() = TedLatLng(position.latitude, position.longitude)
 

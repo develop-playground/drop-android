@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.databinding.ViewMarkerBinding
+import com.dev.playground.presentation.model.ImageCarouselItemUIModel
+import com.dev.playground.presentation.util.setImageUrl
 
 class MarkerView
 @JvmOverloads
@@ -34,13 +36,11 @@ constructor(
     }
 
     private fun setTypeArray(typedArray: TypedArray) {
-
-        val imgResId = typedArray.getResourceId(R.styleable.MarkerView_image, R.color.white)
         val text = typedArray.getString(R.styleable.MarkerView_pointText)
 
         val bgText = typedArray.getResourceId(
             R.styleable.MarkerView_bgPointText,
-            R.drawable.shape_drop_point
+            R.drawable.shape_drop_point,
         )
 
         with(binding) {
@@ -48,10 +48,13 @@ constructor(
             else tvDropPoint.text = text
 
             tvDropPoint.setBackgroundResource(bgText)
-            ivMarkerView.setImageResource(imgResId)
         }
 
         typedArray.recycle()
+    }
+
+    fun setImage(item: String) = with(binding) {
+        ivMarkerView.setImageUrl(item)
     }
 
     fun setMarkerPoint(point: Int) = with(binding) {

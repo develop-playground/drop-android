@@ -8,6 +8,7 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
 import com.dev.playground.presentation.ui.add.AddMemoryActivity
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
+import com.dev.playground.presentation.util.currentDate
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import com.naver.maps.geometry.LatLng
@@ -80,8 +81,7 @@ class MapContainerFragment :
                 mapItem = TedNaverClustering.with<MapItem>(c, this)
                     .customMarker { clusterItem ->
                         Marker(clusterItem.position).apply {
-                            val markerView = layoutInflater.inflate(R.layout.item_marker, null)
-                            icon = OverlayImage.fromView(markerView)
+                            icon = OverlayImage.fromView(MarkerView(c))
                         }
                     }
                     .customCluster { cluster ->
@@ -117,11 +117,11 @@ class MapContainerFragment :
         }
     }
 
-    private fun generateItems(updateList: List<Memory>): List<MapItem> {
-        return ArrayList<MapItem>().apply {
+    private fun generateItems(updateList: List<Memory>) {
+        updateList.map {
             val temp =
-                updateList.map { MapItem(LatLng(it.location.latitude, it.location.longitude)) }
-            mapItem?.addItems(temp)
+                MapItem(LatLng(it.location.latitude, it.location.longitude), it.imageUrlList[0])
+            mapItem?.addItem(temp)
         }
     }
 
