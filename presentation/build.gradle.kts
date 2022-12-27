@@ -72,6 +72,9 @@ dependencies {
     // image picker
     implementation(Dep.pickle)
 
+    // lottie
+    implementation(Dep.lottie)
+
     // test
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.junitExt)

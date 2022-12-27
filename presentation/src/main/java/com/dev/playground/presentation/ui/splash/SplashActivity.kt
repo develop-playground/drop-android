@@ -9,6 +9,9 @@ import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.Fai
 import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +25,11 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         viewModel.checkLoginStatus()
-        initCollects()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(2450L)
+            initCollects()
+        }
     }
 
     private fun initCollects() = with(viewModel) {
@@ -32,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
                     when (uiState) {
                         is Success -> startActivity<MainActivity> { }
                         is Failure -> startActivity<LoginActivity> { }
-                        else -> println("로딩중")
+                        else -> Unit
                     }
                     finish()
                 }
