@@ -7,16 +7,13 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.model.base.UiEffect
-import com.dev.playground.presentation.model.base.UiEffect.*
+import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
-import com.dev.playground.presentation.ui.login.KakaoLoginManager
-import com.dev.playground.presentation.ui.login.LoginManager
 import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
@@ -64,7 +61,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                 uiState.collect { state ->
                     when (state) {
                         is Success -> feedAdapter.submitList(state.itemList) {
-                            scrollTop()
+                            binding.rvFeed.scrollToPosition(0)
                         }
                         else -> Unit
                     }
