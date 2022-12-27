@@ -1,42 +1,42 @@
 package com.dev.playground.presentation.ui.splash
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dev.playground.domain.model.Token
 import com.dev.playground.domain.usecase.user.login.GetTokenUseCase
-import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.*
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
+import com.dev.playground.presentation.ui.splash.SplashContract.Effect.RouteMainPage
+import com.dev.playground.presentation.ui.splash.SplashContract.Event
+import com.dev.playground.presentation.ui.splash.SplashContract.State
+import com.dev.playground.presentation.ui.splash.SplashContract.State.Idle
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val getTokenUseCase: GetTokenUseCase
-) : ViewModel() {
+    private val getTokenUseCase: GetTokenUseCase,
+) : BaseViewModel<State, Event, UiEffect>(Idle) {
 
-    private val _splashState: MutableStateFlow<SplashState> = MutableStateFlow(
-        Loading
-    )
-    val splashState: StateFlow<SplashState> = _splashState.asStateFlow()
+    init {
+        checkHasToken()
+    }
 
-    fun checkLoginStatus() {
+    private fun checkHasToken() {
         viewModelScope.launch {
             val result = getTokenUseCase.invoke()
 
-            result
-                .onSuccess { auth ->
-                    _splashState.update { Success(auth) }
-                }.onFailure { throwable ->
-                    _splashState.update { Failure(throwable) }
+            result.onSuccess {
+                setEffect {
+                    RouteMainPage
                 }
+            }.onFailure {
+                setEffect {
+                    RouteLoginPage
+                }
+            }
         }
     }
 
-    sealed class SplashState {
-        data class Success(val data: Token) : SplashState()
-        data class Failure(val error: Throwable) : SplashState()
-        object Loading : SplashState()
+    override fun handleEvent(event: Event) {
+        // no-op
     }
 
 }
