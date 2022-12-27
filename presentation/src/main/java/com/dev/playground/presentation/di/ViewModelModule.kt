@@ -4,6 +4,7 @@ import com.dev.playground.presentation.ui.add.AddMemoryViewModel
 import com.dev.playground.presentation.ui.feed.FeedViewModel
 import com.dev.playground.presentation.ui.login.LoginViewModel
 import com.dev.playground.presentation.ui.map_container.MapContainerViewModel
+import com.dev.playground.presentation.ui.setting.SettingViewModel
 import com.dev.playground.presentation.ui.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -14,10 +15,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        LoginViewModel(
-            setTokenUseCase = get(),
-            requestLoginUseCase = get()
-        )
+        LoginViewModel(requestLoginUseCase = get())
     }
     viewModel {
         AddMemoryViewModel(
@@ -27,7 +25,21 @@ val viewModelModule = module {
             getAddressUseCase = get()
         )
     }
-    viewModel { FeedViewModel(getMemoryListUseCase = get()) }
+
+    viewModel {
+        FeedViewModel(
+            getMemoryListUseCase = get(),
+            deleteMemoryUseCase = get()
+        )
+    }
+    viewModel {
+        SettingViewModel(
+            getUserEmailUseCase = get(),
+            deleteUserUseCase = get(),
+            getLoginTypeUseCase = get(),
+            requestLogoutUseCase = get()
+        )
+    }
 
     viewModel { MapContainerViewModel(getMemoryListUseCase = get()) }
 }

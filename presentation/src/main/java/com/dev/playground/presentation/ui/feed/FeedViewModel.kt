@@ -1,11 +1,12 @@
 package com.dev.playground.presentation.ui.feed
 
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.usecase.memory.DeleteMemoryUseCase
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.toPresentation
 import com.dev.playground.presentation.ui.feed.FeedContract.*
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickEdit
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickRemove
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 
 class FeedViewModel(
     private val getMemoryListUseCase: GetMemoryListUseCase,
+    private val deleteMemoryUseCase: DeleteMemoryUseCase,
 ) : BaseViewModel<State, Event, Effect>(Loading) {
 
     init {
@@ -23,6 +25,9 @@ class FeedViewModel(
     fun fetch() {
         viewModelScope.launch {
             // TODO paging 처리
+            setState {
+                Loading
+            }
             val result = getMemoryListUseCase.invoke(0)
             result.onSuccess {
                 setState {
@@ -43,12 +48,22 @@ class FeedViewModel(
         }
     }
 
+    private fun deleteMemory(id: Int) {
+        viewModelScope.launch {
+            deleteMemoryUseCase.invoke(id)
+            fetch()
+        }
+    }
+
     override fun handleEvent(event: Event) {
-        setEffect {
-            when (event) {
-                is OnClickEdit -> ShowEditPage(event.id)
-                is OnClickRemove -> ShowRemoveDialog(event.id)
+        when (event) {
+            is OnClickEdit -> setEffect {
+                RouteEditPage(event.id)
             }
+            is OnClickRemove -> setEffect {
+                ShowRemoveDialog(event.id)
+            }
+            is Event.OnClickDeleteMemory -> deleteMemory(event.id)
         }
     }
 

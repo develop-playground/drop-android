@@ -1,6 +1,6 @@
 package com.dev.playground.data.model
 
-import com.dev.playground.domain.model.Auth
+import com.dev.playground.domain.model.Token
 import com.google.gson.annotations.SerializedName
 
 data class AuthData(
@@ -16,6 +16,6 @@ data class AuthData(
     val refreshTokenExpireTime: String,
 )
 
-fun AuthData.toDomain(): Auth {
-    return Auth(accessToken, refreshToken)
+fun AuthData.toDomain(): Token {
+    return Token(accessToken, refreshToken)
 }

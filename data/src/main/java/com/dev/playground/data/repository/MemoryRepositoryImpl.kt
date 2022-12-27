@@ -13,4 +13,6 @@ class MemoryRepositoryImpl(private val service: MemoryService) : MemoryRepositor
 
     override suspend fun postMemory(params: MemoryInput): Memory = service.postMemory(params).toDomain()
 
+    override suspend fun deleteMemory(params: Int) = service.deleteMemory(params)
+
 }

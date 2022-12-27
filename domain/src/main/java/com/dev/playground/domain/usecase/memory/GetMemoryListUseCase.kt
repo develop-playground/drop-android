@@ -5,15 +5,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GetMemoryListUseCase(
-    private val repository: MemoryRepository,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) {
+class GetMemoryListUseCase(private val repository: MemoryRepository) {
 
-    suspend operator fun invoke(param: Int) = withContext(ioDispatcher) {
-        runCatching {
-            repository.getMemoryList(param)
-        }
+    suspend operator fun invoke(param: Int) = runCatching {
+        repository.getMemoryList(param)
+
     }
 
 }

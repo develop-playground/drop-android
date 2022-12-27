@@ -7,11 +7,14 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowEditPage
+import com.dev.playground.presentation.ui.dialog.DropDialog
+import com.dev.playground.presentation.ui.dialog.show
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), ScrollableScreen {
@@ -37,6 +40,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         vm = viewModel
         srlFeed.setOnRefreshListener {
             viewModel.fetch()
+            binding.srlFeed.isRefreshing = false
         }
 
         rvFeed.apply {
@@ -47,24 +51,35 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     }
 
     private fun initCollects() = with(viewModel) {
-        viewLifecycleOwner.repeatOnLifecycleState {
-            effect.collect {
-                when (it) {
-                    is ShowEditPage -> {
-
-                    }
-                    is ShowRemoveDialog -> {
+        repeatOnLifecycleState {
+            launch {
+                uiState.collect { state ->
+                    when (state) {
+                        is Success -> feedAdapter.submitList(state.itemList) {
+                            scrollTop()
+                        }
+                        else -> Unit
                     }
                 }
             }
-        }
-        viewLifecycleOwner.repeatOnLifecycleState {
-            uiState.collectLatest { state ->
-                when (state) {
-                    is Success -> feedAdapter.submitList(state.itemList)
-                    else -> Unit
+            launch {
+                effect.collect {
+                    when (it) {
+                        is RouteEditPage -> {
+
+                        }
+                        is ShowRemoveDialog -> context?.let { c ->
+                            DropDialog(c).show {
+                                contentText = getString(R.string.feed_delete_memory_content)
+                                leftText = getString(R.string.feed_delete_cancel)
+                                rightText = getString(R.string.feed_delete_ok)
+                                onRightClick = {
+                                    setEvent(OnClickDeleteMemory(it.id))
+                                }
+                            }
+                        }
+                    }
                 }
-                binding.srlFeed.isRefreshing = false
             }
         }
     }

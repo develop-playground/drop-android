@@ -14,8 +14,11 @@
 
     <!-- login -->
     <string name="head_login_activity">나의 어떤 매일을 기록하다,</string>
-    <string name="naver_login_view">네이버로 로그인</string>
     <string name="easy_login_activity">간편로그인</string>
+
+    <string name="failure_kakao_login">카카오 로그인에 실패했습니다.</string>
+    <string name="failure_request_login">로그인에 실패했습니다.</string>
+    <string name="logged_out">로그아웃 되었습니다.</string>
 
     <string name="menu_title_feed">Feed</string>
     <string name="menu_title_map">Map</string>
@@ -24,12 +27,15 @@
     <!-- feed -->
     <string name="feed_memory_title_text">drop point</string>
     <string name="feed_empty_memory_text">기록된 추억이 없습니다</string>
+    <string name="feed_delete_memory_content">기록된 추억을 삭제하시겠습니까?</string>
+    <string name="feed_delete_cancel">취소</string>
+    <string name="feed_delete_ok">삭제</string>
 
     <!-- memory item -->
     <string name="memory_edit">수정</string>
     <string name="memory_remove">삭제</string>
     <string name="memory_content_more">더보기</string>
-    
+
     <string name="failure_title">Error!</string>
     <string name="failure_subtitle">네트워크를 확인하세요</string>
 
@@ -47,5 +53,20 @@
     <string name="add_memory_request_permission">추억을 등록하기 위해 권한이 필요합니다.</string>
     <string name="add_memory_please_grant_permissions">필요한 권한을 허용해주세요.</string>
     <string name="add_memory_permission_denied">권한이 거절되었습니다!</string>
+
+    <!-- setting -->
+    <string name="setting_title">회원 정보</string>
+    <string name="setting_service_terms">서비스 이용약관</string>
+    <string name="setting_private_terms">개인정보 취급방침</string>
+    <string name="setting_current_version">현재 버전</string>
+    <string name="setting_logout">로그아웃</string>
+    <string name="setting_sign_out">회원 탈퇴</string>
+    <string name="setting_failure_load_user_information">사용자 정보를 불러오는데 실패했습니다.</string>
+    <string name="setting_failure_logout_please_retry">로그아웃에 실패했습니다. 다시 시도해주세요</string>
+    <string name="setting_failure_sign_out_please_retry">회원탈퇴에 실패했습니다. 다시 시도해주세요</string>
+
+    <string name="setting_sign_out_content">탈퇴하시면 기록된 모든 추억이 삭제됩니다.\n회원을 탈퇴하시겠습니까?</string>
+    <string name="setting_sign_out_cancel">취소</string>
+    <string name="setting_sign_out_ok">탈퇴</string>
 
 </resources>
