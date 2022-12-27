@@ -69,4 +69,9 @@
     <string name="setting_sign_out_cancel">취소</string>
     <string name="setting_sign_out_ok">탈퇴</string>
 
+    <!-- modify -->
+    <string name="modify_memory_title">추억 수정</string>
+    <string name="modify_memory_cancel">취소</string>
+    <string name="modify_failure_please_retry">수정에 실패했습니다.\n다시 시도해주세요</string>
+
 </resources>
