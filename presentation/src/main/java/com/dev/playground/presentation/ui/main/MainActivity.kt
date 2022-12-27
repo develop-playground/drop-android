@@ -1,5 +1,7 @@
 package com.dev.playground.presentation.ui.main
 
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.view.MenuItem
 import com.dev.playground.presentation.R
@@ -11,6 +13,7 @@ import com.dev.playground.presentation.ui.feed.FeedFragment
 import com.dev.playground.presentation.ui.map_container.MapContainerFragment
 import com.dev.playground.presentation.ui.setting.SettingFragment
 import com.google.android.material.navigation.NavigationBarView
+import com.naver.maps.map.util.FusedLocationSource
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     NavigationBarView.OnItemSelectedListener {
@@ -89,5 +92,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
                 .commitAllowingStateLoss()
         }
     }
-
 }

@@ -38,6 +38,7 @@
 
     <!-- map container -->
     <dimen name="map_container_add_button_size">48dp</dimen>
+    <dimen name="map_container_fused_location_button_size">48dp</dimen>
 
     <!-- add memory -->
     <dimen name="add_memory_location_radius">50dp</dimen>

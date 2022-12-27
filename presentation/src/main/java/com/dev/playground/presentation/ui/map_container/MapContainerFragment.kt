@@ -1,21 +1,28 @@
 package com.dev.playground.presentation.ui.map_container
 
+import android.Manifest.permission
+import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
+import com.charlezz.pickle.util.ext.showToast
 import com.dev.playground.domain.model.Memory
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
 import com.dev.playground.presentation.ui.add.AddMemoryActivity
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
-import com.dev.playground.presentation.util.currentDate
+import com.dev.playground.presentation.util.hasPermission
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
@@ -27,15 +34,40 @@ class MapContainerFragment :
     private lateinit var map: NaverMap
     private var mapItem: TedNaverClustering<MapItem>? = null
 
+    private lateinit var locationSource: FusedLocationSource
+
+    private val needPermission =
+        arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION)
+
     private val viewModel by viewModel<MapContainerViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
+        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
         initViews()
         initCollects()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.all { it == PERMISSION_GRANTED }) {
+                map.locationTrackingMode = LocationTrackingMode.Follow
+            } else {
+                map.locationTrackingMode = LocationTrackingMode.None
+                showToast(getString(R.string.map_please_grant_permissions))
+                val intent = Intent(Settings.ACTION_DEVICE_INFO_SETTINGS)
+                startActivity(intent)
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onStart() {
@@ -76,6 +108,7 @@ class MapContainerFragment :
 
     override fun onMapReady(p0: NaverMap) {
         map = p0
+        map.locationSource = locationSource
 
         with(map) {
             context?.let { c ->
@@ -103,6 +136,13 @@ class MapContainerFragment :
             context?.startActivity<AddMemoryActivity> { }
         }
 
+        ivFusedLocation.setOnClickListener {
+            if (requireActivity().hasPermission(*needPermission)) {
+                map.locationTrackingMode = LocationTrackingMode.Follow
+            } else {
+                requestPermissions(needPermission, LOCATION_PERMISSION_REQUEST_CODE)
+            }
+        }
     }
 
     private fun initCollects() = with(viewModel) {
@@ -132,5 +172,6 @@ class MapContainerFragment :
         fun newInstance() = MapContainerFragment()
 
         val TAG: String = MapContainerFragment::class.java.simpleName
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
 }

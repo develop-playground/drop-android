@@ -60,6 +60,9 @@ dependencies {
     // map
     implementation(Dep.naverMap)
 
+    // location
+    implementation(Dep.location)
+
     // read more
     implementation(Dep.readMoreTextView)
 

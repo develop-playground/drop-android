@@ -12,6 +12,20 @@
             android:layout_height="match_parent" />
 
         <ImageButton
+            android:id="@+id/ivFusedLocation"
+            android:layout_width="@dimen/map_container_fused_location_button_size"
+            android:layout_height="@dimen/map_container_fused_location_button_size"
+            android:layout_marginBottom="@dimen/spacing_8"
+            android:background="@color/black"
+            android:contentDescription="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/ic_fused"
+            app:layout_constraintEnd_toEndOf="@id/ivAddMemory"
+            app:layout_constraintStart_toStartOf="@id/ivAddMemory"
+            app:layout_constraintBottom_toTopOf="@id/ivAddMemory"
+            app:radius="@{@dimen/spacing_100}" />
+
+        <ImageButton
             android:id="@+id/ivAddMemory"
             android:layout_width="@dimen/map_container_add_button_size"
             android:layout_height="@dimen/map_container_add_button_size"
