@@ -39,12 +39,13 @@
     <string name="failure_title">Error!</string>
     <string name="failure_subtitle">네트워크를 확인하세요</string>
 
+    <string name="memory_content_hint">내용을 입력하세요</string>
+    <string name="memory_drop_button">드롭하기</string>
+
     <!-- add memory -->
     <string name="add_memory_empty_location">위치 정보 없음</string>
     <string name="add_memory_cancel">취소</string>
     <string name="add_memory_title">새로운 추억</string>
-    <string name="add_memory_content_hint">내용을 입력하세요</string>
-    <string name="add_memory_drop_button">드롭하기</string>
 
     <string name="add_memory_fail_upload">이미지 업로드에 실패했습니다! 다시 시도해주세요.</string>
     <string name="add_memory_not_select_photo">선택된 사진이 없습니다.</string>

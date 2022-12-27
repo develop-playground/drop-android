@@ -113,7 +113,10 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
             launch {
                 effect.collect {
                     when (it) {
-                        Dropped -> finish()
+                        Dropped -> {
+                            // TODO result 처리해서 refresh 유도
+                            finish()
+                        }
                         FailUpload -> showToast(getString(R.string.add_memory_fail_upload))
                         NotSelectPhoto -> showToast(getString(R.string.add_memory_not_select_photo))
                         EmptyLocation -> showToast(getString(R.string.add_memory_missing_locate_information))
