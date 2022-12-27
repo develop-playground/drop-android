@@ -16,6 +16,7 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
 
@@ -105,13 +106,15 @@ class MapContainerFragment :
     }
 
     private fun initCollects() = with(viewModel) {
-        viewLifecycleOwner.repeatOnLifecycleState {
-            uiState.collect { state ->
-                when (state) {
-                    is Success -> {
-                        generateItems(state.itemList)
+        repeatOnLifecycleState {
+            launch {
+                uiState.collect { state ->
+                    when (state) {
+                        is Success -> {
+                            generateItems(state.itemList)
+                        }
+                        else -> Unit
                     }
-                    else -> Unit
                 }
             }
         }
