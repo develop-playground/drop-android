@@ -13,7 +13,10 @@ import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
+import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
+import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity.Companion.KEY_MEMORY_BUNDLE
 import com.dev.playground.presentation.util.repeatOnLifecycleState
+import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -65,8 +68,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             launch {
                 effect.collect {
                     when (it) {
-                        is RouteEditPage -> {
-
+                        is RouteEditPage -> activity?.startActivity<ModifyMemoryActivity> {
+                            putExtra(KEY_MEMORY_BUNDLE, it.bundle)
                         }
                         is ShowRemoveDialog -> context?.let { c ->
                             DropDialog(c).show {

@@ -8,7 +8,9 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ItemMemoryBinding
+import com.dev.playground.presentation.model.MemoryBundle
 import com.dev.playground.presentation.model.MemoryUIModel
+import com.dev.playground.presentation.model.toBundle
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.createBalloon
 
@@ -49,7 +51,7 @@ class FeedViewHolder(
             val removeButton = popup?.getContentView()?.findViewById<TextView>(R.id.tvMemoryRemove)
 
             editButton?.setOnClickListener {
-                item.onClickEdit.invoke(item.id)
+                item.onClickEdit.invoke(item.toBundle())
                 popup?.dismiss()
             }
             removeButton?.setOnClickListener {
