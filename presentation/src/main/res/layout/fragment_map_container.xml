@@ -33,47 +33,60 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/llDropPointCount"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/map_container_drop_point_count_box_width"
             android:layout_height="@dimen/map_container_drop_point_count_box_height"
             android:layout_marginTop="@dimen/spacing_12"
-            android:orientation="horizontal"
             android:background="@color/black"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cvMapToolbar"
             app:radius="@{@dimen/spacing_27}">
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_pin" />
-
-            <TextView
-                style="@style/Gmarket.Medium.12"
+                android:id="@+id/ivPin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:gravity="center"
+                android:src="@drawable/ic_pin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDropPointTitle"
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:layout_marginEnd="@dimen/spacing_4"
                 android:gravity="center"
                 android:text="@string/map_pin_title"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvDropPointCount"
+                app:layout_constraintStart_toEndOf="@id/ivPin"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvDropPointCount"
                 style="@style/Gmarket.Medium.12"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_8"
                 android:gravity="center"
                 android:textColor="@color/lime"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="32" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
             android:id="@+id/ivFusedLocation"

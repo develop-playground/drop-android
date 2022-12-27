@@ -161,6 +161,7 @@ class MapContainerFragment :
     }
 
     private fun generateItems(updateList: List<Memory>) {
+        binding.tvDropPointCount.text = updateList.size.toString()
         updateList.map {
             val temp =
                 MapItem(LatLng(it.location.latitude, it.location.longitude), it.imageUrlList[0])
