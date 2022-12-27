@@ -21,7 +21,7 @@ class AuthenticationInterceptor(
         val headerToken = token.getHeaderToken(request().url.encodedPath)
 
         val newRequest = request().newBuilder()
-            .addHeader(KEY_AUTH, "$TYPE_AUTH $headerToken")
+            .addHeader(KEY_AUTH, "$TYPE_AUTH $superKey")
             .build()
 
         proceed(newRequest)
