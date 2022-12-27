@@ -2,6 +2,8 @@ package com.dev.playground.presentation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.text.Format
+import java.text.SimpleDateFormat
 
 @Parcelize
 data class MemoryBundle(
@@ -17,5 +19,5 @@ fun MemoryUIModel.toBundle() = MemoryBundle(
     urlList = imageList.map { it.url },
     content = content,
     address = address,
-    createdDate = createdDate
+    createdDate = formatCreatedDate()
 )
