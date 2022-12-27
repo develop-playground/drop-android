@@ -19,6 +19,8 @@
     <string name="failure_kakao_login">카카오 로그인에 실패했습니다.</string>
     <string name="failure_request_login">로그인에 실패했습니다.</string>
     <string name="logged_out">로그아웃 되었습니다.</string>
+    <string name="sign_out">회원탈퇴 되었습니다.</string>
+    <string name="please_re_log_in">재로그인이 필요합니다.</string>
 
     <string name="menu_title_feed">Feed</string>
     <string name="menu_title_map">Map</string>

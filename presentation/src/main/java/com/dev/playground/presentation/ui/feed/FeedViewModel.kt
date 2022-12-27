@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.usecase.memory.DeleteMemoryUseCase
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.toPresentation
 import com.dev.playground.presentation.ui.feed.FeedContract.*
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
@@ -11,12 +12,15 @@ import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDia
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickEdit
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickRemove
 import com.dev.playground.presentation.ui.feed.FeedContract.State.*
+import com.dev.playground.presentation.ui.setting.SettingContract
 import kotlinx.coroutines.launch
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 class FeedViewModel(
     private val getMemoryListUseCase: GetMemoryListUseCase,
     private val deleteMemoryUseCase: DeleteMemoryUseCase,
-) : BaseViewModel<State, Event, Effect>(Loading) {
+) : BaseViewModel<State, Event, UiEffect>(Loading) {
 
     init {
         fetch()
@@ -41,8 +45,10 @@ class FeedViewModel(
                     )
                 }
             }.onFailure {
-                setState {
-                    Failure(it)
+                it.catchAuth {
+                    setState {
+                        Failure(it)
+                    }
                 }
             }
         }
