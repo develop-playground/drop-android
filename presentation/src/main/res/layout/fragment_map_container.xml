@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,24 +13,67 @@
             android:layout_height="match_parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cvMapToolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
             android:background="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_drop_logo_white"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/llDropPointCount"
+            android:layout_width="@dimen/map_container_drop_point_count_box_width"
+            android:layout_height="@dimen/map_container_drop_point_count_box_height"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:orientation="horizontal"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvMapToolbar"
+            app:radius="@{@dimen/spacing_27}">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pin" />
+
+            <TextView
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/map_pin_title"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvDropPointCount"
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/lime"
+                tools:text="32" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/ivFusedLocation"
@@ -40,9 +84,9 @@
             android:contentDescription="@null"
             android:foreground="?attr/selectableItemBackground"
             android:src="@drawable/ic_fused"
+            app:layout_constraintBottom_toTopOf="@id/ivAddMemory"
             app:layout_constraintEnd_toEndOf="@id/ivAddMemory"
             app:layout_constraintStart_toStartOf="@id/ivAddMemory"
-            app:layout_constraintBottom_toTopOf="@id/ivAddMemory"
             app:radius="@{@dimen/spacing_100}" />
 
         <ImageButton

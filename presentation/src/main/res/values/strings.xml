@@ -39,7 +39,8 @@
     <string name="failure_title">Error!</string>
     <string name="failure_subtitle">네트워크를 확인하세요</string>
 
-    <!-- map -->
+    <!-- map container -->
+    <string name="map_pin_title">dropPoint</string>
     <string name="map_request_permission">현 위치 설정을 켜기 위해서는 권한이 필요합니다.</string>
     <string name="map_please_grant_permissions">필요한 권한을 허용해주세요.</string>
     <string name="map_permission_denied">권한이 거절되었습니다!</string>
