@@ -1,9 +1,12 @@
 package com.dev.playground.presentation.model.base
 
-import androidx.annotation.StringRes
-import com.dev.playground.presentation.R
+import com.dev.playground.presentation.model.MemoryBundle
 
 interface UiEffect {
-    abstract class AuthEffect(@StringRes val message: Int) : UiEffect
-    object RouteLoginPage: AuthEffect(R.string.please_re_log_in)
+    sealed interface NavigationEffect : UiEffect {
+        object RouteMainPage : NavigationEffect
+        data class RouteLoginPage(val force: Boolean = false) : NavigationEffect
+        data class RouteModifyPage(val bundle: MemoryBundle) : NavigationEffect
+        object RouteAddPage : NavigationEffect
+    }
 }

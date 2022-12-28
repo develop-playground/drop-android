@@ -1,8 +1,8 @@
-package com.dev.playground.presentation.ui.splash
+package com.dev.playground.presentation.ui.main
 
 import com.dev.playground.presentation.model.base.UiState
 
-class SplashContract {
+class MainContract {
 
     sealed interface State : UiState {
         object Idle : State

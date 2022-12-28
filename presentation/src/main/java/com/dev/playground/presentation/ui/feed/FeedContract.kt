@@ -46,7 +46,6 @@ class FeedContract {
     }
 
     sealed interface Effect : UiEffect {
-        data class RouteEditPage(val bundle: MemoryBundle) : Effect
         data class ShowRemoveDialog(val id: Int) : Effect
     }
 

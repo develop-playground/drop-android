@@ -9,18 +9,22 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteModifyPage
+import com.dev.playground.presentation.model.base.UiEvent
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.*
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity.Companion.KEY_MEMORY_BUNDLE
+import com.dev.playground.presentation.ui.modify.ModifyMemoryContract
+import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Event
+import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Event.*
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import com.dev.playground.presentation.util.showToast
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -87,9 +91,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             launch {
                 effect.collect {
                     when (it) {
-                        is RouteEditPage -> activity?.startActivity<ModifyMemoryActivity> {
-                            putExtra(KEY_MEMORY_BUNDLE, it.bundle)
-                        }
+                        is RouteModifyPage -> sharedViewModel.setEvent(RequestRouteModify(it.bundle))
                         is ShowRemoveDialog -> context?.let { c ->
                             DropDialog(c).show {
                                 contentText = getString(R.string.feed_delete_memory_content)
@@ -100,10 +102,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                                 }
                             }
                         }
-                        is RouteLoginPage -> {
-                            context?.showToast(it.message)
-                            sharedViewModel.routeLoginPage()
-                        }
+                        is RouteLoginPage -> sharedViewModel.setEvent(RequestRouteLogin())
                     }
                 }
             }

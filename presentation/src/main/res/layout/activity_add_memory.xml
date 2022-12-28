@@ -57,7 +57,7 @@
                 android:layout_height="32dp"
                 android:layout_marginHorizontal="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_16"
-                android:background="@{vm.uiState.addMemoryState.isEmpty ? @color/gray_light : @color/lime}"
+                android:background="@{vm.uiState.addMemoryState.isIdle ? @color/gray_light : @color/lime}"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:radius="@{@dimen/add_memory_location_radius}">
@@ -68,7 +68,7 @@
                     android:layout_height="14dp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_map_pin"
-                    android:visibility="@{vm.uiState.addMemoryState.isEmpty ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vm.uiState.addMemoryState.isIdle ? View.VISIBLE : View.GONE}"
                     app:tint="@color/gray_medium" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:text="@{vm.uiState.addMemoryState.formatAddress}"
                     android:textAppearance="@style/Pretendard.Regular.14"
                     android:textColor="@color/black"
-                    android:visibility="@{vm.uiState.addMemoryState.isEmpty ? View.GONE : View.VISIBLE}" />
+                    android:visibility="@{vm.uiState.addMemoryState.isIdle ? View.GONE : View.VISIBLE}" />
 
             </LinearLayout>
 
@@ -170,12 +170,12 @@
                 android:layout_height="@dimen/add_memory_drop_button_height"
                 android:layout_marginHorizontal="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_20"
-                android:background="@{vm.uiState.addMemoryState.isEmpty ? @color/gray_light : @color/lime}"
-                android:enabled="@{!vm.uiState.addMemoryState.isEmpty}"
+                android:background="@{vm.uiState.addMemoryState.isIdle ? @color/gray_light : @color/lime}"
+                android:enabled="@{!vm.uiState.addMemoryState.isIdle}"
                 android:stateListAnimator="@null"
                 android:text="@string/memory_drop_button"
                 android:textAppearance="@style/Gmarket.Medium.18"
-                android:textColor="@{vm.uiState.addMemoryState.isEmpty ? @color/white : @color/black}"
+                android:textColor="@{vm.uiState.addMemoryState.isIdle ? @color/white : @color/black}"
                 app:radius="@{@dimen/add_memory_drop_button_radius}" />
 
         </LinearLayout>

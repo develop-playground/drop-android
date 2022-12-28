@@ -1,19 +1,26 @@
 package com.dev.playground.presentation.ui.main
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
+import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.*
+import com.dev.playground.presentation.model.base.UiEvent
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.*
+import com.dev.playground.presentation.ui.main.MainContract.State
+import com.dev.playground.presentation.ui.main.MainContract.State.Idle
 
-class MainViewModel: ViewModel() {
+class MainViewModel : BaseViewModel<State, UiEvent, UiEffect>(Idle) {
 
-    private val _routeLoginPageEffect: Channel<Unit> = Channel()
-    val routeLoginPageEffect = _routeLoginPageEffect.receiveAsFlow()
-
-    fun routeLoginPage() {
-        viewModelScope.launch {
-            _routeLoginPageEffect.send(Unit)
+    override fun handleEvent(event: UiEvent) {
+        when (event) {
+            is RequestRouteLogin -> setEffect {
+                RouteLoginPage(event.force)
+            }
+            is RequestRouteModify -> setEffect {
+                RouteModifyPage(event.bundle)
+            }
+            RequestRouteAdd -> setEffect {
+                RouteAddPage
+            }
         }
     }
 
