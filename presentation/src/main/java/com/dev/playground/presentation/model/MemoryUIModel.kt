@@ -28,7 +28,7 @@ data class MemoryUIModel(
     fun formatCreatedDate(): String = try {
         val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val formatter = SimpleDateFormat("yy.MM.dd", Locale.getDefault())
-        val parsedString = parser.parse(createdDate) ?: return createdDate
+        val parsedString = parser.parse(createdDate) ?: createdDate
         formatter.format(parsedString)
     } finally {
         createdDate
