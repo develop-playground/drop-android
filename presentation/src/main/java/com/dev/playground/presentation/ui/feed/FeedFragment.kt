@@ -2,6 +2,8 @@ package com.dev.playground.presentation.ui.feed
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
@@ -12,7 +14,7 @@ import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
-import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
@@ -47,7 +49,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     private fun initViews() = with(binding) {
         vm = viewModel
         srlFeed.setOnRefreshListener {
-            viewModel.fetch()
+            viewModel.setEvent(Fetch)
             binding.srlFeed.isRefreshing = false
         }
 
@@ -55,6 +57,18 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             itemAnimator = null
             adapter = feedAdapter
             addItemDecoration(FeedItemDecoration())
+            addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        (layoutManager as? LinearLayoutManager)?.let {
+                            viewModel.setEvent(
+                                FetchMore(it.findLastVisibleItemPosition())
+                            )
+                        }
+                    }
+                }
+            )
         }
     }
 
