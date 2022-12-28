@@ -14,6 +14,7 @@ data class Token(
     private enum class NeedRefreshTokenUrl(val value: String) {
         Logout("/auth/logout"),
         User("/auth/user"),
+        Token("/auth/token/reissue")
     }
 
 }

@@ -1,6 +1,7 @@
 package com.dev.playground.presentation.ui.setting
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.dev.playground.domain.model.type.LoginType
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.model.base.UiEffect
@@ -42,11 +43,12 @@ class SettingContract {
     }
 
     sealed interface Effect : UiEffect {
-        object RouteLoginPage : Effect
-        sealed interface ShowToast : Effect {
-            object FailLoadUserInformation : Effect
-            object FailLogout : Effect
-            object FailSignOut : Effect
+        object SuccessLogout: UiEffect.AuthEffect(R.string.logged_out)
+        object SuccessSignOut: UiEffect.AuthEffect(R.string.sign_out)
+        sealed class ShowToast(@StringRes val message: Int) : Effect {
+            object FailLoadUserInformation : ShowToast(R.string.setting_failure_load_user_information)
+            object FailLogout : ShowToast(R.string.setting_failure_logout_please_retry)
+            object FailSignOut : ShowToast(R.string.setting_failure_sign_out_please_retry)
         }
     }
 

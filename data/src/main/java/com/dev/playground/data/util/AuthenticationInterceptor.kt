@@ -1,6 +1,7 @@
 package com.dev.playground.data.util
 
 import com.dev.playground.data.data_source.local.SharedPreferencesDataSource
+import com.dev.playground.domain.exception.NotLoggedInException
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -16,12 +17,14 @@ class AuthenticationInterceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
 
-        val token = preferencesManager.getToken() ?: throw IOException()
-        val superKey = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE2Njk4NTMxMjYsImV4cCI6MzMyMDU4NTMxMjZ9.lYwBcQBRr12EpxoE31i0AzFWUWk2Zeo4i6j7Psocl5jbLxBZJMgH-eLCk14JvKpZTzFkoz2TjYPXJigRjW62vg"
+        val token = preferencesManager.getToken() ?: run {
+            preferencesManager.removeAuth()
+            throw NotLoggedInException()
+        }
         val headerToken = token.getHeaderToken(request().url.encodedPath)
 
         val newRequest = request().newBuilder()
-            .addHeader(KEY_AUTH, "$TYPE_AUTH $superKey")
+            .addHeader(KEY_AUTH, "$TYPE_AUTH $headerToken")
             .build()
 
         proceed(newRequest)

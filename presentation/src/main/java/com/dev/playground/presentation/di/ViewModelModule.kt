@@ -4,6 +4,7 @@ import com.dev.playground.presentation.ui.add.AddMemoryViewModel
 import com.dev.playground.presentation.ui.feed.FeedViewModel
 import com.dev.playground.presentation.ui.login.LoginViewModel
 import com.dev.playground.presentation.ui.map_container.MapContainerViewModel
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.setting.SettingViewModel
 import com.dev.playground.presentation.ui.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -42,4 +43,6 @@ val viewModelModule = module {
     }
 
     viewModel { MapContainerViewModel(getMemoryListUseCase = get()) }
+
+    viewModel { MainViewModel() }
 }
