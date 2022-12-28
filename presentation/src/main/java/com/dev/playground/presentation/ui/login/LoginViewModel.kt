@@ -6,7 +6,8 @@ import com.dev.playground.domain.model.type.LoginType
 import com.dev.playground.domain.usecase.user.login.RequestLoginUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.ui.login.LoginContract.*
-import com.dev.playground.presentation.ui.login.LoginContract.Effect.*
+import com.dev.playground.presentation.ui.login.LoginContract.Effect.RouteMainPage
+import com.dev.playground.presentation.ui.login.LoginContract.Effect.ShowFailRequestLoginToast
 import com.dev.playground.presentation.ui.login.LoginContract.Event.OnSnsLoginComplete
 import com.dev.playground.presentation.ui.login.LoginContract.State.Initialize
 import kotlinx.coroutines.launch

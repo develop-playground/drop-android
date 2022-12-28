@@ -1,6 +1,8 @@
 package com.dev.playground.presentation.ui.add
 
+import androidx.annotation.StringRes
 import com.dev.playground.domain.model.Memory
+import com.dev.playground.presentation.R
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.model.base.UiState
@@ -44,10 +46,10 @@ class AddMemoryContract {
 
     sealed interface Effect : UiEffect {
         object Dropped : Effect
-        sealed interface ShowToast : Effect {
-            object FailUpload : ShowToast
-            object NotSelectPhoto : ShowToast
-            object EmptyLocation : ShowToast
+        sealed class ShowToast(@StringRes val message: Int) : Effect {
+            object FailUpload : ShowToast(R.string.add_memory_fail_upload)
+            object NotSelectPhoto : ShowToast(R.string.add_memory_not_select_photo)
+            object EmptyLocation : ShowToast(R.string.add_memory_missing_locate_information)
         }
     }
 
