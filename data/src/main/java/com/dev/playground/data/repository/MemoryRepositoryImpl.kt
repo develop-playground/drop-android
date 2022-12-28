@@ -6,6 +6,7 @@ import com.dev.playground.data.model.toDomain
 import com.dev.playground.data.util.AutoTokenRefresher
 import com.dev.playground.domain.model.Memory
 import com.dev.playground.domain.model.MemoryInput
+import com.dev.playground.domain.model.MemoryModifyInput
 import com.dev.playground.domain.repository.MemoryRepository
 
 class MemoryRepositoryImpl(
@@ -19,6 +20,13 @@ class MemoryRepositoryImpl(
 
     override suspend fun postMemory(params: MemoryInput): Memory = refresher.authHandle {
         service.postMemory(params).toDomain()
+    }
+
+    override suspend fun patchMemory(params: MemoryModifyInput) = refresher.authHandle {
+      service.patchMemory(
+        id = params.id,
+        content = params.content
+      )
     }
 
     override suspend fun deleteMemory(params: Int) = refresher.authHandle {

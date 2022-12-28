@@ -9,7 +9,6 @@ class GetMemoryListUseCase(private val repository: MemoryRepository) {
 
     suspend operator fun invoke(param: Int) = runCatching {
         repository.getMemoryList(param)
-
     }
 
 }

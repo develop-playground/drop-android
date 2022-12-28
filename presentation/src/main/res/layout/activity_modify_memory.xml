@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,13 +9,14 @@
 
         <variable
             name="vm"
-            type="com.dev.playground.presentation.ui.add.AddMemoryViewModel" />
+            type="com.dev.playground.presentation.ui.modify.ModifyMemoryViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tools:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +34,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/add_memory_cancel"
+                    android:text="@string/modify_memory_cancel"
                     android:textAppearance="@style/Pretendard.Light.14"
                     android:textColor="@color/white"
                     app:layout_constraintDimensionRatio="1"
@@ -42,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/add_memory_title"
+                    android:text="@string/modify_memory_title"
                     android:textAppearance="@style/Pretendard.Regular.16"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -52,85 +54,70 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="@dimen/spacing_16"
-                android:layout_marginTop="@dimen/spacing_16"
-                android:background="@{vm.uiState.addMemoryState.isEmpty ? @color/gray_light : @color/lime}"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:radius="@{@dimen/add_memory_location_radius}">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20">
 
                 <ImageView
-                    android:id="@+id/ivAddMemoryLocation"
+                    android:id="@+id/ivMemoryPrefix"
                     android:layout_width="wrap_content"
-                    android:layout_height="14dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_map_pin"
-                    android:visibility="@{vm.uiState.addMemoryState.isEmpty ? View.VISIBLE : View.GONE}"
-                    app:tint="@color/gray_medium" />
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_memory_prefix"
+                    app:layout_constraintBottom_toBottomOf="@id/tvMemoryDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvMemoryDate" />
 
                 <TextView
+                    android:id="@+id/tvMemoryDate"
+                    style="@style/Gmarket.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_4"
-                    android:text="@string/add_memory_empty_location"
-                    android:textAppearance="@style/Pretendard.Light.14"
-                    android:textColor="@color/gray_medium"
-                    android:visibility="@{ivAddMemoryLocation.visibility}" />
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{vm.currentState.bundle.createdDate}"
+                    android:textColor="@color/black"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/ivMemoryPrefix"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="22.12.01" />
 
                 <TextView
-                    android:id="@+id/tvAddMemoryLocation"
+                    android:id="@+id/tvMemoryAddress"
+                    style="@style/Pretendard.Light.12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.uiState.addMemoryState.formatAddress}"
-                    android:textAppearance="@style/Pretendard.Regular.14"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{vm.currentState.bundle.address}"
                     android:textColor="@color/black"
-                    android:visibility="@{vm.uiState.addMemoryState.isEmpty ? View.GONE : View.VISIBLE}" />
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvMemoryDate"
+                    app:layout_constraintStart_toEndOf="@id/tvMemoryDate"
+                    tools:text="서울시 역삼동" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_8">
 
-                <FrameLayout
-                    android:id="@+id/flAddMemory"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginHorizontal="@dimen/spacing_16"
-                    android:background="@color/gray_light"
-                    android:visibility="@{ivAddMemoryLocation.visibility}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:radius="@{@dimen/add_memory_photo_radius}">
-
-                    <ImageView
-                        android:layout_width="@dimen/add_memory_photo_button_size"
-                        android:layout_height="@dimen/add_memory_photo_button_size"
-                        android:layout_gravity="center"
-                        android:background="@color/white"
-                        android:contentDescription="@null"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_plus"
-                        app:radius="@{@dimen/spacing_100}" />
-                </FrameLayout>
-
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vpAddMemoryPhotoList"
+                    android:id="@+id/vpPhotoList"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/spacing_16"
-                    android:visibility="@{tvAddMemoryLocation.visibility}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/black"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,7 +127,7 @@
                 android:layout_height="@dimen/image_pager_tab_height"
                 android:layout_marginTop="@dimen/spacing_8"
                 android:background="@color/white"
-                android:visibility="@{vm.uiState.addMemoryState.isMoreOne ? View.VISIBLE : View.GONE}"
+                android:visibility="@{vm.uiState.isOnlyOne ? View.GONE : View.VISIBLE}"
                 app:tabBackground="@drawable/selector_image_pager_tab_indicator"
                 app:tabGravity="center"
                 app:tabIndicator="@null"
@@ -165,17 +152,16 @@
                 android:textColorHint="@color/gray_medium" />
 
             <Button
-                android:id="@+id/btAddMemory"
+                android:id="@+id/btModifyMemory"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/add_memory_drop_button_height"
                 android:layout_marginHorizontal="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_20"
-                android:background="@{vm.uiState.addMemoryState.isEmpty ? @color/gray_light : @color/lime}"
-                android:enabled="@{!vm.uiState.addMemoryState.isEmpty}"
+                android:background="@color/lime"
                 android:stateListAnimator="@null"
                 android:text="@string/memory_drop_button"
                 android:textAppearance="@style/Gmarket.Medium.18"
-                android:textColor="@{vm.uiState.addMemoryState.isEmpty ? @color/white : @color/black}"
+                android:textColor="@color/black"
                 app:radius="@{@dimen/add_memory_drop_button_radius}" />
 
         </LinearLayout>

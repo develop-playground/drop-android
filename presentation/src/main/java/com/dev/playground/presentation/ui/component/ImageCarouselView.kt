@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ViewImageCarouselBinding
@@ -30,6 +31,7 @@ constructor(
 
     fun setItemList(itemList: List<ImageCarouselItemUIModel>) {
         adapter.submitList(itemList)
+        binding.tlImagePager.isVisible = itemList.size > 1
     }
 
     private fun initViews() = with(binding) {

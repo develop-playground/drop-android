@@ -21,8 +21,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initLoginManager()
         initViews()
         initCollect()
+    }
+
+    private fun initLoginManager() = loginManager.logout {
+        // no-op
     }
 
     private fun initViews() = with(binding) {
@@ -56,7 +61,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     }
                 }
             }
-
         }
     }
 

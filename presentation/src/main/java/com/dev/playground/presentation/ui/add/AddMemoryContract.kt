@@ -6,6 +6,7 @@ import com.dev.playground.presentation.R
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.model.base.UiState
+import com.dev.playground.presentation.ui.setting.SettingContract
 import java.io.File
 
 class AddMemoryContract {
@@ -34,6 +35,9 @@ class AddMemoryContract {
 
         val isEmpty
             get() = this is Empty
+
+        val isMoreOne
+            get() = this is SelectedPhoto && this.fileList.size > 1
 
         val formatAddress
             get() = (this as? SelectedPhoto)?.information?.metadata.orEmpty()
