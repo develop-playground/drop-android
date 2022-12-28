@@ -24,10 +24,11 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/map_container_drop_point_count_box_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/map_container_drop_point_count_box_height"
             android:layout_marginTop="@dimen/spacing_12"
             android:background="@color/black"
+            android:paddingHorizontal="@dimen/spacing_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cvMapToolbar"
@@ -37,7 +38,6 @@
                 android:id="@+id/ivPin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8"
                 android:src="@drawable/ic_pin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             <TextView
                 android:id="@+id/tvDropPointTitle"
                 style="@style/Gmarket.Medium.12"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_4"
                 android:layout_marginEnd="@dimen/spacing_4"
@@ -62,7 +62,6 @@
                 style="@style/Gmarket.Medium.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_8"
                 android:textColor="@color/lime"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
