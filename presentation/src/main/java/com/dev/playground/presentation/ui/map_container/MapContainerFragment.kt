@@ -109,25 +109,36 @@ class MapContainerFragment :
     override fun onMapReady(p0: NaverMap) {
         map = p0
         map.locationSource = locationSource
+        makeClusterMarker()
+    }
 
-        with(map) {
-            context?.let { c ->
-                mapItem = TedNaverClustering.with<MapItem>(c, this)
-                    .customMarker { clusterItem ->
-                        Marker(clusterItem.position).apply {
-                            icon = OverlayImage.fromView(MarkerView(c))
-                        }
-                    }
-                    .customCluster { cluster ->
+    private fun makeClusterMarker() {
+        context?.let { c ->
+            mapItem = TedNaverClustering.with<MapItem>(c, map)
+                .customMarker { markerItem ->
+                    Marker(markerItem.position).apply {
                         MarkerView(c).apply {
-                            setMarkerPoint(cluster.size)
+                            setMarkerImage(markerItem.image)
+                            icon = OverlayImage.fromView(this)
                         }
                     }
-                    .minClusterSize(1)
-                    .make()
-            }
+                }
+                .customCluster { clusterItem ->
+                    MarkerView(c).apply {
+                        setMarkerImage(clusterItem.items.first().image)
+                        setMarkerPoint(clusterItem.size)
+                    }
+                }
+                .clusterAddedListener { cluster, _ ->
+                    MarkerView(c).apply {
+                        setMarkerImage(cluster.items.first().image)
+                    }
+                }
+                .minClusterSize(1)
+                .make()
         }
     }
+
 
     private fun initViews() = with(binding) {
         viewModel.fetch()
@@ -151,6 +162,7 @@ class MapContainerFragment :
                 uiState.collect { state ->
                     when (state) {
                         is Success -> {
+                            binding.tvDropPointCount.text = state.itemList.size.toString()
                             generateItems(state.itemList)
                         }
                         else -> Unit
@@ -161,11 +173,11 @@ class MapContainerFragment :
     }
 
     private fun generateItems(updateList: List<Memory>) {
-        binding.tvDropPointCount.text = updateList.size.toString()
-        updateList.map {
-            val temp =
+        binding.mapView.getMapAsync {
+            val temp = updateList.map {
                 MapItem(LatLng(it.location.latitude, it.location.longitude), it.imageUrlList[0])
-            mapItem?.addItem(temp)
+            }
+            mapItem?.addItems(temp)
         }
     }
 

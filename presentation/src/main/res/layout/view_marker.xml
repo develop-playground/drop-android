@@ -9,8 +9,8 @@
 
         <ImageView
             android:id="@+id/ivMarkerView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/map_container_marker_image_width"
+            android:layout_height="@dimen/map_container_marker_image_height"
             android:layout_marginTop="@dimen/spacing_10"
             android:layout_marginEnd="@dimen/spacing_10"
             android:background="@drawable/shape_marker_box"
@@ -18,7 +18,7 @@
             app:layout_constraintEnd_toEndOf="@id/tvDropPoint"
             app:layout_constraintTop_toTopOf="@id/tvDropPoint" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/ivDownArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

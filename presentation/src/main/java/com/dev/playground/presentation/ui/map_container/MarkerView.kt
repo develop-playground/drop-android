@@ -5,10 +5,11 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.databinding.ViewMarkerBinding
-import com.dev.playground.presentation.model.ImageCarouselItemUIModel
-import com.dev.playground.presentation.util.setImageUrl
 
 class MarkerView
 @JvmOverloads
@@ -37,7 +38,6 @@ constructor(
 
     private fun setTypeArray(typedArray: TypedArray) {
         val text = typedArray.getString(R.styleable.MarkerView_pointText)
-
         val bgText = typedArray.getResourceId(
             R.styleable.MarkerView_bgPointText,
             R.drawable.shape_drop_point,
@@ -46,19 +46,22 @@ constructor(
         with(binding) {
             if (text.isNullOrEmpty()) tvDropPoint.text = "1"
             else tvDropPoint.text = text
-
             tvDropPoint.setBackgroundResource(bgText)
         }
 
         typedArray.recycle()
     }
 
-    fun setImage(item: String) = with(binding) {
-        ivMarkerView.setImageUrl(item)
+    fun setMarkerImage(item: String) = with(binding) {
+        Glide.with(ivMarkerView.context)
+            .load(item)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_drop_logo_black))
+            .fitCenter()
+            .into(ivMarkerView)
     }
 
     fun setMarkerPoint(point: Int) = with(binding) {
         tvDropPoint.text = point.toString()
     }
-
 }
