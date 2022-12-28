@@ -12,26 +12,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cvMapToolbar"
+        <ImageView
+            android:id="@+id/ivMapToolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
             android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:contentDescription="@null"
+            android:src="@drawable/ic_drop_logo_white"
+            android:scaleType="centerInside"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_drop_logo_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/map_container_drop_point_count_box_width"
