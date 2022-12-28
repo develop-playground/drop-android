@@ -6,13 +6,18 @@ import android.widget.TextView
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
+import com.dev.playground.presentation.model.base.UiEvent
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.*
 import com.dev.playground.presentation.ui.add.AddMemoryActivity
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.util.startActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.MarkerIcons
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
 
 class MapContainerFragment :
@@ -20,6 +25,7 @@ class MapContainerFragment :
     OnMapReadyCallback {
 
     private lateinit var map: NaverMap
+    private val sharedViewModel by sharedViewModel<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,7 +97,7 @@ class MapContainerFragment :
 
     private fun initViews() = with(binding) {
         ivAddMemory.setOnClickListener {
-            context?.startActivity<AddMemoryActivity> { }
+            sharedViewModel.setEvent(RequestRouteAdd)
         }
     }
 

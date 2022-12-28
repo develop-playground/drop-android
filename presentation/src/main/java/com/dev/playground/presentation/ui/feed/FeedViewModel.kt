@@ -5,17 +5,15 @@ import com.dev.playground.domain.usecase.memory.DeleteMemoryUseCase
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteModifyPage
 import com.dev.playground.presentation.model.toPresentation
-import com.dev.playground.presentation.ui.feed.FeedContract.*
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
+import com.dev.playground.presentation.ui.feed.FeedContract.Event
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickEdit
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickRemove
+import com.dev.playground.presentation.ui.feed.FeedContract.State
 import com.dev.playground.presentation.ui.feed.FeedContract.State.*
-import com.dev.playground.presentation.ui.setting.SettingContract
 import kotlinx.coroutines.launch
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 
 class FeedViewModel(
     private val getMemoryListUseCase: GetMemoryListUseCase,
@@ -64,7 +62,7 @@ class FeedViewModel(
     override fun handleEvent(event: Event) {
         when (event) {
             is OnClickEdit -> setEffect {
-                RouteEditPage(event.bundle)
+                RouteModifyPage(event.bundle)
             }
             is OnClickRemove -> setEffect {
                 ShowRemoveDialog(event.id)

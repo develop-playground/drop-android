@@ -6,13 +6,15 @@ import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.FragmentSettingBinding
-import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteLogin
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
 import com.dev.playground.presentation.ui.main.MainViewModel
+import com.dev.playground.presentation.ui.setting.SettingContract.Effect.OnOut
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestLogout
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestSignOut
 import com.dev.playground.presentation.util.VERSION_NAME
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
@@ -49,7 +51,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
         tvCurrentVersion.text = versionNumber
         tvLogout.setOnClickListener {
-            viewModel.setEvent(OnLogout)
+            viewModel.setEvent(RequestLogout)
         }
         tvSignOut.setOnClickListener {
             context?.let {
@@ -58,7 +60,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     leftText = getString(R.string.setting_sign_out_cancel)
                     rightText = getString(R.string.setting_sign_out_ok)
                     onRightClick = {
-                        viewModel.setEvent(OnSignOut)
+                        viewModel.setEvent(RequestSignOut)
                     }
                 }
             }
@@ -70,10 +72,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             launch {
                 effect.collect {
                     when (it) {
-                        is UiEffect.AuthEffect -> {
+                        is OnOut -> {
                             context?.showToast(it.message)
-                            sharedViewModel.routeLoginPage()
+                            sharedViewModel.setEvent(RequestRouteLogin(false))
                         }
+                        is RouteLoginPage -> sharedViewModel.setEvent(RequestRouteLogin())
                         is ShowToast -> context?.showToast(it.message)
                     }
                 }

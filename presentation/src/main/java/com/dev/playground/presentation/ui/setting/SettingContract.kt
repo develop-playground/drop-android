@@ -38,13 +38,15 @@ class SettingContract {
     }
 
     sealed interface Event : UiEvent {
-        object OnLogout : Event
-        object OnSignOut: Event
+        object RequestLogout : Event
+        object RequestSignOut : Event
     }
 
     sealed interface Effect : UiEffect {
-        object SuccessLogout: UiEffect.AuthEffect(R.string.logged_out)
-        object SuccessSignOut: UiEffect.AuthEffect(R.string.sign_out)
+        sealed class OnOut(@StringRes val message: Int): UiEffect {
+            object OnLogout : OnOut(R.string.logged_out)
+            object OnSignOut : OnOut(R.string.sign_out)
+        }
         sealed class ShowToast(@StringRes val message: Int) : Effect {
             object FailLoadUserInformation : ShowToast(R.string.setting_failure_load_user_information)
             object FailLogout : ShowToast(R.string.setting_failure_logout_please_retry)
