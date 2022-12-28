@@ -7,17 +7,21 @@ import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
+import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity.Companion.KEY_MEMORY_BUNDLE
 import com.dev.playground.presentation.util.repeatOnLifecycleState
+import com.dev.playground.presentation.util.showToast
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), ScrollableScreen {
@@ -29,6 +33,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     }
 
     private val viewModel by viewModel<FeedViewModel>()
+    private val sharedViewModel by sharedViewModel<MainViewModel>()
     private val feedAdapter by lazy {
         SimpleBindingAdapter(FeedViewHolder::class.java)
     }
@@ -59,7 +64,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                 uiState.collect { state ->
                     when (state) {
                         is Success -> feedAdapter.submitList(state.itemList) {
-                            scrollTop()
+                            binding.rvFeed.scrollToPosition(0)
                         }
                         else -> Unit
                     }
@@ -80,6 +85,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                                     setEvent(OnClickDeleteMemory(it.id))
                                 }
                             }
+                        }
+                        is RouteLoginPage -> {
+                            context?.showToast(it.message)
+                            sharedViewModel.routeLoginPage()
                         }
                     }
                 }

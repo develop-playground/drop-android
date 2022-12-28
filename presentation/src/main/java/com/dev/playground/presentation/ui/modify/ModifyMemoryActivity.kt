@@ -9,11 +9,14 @@ import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ActivityModifyMemoryBinding
 import com.dev.playground.presentation.model.MemoryBundle
 import com.dev.playground.presentation.model.ModifyPhotoUIModel
+import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
+import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Effect.ShowFailureModifyToast
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Effect.SuccessModified
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Event.RequestModify
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
+import com.dev.playground.presentation.util.startActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -72,6 +75,11 @@ class ModifyMemoryActivity : BaseActivity<ActivityModifyMemoryBinding>(R.layout.
                             finish()
                         }
                         ShowFailureModifyToast -> showToast(getString(R.string.modify_failure_please_retry))
+                        is RouteLoginPage -> {
+                            showToast(it.message)
+                            startActivity<LoginActivity> { }
+                            finish()
+                        }
                     }
                 }
             }

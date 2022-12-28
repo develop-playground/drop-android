@@ -8,16 +8,25 @@ import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.ActivityMainBinding
 import com.dev.playground.presentation.extension.hideKeyboard
 import com.dev.playground.presentation.ui.feed.FeedFragment
+import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.ui.map_container.MapContainerFragment
 import com.dev.playground.presentation.ui.setting.SettingFragment
+import com.dev.playground.presentation.util.repeatOnLifecycleState
+import com.dev.playground.presentation.util.startActivity
 import com.google.android.material.navigation.NavigationBarView
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     NavigationBarView.OnItemSelectedListener {
 
+    private val viewModel by viewModel<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViews()
+        initCollects()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -38,6 +47,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     private fun initViews() = with(binding) {
         bottomNavMain.setOnItemSelectedListener(this@MainActivity)
         bottomNavMain.selectedItemId = R.id.menu_feed
+    }
+
+    private fun initCollects() = with(viewModel) {
+        repeatOnLifecycleState {
+            launch {
+                routeLoginPageEffect.collectLatest {
+                    startActivity<LoginActivity> { }
+                    finish()
+                }
+            }
+        }
     }
 
     private fun scrollTop(id: Int) {

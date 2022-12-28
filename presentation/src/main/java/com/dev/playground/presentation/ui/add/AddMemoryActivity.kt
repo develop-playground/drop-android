@@ -21,7 +21,7 @@ import com.dev.playground.presentation.model.PhotoUIModel
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
 import com.dev.playground.presentation.util.*
 import com.google.android.material.tabs.TabLayoutMediator
@@ -117,9 +117,7 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
                             // TODO result 처리해서 refresh 유도
                             finish()
                         }
-                        FailUpload -> showToast(getString(R.string.add_memory_fail_upload))
-                        NotSelectPhoto -> showToast(getString(R.string.add_memory_not_select_photo))
-                        EmptyLocation -> showToast(getString(R.string.add_memory_missing_locate_information))
+                        is ShowToast -> showToast(it.message)
                     }
                 }
             }

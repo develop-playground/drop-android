@@ -2,7 +2,9 @@ package com.dev.playground.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.exception.NotLoggedInException
 import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.*
 import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.model.base.UiState
 import kotlinx.coroutines.channels.Channel
@@ -56,6 +58,15 @@ abstract class BaseViewModel<State : UiState, Event : UiEvent, Effect : UiEffect
     protected fun setEffect(builder: () -> Effect) {
         val effectValue = builder()
         viewModelScope.launch { _effect.send(effectValue) }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    protected fun Throwable.catchAuth(another: () -> Unit) {
+        if (this is NotLoggedInException) {
+            setEffect { RouteLoginPage as Effect }
+        } else {
+            another.invoke()
+        }
     }
 
 }
