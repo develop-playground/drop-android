@@ -3,10 +3,10 @@ package com.dev.playground.presentation.ui.splash
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dev.playground.presentation.R
+import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
 import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.ui.main.MainActivity
-import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.Failure
-import com.dev.playground.presentation.ui.splash.SplashViewModel.SplashState.Success
+import com.dev.playground.presentation.ui.splash.SplashContract.Effect.RouteMainPage
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
@@ -20,23 +20,21 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_splash)
-
-        viewModel.checkLoginStatus()
         initCollects()
     }
 
     private fun initCollects() = with(viewModel) {
         repeatOnLifecycleState {
             launch {
-                splashState.collect { uiState ->
-                    when (uiState) {
-                        is Success -> startActivity<MainActivity> { }
-                        is Failure -> startActivity<LoginActivity> { }
-                        else -> println("로딩중")
+                effect.collect {
+                    when (it) {
+                        RouteMainPage -> startActivity<MainActivity> { }
+                        RouteLoginPage -> startActivity<LoginActivity> { }
                     }
                     finish()
                 }
             }
         }
     }
+
 }

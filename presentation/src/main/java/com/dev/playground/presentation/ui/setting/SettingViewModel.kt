@@ -6,8 +6,8 @@ import com.dev.playground.domain.usecase.user.GetUserEmailUseCase
 import com.dev.playground.domain.usecase.user.login.GetLoginTypeUseCase
 import com.dev.playground.domain.usecase.user.login.RequestLogoutUseCase
 import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.ui.setting.SettingContract.*
-import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLoginPage
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
 import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
 import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
@@ -23,7 +23,7 @@ class SettingViewModel(
     private val deleteUserUseCase: DeleteUserUseCase,
     private val getLoginTypeUseCase: GetLoginTypeUseCase,
     private val requestLogoutUseCase: RequestLogoutUseCase,
-) : BaseViewModel<State, Event, Effect>(Idle) {
+) : BaseViewModel<State, Event, UiEffect>(Idle) {
 
     init {
         loadUserInformation()
@@ -38,9 +38,9 @@ class SettingViewModel(
                 setState {
                     Success(email = email, loginType = loginType)
                 }
-            }.catch {
-                setEffect {
-                    ShowToast.FailLoadUserInformation
+            }.catch { e ->
+                e.catchAuth {
+                    setEffect { ShowToast.FailLoadUserInformation }
                 }
             }.collect()
         }
@@ -51,11 +51,13 @@ class SettingViewModel(
             requestLogoutUseCase.invoke()
                 .onSuccess {
                     setEffect {
-                        RouteLoginPage
+                        Effect.SuccessLogout
                     }
                 }.onFailure {
-                    setEffect {
-                        ShowToast.FailLogout
+                    it.catchAuth {
+                        setEffect {
+                            ShowToast.FailLogout
+                        }
                     }
                 }
         }
@@ -66,12 +68,14 @@ class SettingViewModel(
             deleteUserUseCase.invoke()
                 .onSuccess {
                     setEffect {
-                        RouteLoginPage
+                        Effect.SuccessSignOut
                     }
                 }
                 .onFailure {
-                    setEffect {
-                        ShowToast.FailSignOut
+                    it.catchAuth {
+                        setEffect {
+                            ShowToast.FailSignOut
+                        }
                     }
                 }
         }

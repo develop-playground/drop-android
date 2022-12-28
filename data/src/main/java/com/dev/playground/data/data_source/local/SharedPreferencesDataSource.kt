@@ -37,6 +37,12 @@ class SharedPreferencesDataSource(context: Context) {
         }
     }
 
+    fun setAccessToken(accessToken: String) {
+        preferences.edit {
+            putString(KEY_ACCESS_TOKEN, accessToken)
+        }
+    }
+
     fun removeAuth() {
         preferences.edit {
             remove(KEY_ACCESS_TOKEN)

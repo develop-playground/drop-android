@@ -1,6 +1,5 @@
 package com.dev.playground.presentation.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
