@@ -8,9 +8,7 @@ import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.ActivityMainBinding
 import com.dev.playground.presentation.extension.hideKeyboard
 import com.dev.playground.presentation.ui.feed.FeedFragment
-import com.dev.playground.presentation.ui.login.KakaoLoginManager
 import com.dev.playground.presentation.ui.login.LoginActivity
-import com.dev.playground.presentation.ui.login.LoginManager
 import com.dev.playground.presentation.ui.map_container.MapContainerFragment
 import com.dev.playground.presentation.ui.setting.SettingFragment
 import com.dev.playground.presentation.util.repeatOnLifecycleState
@@ -24,7 +22,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     NavigationBarView.OnItemSelectedListener {
 
     private val viewModel by viewModel<MainViewModel>()
-    private val loginManager: LoginManager = KakaoLoginManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +53,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
         repeatOnLifecycleState {
             launch {
                 routeLoginPageEffect.collectLatest {
-                    loginManager.logout {
-                        // no-op
-                    }
                     startActivity<LoginActivity> { }
                     finish()
                 }

@@ -18,11 +18,10 @@ import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ActivityAddMemoryBinding
 import com.dev.playground.presentation.model.PhotoUIModel
-import com.dev.playground.presentation.ui.add.AddMemoryContract.*
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.*
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
 import com.dev.playground.presentation.util.*
 import com.google.android.material.tabs.TabLayoutMediator

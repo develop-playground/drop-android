@@ -14,13 +14,12 @@ import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
 import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity.Companion.KEY_MEMORY_BUNDLE
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import com.dev.playground.presentation.util.startActivity
-import com.dev.playground.presentation.ui.main.MainViewModel
-import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.showToast
+import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
