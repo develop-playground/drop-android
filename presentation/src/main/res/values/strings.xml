@@ -41,12 +41,13 @@
     <string name="failure_title">Error!</string>
     <string name="failure_subtitle">네트워크를 확인하세요</string>
 
+    <string name="memory_content_hint">내용을 입력하세요</string>
+    <string name="memory_drop_button">드롭하기</string>
+
     <!-- add memory -->
     <string name="add_memory_empty_location">위치 정보 없음</string>
     <string name="add_memory_cancel">취소</string>
     <string name="add_memory_title">새로운 추억</string>
-    <string name="add_memory_content_hint">내용을 입력하세요</string>
-    <string name="add_memory_drop_button">드롭하기</string>
 
     <string name="add_memory_fail_upload">이미지 업로드에 실패했습니다! 다시 시도해주세요.</string>
     <string name="add_memory_not_select_photo">선택된 사진이 없습니다.</string>
@@ -70,5 +71,10 @@
     <string name="setting_sign_out_content">탈퇴하시면 기록된 모든 추억이 삭제됩니다.\n회원을 탈퇴하시겠습니까?</string>
     <string name="setting_sign_out_cancel">취소</string>
     <string name="setting_sign_out_ok">탈퇴</string>
+
+    <!-- modify -->
+    <string name="modify_memory_title">추억 수정</string>
+    <string name="modify_memory_cancel">취소</string>
+    <string name="modify_failure_please_retry">수정에 실패했습니다.\n다시 시도해주세요</string>
 
 </resources>

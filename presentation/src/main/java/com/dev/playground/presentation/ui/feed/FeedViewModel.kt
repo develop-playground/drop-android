@@ -38,7 +38,7 @@ class FeedViewModel(
                     Success(
                         it.map { memory ->
                             memory.toPresentation(
-                                onClickEdit = { id -> setEvent(OnClickEdit(id)) },
+                                onClickEdit = { bundle -> setEvent(OnClickEdit(bundle)) },
                                 onClickRemove = { id -> setEvent(OnClickRemove(id)) }
                             )
                         }
@@ -64,7 +64,7 @@ class FeedViewModel(
     override fun handleEvent(event: Event) {
         when (event) {
             is OnClickEdit -> setEffect {
-                RouteEditPage(event.id)
+                RouteEditPage(event.bundle)
             }
             is OnClickRemove -> setEffect {
                 ShowRemoveDialog(event.id)

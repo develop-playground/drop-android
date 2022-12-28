@@ -12,6 +12,9 @@ interface MemoryService {
     @POST("memory")
     suspend fun postMemory(@Body memoryInput: MemoryInput): MemoryData
 
+    @PATCH("memory/{id}")
+    suspend fun patchMemory(@Path("id") id: Int, @Body content: String)
+
     @DELETE("memory/{id}")
     suspend fun deleteMemory(@Path("id") params: Int)
 

@@ -36,6 +36,9 @@
         <activity
             android:name="com.dev.playground.presentation.ui.add.AddMemoryActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.dev.playground.presentation.ui.modify.ModifyMemoryActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
