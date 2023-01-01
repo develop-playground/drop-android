@@ -11,12 +11,12 @@ import com.dev.playground.domain.model.Memory
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
-import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.*
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteAdd
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
 import com.dev.playground.presentation.util.hasPermission
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.requestPermission
-import com.dev.playground.presentation.ui.main.MainViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
@@ -24,9 +24,10 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
 import java.lang.ref.WeakReference
 
@@ -118,32 +119,6 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
     override fun onMapReady(p0: NaverMap) {
         naverMap = p0
         naverMap.locationSource = locationSource
-        makeClusterMarker()
-    }
-
-
-    private fun makeClusterMarker() {
-        context?.let { c ->
-            naverClustering = TedNaverClustering.with<DropClusterItem>(c, naverMap)
-                .customMarker { item ->
-                    Marker(item.position).apply {
-                        item.bind {
-                            icon = OverlayImage.fromView(it)
-                        }
-                    }
-                }
-                .customCluster { cluster -> cluster.items.firstOrNull()?.view?.get() ?: MarkerView(c) }
-                .clusterAddedListener { cluster, marker ->
-                    cluster.items.firstOrNull()?.bind(
-                        count = cluster.size,
-                        onResourceReady = {
-                            marker.marker.icon = OverlayImage.fromView(it)
-                        }
-                    )
-                }
-                .minClusterSize(MIN_CLUSTER_SIZE)
-                .make()
-        }
     }
 
     private fun initViews() = with(binding) {
@@ -172,7 +147,10 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
                     when (state) {
                         is Success -> {
                             binding.tvDropPointCount.text = state.itemList.size.toString()
-                            generateItems(state.itemList)
+                            binding.mapView.getMapAsync {
+                                makeClusterMarker()
+                                addMarkerList(state.itemList)
+                            }
                         }
                         else -> Unit
                     }
@@ -181,21 +159,45 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         }
     }
 
-    private fun generateItems(updateList: List<Memory>) {
+    private fun makeClusterMarker() {
         context?.let { c ->
-            binding.mapView.getMapAsync {
-                val temp = updateList.map {
-                    DropClusterItem(
-                        position = LatLng(
-                            it.location.latitude,
-                            it.location.longitude
-                        ),
-                        imageUrl = it.imageUrlList.firstOrNull(),
-                        WeakReference(MarkerView(c))
+            naverClustering = TedNaverClustering.with<DropClusterItem>(c, naverMap)
+                .customMarker { item ->
+                    Marker(item.position).apply {
+                        item.bind {
+                            icon = OverlayImage.fromView(it)
+                        }
+                    }
+                }
+                .customCluster { cluster -> cluster.items.firstOrNull()?.view?.get() ?: MarkerView(c) }
+                .clusterAddedListener { cluster, marker ->
+                    cluster.items.firstOrNull()?.bind(
+                        count = cluster.size,
+                        onResourceReady = {
+                            marker.marker.icon = OverlayImage.fromView(it)
+                        }
                     )
                 }
-                naverClustering?.addItems(temp)
-            }
+                .minClusterSize(MIN_CLUSTER_SIZE)
+                .make()
         }
     }
+
+    private fun addMarkerList(memoryList: List<Memory>) {
+        context?.let { c ->
+            val temp = memoryList.map {
+                DropClusterItem(
+                    id = it.id,
+                    position = LatLng(
+                        it.location.latitude,
+                        it.location.longitude
+                    ),
+                    imageUrl = it.imageUrlList.firstOrNull(),
+                    view = WeakReference(MarkerView(c))
+                )
+            }
+            naverClustering?.addItems(temp)
+        }
+    }
+
 }
