@@ -8,6 +8,7 @@ import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteModifyPage
 import com.dev.playground.presentation.model.toPresentation
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.DeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
@@ -33,7 +34,7 @@ class FeedViewModel(
         fetch()
     }
 
-    private fun fetch() {
+    fun fetch() {
         viewModelScope.launch {
             setState {
                 Loading
@@ -88,7 +89,9 @@ class FeedViewModel(
     private fun deleteMemory(id: Int) {
         viewModelScope.launch {
             deleteMemoryUseCase.invoke(id)
-            fetch()
+            setEffect {
+                DeleteMemory
+            }
         }
     }
 

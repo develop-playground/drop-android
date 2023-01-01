@@ -12,6 +12,7 @@ import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
 import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteAdd
+import com.dev.playground.presentation.ui.main.MainContract
 import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
 import com.dev.playground.presentation.util.hasPermission
@@ -24,7 +25,6 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -153,6 +153,13 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
                             }
                         }
                         else -> Unit
+                    }
+                }
+            }
+            launch {
+                sharedViewModel.event.collect {
+                    if (it is MainContract.Event.RequestRefreshMemory) {
+                        viewModel.fetch()
                     }
                 }
             }

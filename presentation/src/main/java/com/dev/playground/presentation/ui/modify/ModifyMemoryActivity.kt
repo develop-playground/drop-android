@@ -11,6 +11,7 @@ import com.dev.playground.presentation.model.MemoryBundle
 import com.dev.playground.presentation.model.ModifyPhotoUIModel
 import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
 import com.dev.playground.presentation.ui.login.LoginActivity
+import com.dev.playground.presentation.ui.main.MainActivity
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Effect.ShowFailureModifyToast
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Effect.SuccessModified
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Event.RequestModify
@@ -71,7 +72,7 @@ class ModifyMemoryActivity : BaseActivity<ActivityModifyMemoryBinding>(R.layout.
                 effect.collect {
                     when (it) {
                         SuccessModified -> {
-                            // TODO result 처리해서 refresh 유도
+                            setResult(MainActivity.REFRESH_RESULT_CODE)
                             finish()
                         }
                         ShowFailureModifyToast -> showToast(getString(R.string.modify_failure_please_retry))
