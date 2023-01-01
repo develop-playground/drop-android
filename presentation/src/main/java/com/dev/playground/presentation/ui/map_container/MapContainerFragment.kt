@@ -15,6 +15,7 @@ import com.dev.playground.presentation.ui.add.AddMemoryActivity
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
 import com.dev.playground.presentation.util.hasPermission
 import com.dev.playground.presentation.util.repeatOnLifecycleState
+import com.dev.playground.presentation.util.requestPermission
 import com.dev.playground.presentation.util.startActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
@@ -35,9 +36,12 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
         val TAG: String = MapContainerFragment::class.java.simpleName
 
-    private val needPermission =
-        arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION)
+        private const val REQUEST_CODE = 1000
         private const val MIN_CLUSTER_SIZE = 1
+    }
+
+    private val needPermission = arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION)
+
     private lateinit var naverMap: NaverMap
     private var naverClustering: TedNaverClustering<DropClusterItem>? = null
     private lateinit var locationSource: FusedLocationSource
@@ -49,7 +53,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
-        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        locationSource = FusedLocationSource(this, REQUEST_CODE)
 
         initViews()
         initCollects()
@@ -58,13 +62,13 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode == REQUEST_CODE) {
             if (grantResults.all { it == PERMISSION_GRANTED }) {
-                map.locationTrackingMode = LocationTrackingMode.Follow
+                naverMap.locationTrackingMode = LocationTrackingMode.Follow
             } else {
-                map.locationTrackingMode = LocationTrackingMode.None
+                naverMap.locationTrackingMode = LocationTrackingMode.None
                 showToast(getString(R.string.map_please_grant_permissions))
                 val intent = Intent(Settings.ACTION_DEVICE_INFO_SETTINGS)
                 startActivity(intent)
@@ -149,10 +153,15 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         }
 
         ivFusedLocation.setOnClickListener {
-            if (requireActivity().hasPermission(*needPermission)) {
-                map.locationTrackingMode = LocationTrackingMode.Follow
-            } else {
-                requestPermissions(needPermission, LOCATION_PERMISSION_REQUEST_CODE)
+            activity?.let {
+                if (it.hasPermission(*needPermission)) {
+                    naverMap.locationTrackingMode = LocationTrackingMode.Follow
+                } else {
+                    it.requestPermission(
+                        permissions = needPermission,
+                        requestCode = REQUEST_CODE
+                    )
+                }
             }
         }
     }
