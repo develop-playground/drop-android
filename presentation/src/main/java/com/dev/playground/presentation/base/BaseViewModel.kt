@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.exception.NotLoggedInException
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEffect.*
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.*
 import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.model.base.UiState
 import kotlinx.coroutines.channels.Channel
@@ -63,7 +64,7 @@ abstract class BaseViewModel<State : UiState, Event : UiEvent, Effect : UiEffect
     @Suppress("UNCHECKED_CAST")
     protected fun Throwable.catchAuth(another: () -> Unit) {
         if (this is NotLoggedInException) {
-            setEffect { RouteLoginPage as Effect }
+            setEffect { RouteLoginPage() as Effect }
         } else {
             another.invoke()
         }

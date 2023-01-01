@@ -3,13 +3,14 @@ package com.dev.playground.presentation.ui.map_container
 import androidx.lifecycle.viewModelScope
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
 import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.*
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.*
 import kotlinx.coroutines.launch
 
 class MapContainerViewModel(
     private val getMemoryListUseCase: GetMemoryListUseCase
-) : BaseViewModel<State, Event, Effect>(Idle) {
+) : BaseViewModel<State, UiEvent, Effect>(Idle) {
 
     init {
         fetch()
@@ -30,7 +31,7 @@ class MapContainerViewModel(
         }
     }
 
-    override fun handleEvent(event: Event) {
+    override fun handleEvent(event: UiEvent) {
         // no-op
     }
 }

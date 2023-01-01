@@ -37,14 +37,15 @@ class FeedContract {
             }
     }
 
-    sealed class Event(open val id: Int) : UiEvent {
-        data class OnClickEdit(val bundle: MemoryBundle) : Event(bundle.id)
-        data class OnClickRemove(override val id: Int) : Event(id)
-        data class OnClickDeleteMemory(override val id: Int) : Event(id)
+    sealed interface Event : UiEvent {
+        object Fetch: Event
+        data class FetchMore(val position: Int): Event
+        data class OnClickEdit(val bundle: MemoryBundle) : Event
+        data class OnClickRemove(val id: Int) : Event
+        data class OnClickDeleteMemory(val id: Int) : Event
     }
 
     sealed interface Effect : UiEffect {
-        data class RouteEditPage(val bundle: MemoryBundle) : Effect
         data class ShowRemoveDialog(val id: Int) : Effect
     }
 

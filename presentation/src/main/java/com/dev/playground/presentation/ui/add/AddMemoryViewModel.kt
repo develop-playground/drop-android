@@ -9,13 +9,14 @@ import com.dev.playground.domain.usecase.photo.DeletePhotoUseCase
 import com.dev.playground.domain.usecase.photo.UploadPhotoUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.PhotoUIModel
-import com.dev.playground.presentation.ui.add.AddMemoryContract.*
-import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
+import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Idle
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Event
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickRemovePhoto
+import com.dev.playground.presentation.ui.add.AddMemoryContract.State
 import com.dev.playground.presentation.util.currentDate
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +28,7 @@ class AddMemoryViewModel(
     private val deletePhotoUseCase: DeletePhotoUseCase,
     private val postMemoryUseCase: PostMemoryUseCase,
     private val getAddressUseCase: GetAddressUseCase,
-) : BaseViewModel<State, Event, Effect>(State(Empty)) {
+) : BaseViewModel<State, Event, UiEffect>(State(Idle)) {
 
     companion object {
         private const val EMPTY_CONTENT = ""
@@ -124,10 +125,14 @@ class AddMemoryViewModel(
                 address = oldState.information.address
             )
         ).onSuccess {
-            setEffect { Dropped }
+            setState {
+                copy(isDropped = true)
+            }
         }.onFailure {
             deletePhoto(oldState.fileList)
-            setEffect { FailUpload }
+            it.catchAuth {
+                setEffect { FailUpload }
+            }
         }
         setState { copy(isLoading = false) }
     }
@@ -151,7 +156,7 @@ class AddMemoryViewModel(
                     )
                 )
             } else {
-                copy(addMemoryState = Empty)
+                copy(addMemoryState = Idle)
             }
         }
     }

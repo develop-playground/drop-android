@@ -9,11 +9,18 @@ import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.ActivityMainBinding
 import com.dev.playground.presentation.extension.hideKeyboard
+import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.*
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.*
+import com.dev.playground.presentation.ui.add.AddMemoryActivity
 import com.dev.playground.presentation.ui.feed.FeedFragment
 import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.ui.map_container.MapContainerFragment
+import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
+import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity.Companion.KEY_MEMORY_BUNDLE
 import com.dev.playground.presentation.ui.setting.SettingFragment
 import com.dev.playground.presentation.util.repeatOnLifecycleState
+import com.dev.playground.presentation.util.showToast
 import com.dev.playground.presentation.util.startActivity
 import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.flow.collectLatest
@@ -54,9 +61,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     private fun initCollects() = with(viewModel) {
         repeatOnLifecycleState {
             launch {
-                routeLoginPageEffect.collectLatest {
-                    startActivity<LoginActivity> { }
-                    finish()
+                effect.collect {
+                    when(it) {
+                        is RouteLoginPage -> {
+                            if (it.force) {
+                                showToast(R.string.please_re_log_in)
+                            }
+                            startActivity<LoginActivity> { }
+                            finish()
+                        }
+                        is RouteModifyPage -> {
+                            startActivity<ModifyMemoryActivity> {
+                                putExtra(KEY_MEMORY_BUNDLE, it.bundle)
+                            }
+                        }
+                        RouteAddPage -> startActivity<AddMemoryActivity> {}
+                    }
                 }
             }
         }

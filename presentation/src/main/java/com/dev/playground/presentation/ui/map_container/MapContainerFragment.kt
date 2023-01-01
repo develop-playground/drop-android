@@ -11,12 +11,12 @@ import com.dev.playground.domain.model.Memory
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
-import com.dev.playground.presentation.ui.add.AddMemoryActivity
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.*
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
 import com.dev.playground.presentation.util.hasPermission
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import com.dev.playground.presentation.util.requestPermission
-import com.dev.playground.presentation.util.startActivity
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
@@ -26,6 +26,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
 import java.lang.ref.WeakReference
 
@@ -47,6 +48,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
     private lateinit var locationSource: FusedLocationSource
 
     private val viewModel by viewModel<MapContainerViewModel>()
+    private val sharedViewModel by sharedViewModel<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -146,7 +148,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
     private fun initViews() = with(binding) {
         ivAddMemory.setOnClickListener {
-            context?.startActivity<AddMemoryActivity> { }
+            sharedViewModel.setEvent(RequestRouteAdd)
         }
 
         ivFusedLocation.setOnClickListener {

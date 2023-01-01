@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivityLoginBinding
-import com.dev.playground.presentation.ui.login.LoginContract.Effect.RouteMainPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteMainPage
 import com.dev.playground.presentation.ui.login.LoginContract.Effect.ShowFailRequestLoginToast
 import com.dev.playground.presentation.ui.login.LoginContract.Event.OnSnsLoginComplete
 import com.dev.playground.presentation.ui.main.MainActivity

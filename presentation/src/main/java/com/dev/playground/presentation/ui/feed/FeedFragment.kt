@@ -2,24 +2,24 @@ package com.dev.playground.presentation.ui.feed
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
-import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteModifyPage
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteLogin
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteModify
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
-import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
 import com.dev.playground.presentation.ui.main.MainViewModel
-import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity
-import com.dev.playground.presentation.ui.modify.ModifyMemoryActivity.Companion.KEY_MEMORY_BUNDLE
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import com.dev.playground.presentation.util.showToast
-import com.dev.playground.presentation.util.startActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -47,7 +47,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     private fun initViews() = with(binding) {
         vm = viewModel
         srlFeed.setOnRefreshListener {
-            viewModel.fetch()
+            viewModel.setEvent(Fetch)
             binding.srlFeed.isRefreshing = false
         }
 
@@ -55,6 +55,18 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             itemAnimator = null
             adapter = feedAdapter
             addItemDecoration(FeedItemDecoration())
+            addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        (layoutManager as? LinearLayoutManager)?.let {
+                            viewModel.setEvent(
+                                FetchMore(it.findLastVisibleItemPosition())
+                            )
+                        }
+                    }
+                }
+            )
         }
     }
 
@@ -73,9 +85,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             launch {
                 effect.collect {
                     when (it) {
-                        is RouteEditPage -> activity?.startActivity<ModifyMemoryActivity> {
-                            putExtra(KEY_MEMORY_BUNDLE, it.bundle)
-                        }
+                        is RouteModifyPage -> sharedViewModel.setEvent(RequestRouteModify(it.bundle))
                         is ShowRemoveDialog -> context?.let { c ->
                             DropDialog(c).show {
                                 contentText = getString(R.string.feed_delete_memory_content)
@@ -86,10 +96,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                                 }
                             }
                         }
-                        is RouteLoginPage -> {
-                            context?.showToast(it.message)
-                            sharedViewModel.routeLoginPage()
-                        }
+                        is RouteLoginPage -> sharedViewModel.setEvent(RequestRouteLogin())
                     }
                 }
             }

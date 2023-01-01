@@ -9,7 +9,7 @@ import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ActivityModifyMemoryBinding
 import com.dev.playground.presentation.model.MemoryBundle
 import com.dev.playground.presentation.model.ModifyPhotoUIModel
-import com.dev.playground.presentation.model.base.UiEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
 import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Effect.ShowFailureModifyToast
 import com.dev.playground.presentation.ui.modify.ModifyMemoryContract.Effect.SuccessModified
@@ -76,7 +76,9 @@ class ModifyMemoryActivity : BaseActivity<ActivityModifyMemoryBinding>(R.layout.
                         }
                         ShowFailureModifyToast -> showToast(getString(R.string.modify_failure_please_retry))
                         is RouteLoginPage -> {
-                            showToast(it.message)
+                            if (it.force) {
+                                showToast(R.string.please_re_log_in)
+                            }
                             startActivity<LoginActivity> { }
                             finish()
                         }

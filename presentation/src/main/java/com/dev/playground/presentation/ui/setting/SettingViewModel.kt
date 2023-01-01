@@ -8,9 +8,10 @@ import com.dev.playground.domain.usecase.user.login.RequestLogoutUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.ui.setting.SettingContract.*
-import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
+import com.dev.playground.presentation.ui.setting.SettingContract.Effect.*
+import com.dev.playground.presentation.ui.setting.SettingContract.Effect.OnOut.*
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestLogout
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestSignOut
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Idle
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
 import kotlinx.coroutines.flow.catch
@@ -51,7 +52,7 @@ class SettingViewModel(
             requestLogoutUseCase.invoke()
                 .onSuccess {
                     setEffect {
-                        Effect.SuccessLogout
+                        OnLogout
                     }
                 }.onFailure {
                     it.catchAuth {
@@ -68,7 +69,7 @@ class SettingViewModel(
             deleteUserUseCase.invoke()
                 .onSuccess {
                     setEffect {
-                        Effect.SuccessSignOut
+                        OnSignOut
                     }
                 }
                 .onFailure {
@@ -84,8 +85,8 @@ class SettingViewModel(
 
     override fun handleEvent(event: Event) {
         when (event) {
-            OnLogout -> logout()
-            OnSignOut -> signOut()
+            RequestLogout -> logout()
+            RequestSignOut -> signOut()
         }
     }
 

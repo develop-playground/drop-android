@@ -18,11 +18,14 @@ import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ActivityAddMemoryBinding
 import com.dev.playground.presentation.model.PhotoUIModel
-import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
+import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.*
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Idle
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
+import com.dev.playground.presentation.ui.login.LoginActivity
 import com.dev.playground.presentation.util.*
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
@@ -103,21 +106,28 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
                         is SelectedPhoto -> photoAdapter.submitList(
                             viewModel.mapToUIModel(state.addMemoryState)
                         )
-                        is Empty -> {
+                        is Idle -> {
                             binding.tvAddMemoryLocation.text = ""
                             photoAdapter.submitList(emptyList())
                         }
+                    }
+                    if (state.isDropped) {
+                        // TODO result 처리해서 refresh 유도
+                        finish()
                     }
                 }
             }
             launch {
                 effect.collect {
-                    when (it) {
-                        Dropped -> {
-                            // TODO result 처리해서 refresh 유도
+                    when(it) {
+                        is Effect -> showToast(it.message)
+                        is RouteLoginPage -> {
+                            if (it.force) {
+                                showToast(R.string.please_re_log_in)
+                            }
+                            startActivity<LoginActivity> { }
                             finish()
                         }
-                        is ShowToast -> showToast(it.message)
                     }
                 }
             }

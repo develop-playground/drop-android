@@ -16,7 +16,6 @@ class LoginContract {
     }
 
     sealed interface Effect : UiEffect {
-        object RouteMainPage : Effect
         object ShowFailRequestLoginToast : Effect
     }
 }
