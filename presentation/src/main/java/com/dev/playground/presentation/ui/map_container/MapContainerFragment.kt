@@ -26,18 +26,21 @@ import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.naver.TedNaverClustering
+import java.lang.ref.WeakReference
 
-class MapContainerFragment :
-    BaseFragment<FragmentMapContainerBinding>(R.layout.fragment_map_container),
-    OnMapReadyCallback {
+class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.fragment_map_container), OnMapReadyCallback {
 
-    private lateinit var map: NaverMap
-    private var mapItem: TedNaverClustering<MapItem>? = null
+    companion object {
+        fun newInstance() = MapContainerFragment()
 
-    private lateinit var locationSource: FusedLocationSource
+        val TAG: String = MapContainerFragment::class.java.simpleName
 
     private val needPermission =
         arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION)
+        private const val MIN_CLUSTER_SIZE = 1
+    private lateinit var naverMap: NaverMap
+    private var naverClustering: TedNaverClustering<DropClusterItem>? = null
+    private lateinit var locationSource: FusedLocationSource
 
     private val viewModel by viewModel<MapContainerViewModel>()
 
@@ -107,34 +110,32 @@ class MapContainerFragment :
     }
 
     override fun onMapReady(p0: NaverMap) {
-        map = p0
-        map.locationSource = locationSource
+        naverMap = p0
+        naverMap.locationSource = locationSource
         makeClusterMarker()
     }
 
+
     private fun makeClusterMarker() {
         context?.let { c ->
-            mapItem = TedNaverClustering.with<MapItem>(c, map)
-                .customMarker { markerItem ->
-                    Marker(markerItem.position).apply {
-                        MarkerView(c).apply {
-                            setMarkerImage(markerItem.image)
-                            icon = OverlayImage.fromView(this)
+            naverClustering = TedNaverClustering.with<DropClusterItem>(c, naverMap)
+                .customMarker { item ->
+                    Marker(item.position).apply {
+                        item.bind {
+                            icon = OverlayImage.fromView(it)
                         }
                     }
                 }
-                .customCluster { clusterItem ->
-                    MarkerView(c).apply {
-                        setMarkerImage(clusterItem.items.first().image)
-                        setMarkerPoint(clusterItem.size)
-                    }
+                .customCluster { cluster -> cluster.items.firstOrNull()?.view?.get() ?: MarkerView(c) }
+                .clusterAddedListener { cluster, marker ->
+                    cluster.items.firstOrNull()?.bind(
+                        count = cluster.size,
+                        onResourceReady = {
+                            marker.marker.icon = OverlayImage.fromView(it)
+                        }
+                    )
                 }
-                .clusterAddedListener { cluster, _ ->
-                    MarkerView(c).apply {
-                        setMarkerImage(cluster.items.first().image)
-                    }
-                }
-                .minClusterSize(1)
+                .minClusterSize(MIN_CLUSTER_SIZE)
                 .make()
         }
     }
@@ -173,18 +174,20 @@ class MapContainerFragment :
     }
 
     private fun generateItems(updateList: List<Memory>) {
-        binding.mapView.getMapAsync {
-            val temp = updateList.map {
-                MapItem(LatLng(it.location.latitude, it.location.longitude), it.imageUrlList[0])
+        context?.let { c ->
+            binding.mapView.getMapAsync {
+                val temp = updateList.map {
+                    DropClusterItem(
+                        position = LatLng(
+                            it.location.latitude,
+                            it.location.longitude
+                        ),
+                        imageUrl = it.imageUrlList.firstOrNull(),
+                        WeakReference(MarkerView(c))
+                    )
+                }
+                naverClustering?.addItems(temp)
             }
-            mapItem?.addItems(temp)
         }
-    }
-
-    companion object {
-        fun newInstance() = MapContainerFragment()
-
-        val TAG: String = MapContainerFragment::class.java.simpleName
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
 }
