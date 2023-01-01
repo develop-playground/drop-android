@@ -5,12 +5,14 @@
 
     <merge
         android:background="@color/white"
+        tools:layout_height="wrap_content"
+        tools:layout_width="wrap_content"
         tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
         <ImageView
             android:id="@+id/ivMarkerView"
-            android:layout_width="@dimen/map_container_marker_image_width"
-            android:layout_height="@dimen/map_container_marker_image_height"
+            android:layout_width="@dimen/map_container_marker_image_size"
+            android:layout_height="@dimen/map_container_marker_image_size"
             android:layout_marginTop="@dimen/spacing_10"
             android:layout_marginEnd="@dimen/spacing_10"
             android:background="@drawable/shape_marker_box"
@@ -23,7 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/vector_triangle"
-
             app:layout_constraintEnd_toEndOf="@id/ivMarkerView"
             app:layout_constraintStart_toStartOf="@id/ivMarkerView"
             app:layout_constraintTop_toBottomOf="@id/ivMarkerView" />
@@ -32,22 +33,15 @@
             android:id="@+id/tvDropPoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:minWidth="@dimen/spacing_24"
             android:minHeight="@dimen/spacing_24"
-
-            android:paddingStart="@dimen/spacing_8"
-            android:paddingTop="@dimen/spacing_2"
-            android:paddingEnd="@dimen/spacing_8"
-            android:paddingBottom="@dimen/spacing_2"
-            android:textAlignment="center"
+            android:paddingHorizontal="@dimen/spacing_8"
             android:textAppearance="@style/Pretendard.Regular.14"
-
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
-            tools:background="@drawable/shape_drop_point"
+            android:background="@drawable/shape_drop_point"
             tools:text="1,111" />
 
     </merge>

@@ -41,8 +41,7 @@
     <dimen name="map_container_add_button_size">48dp</dimen>
     <dimen name="map_container_fused_location_button_size">48dp</dimen>
     <dimen name="map_container_drop_point_count_box_height">24dp</dimen>
-    <dimen name="map_container_marker_image_height">55dp</dimen>
-    <dimen name="map_container_marker_image_width">55dp</dimen>
+    <dimen name="map_container_marker_image_size">55dp</dimen>
     <!-- add memory -->
     <dimen name="add_memory_location_radius">50dp</dimen>
     <dimen name="add_memory_photo_radius">10dp</dimen>

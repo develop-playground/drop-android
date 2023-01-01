@@ -5,10 +5,4 @@
         <attr name="text" format="reference|string"/>
         <attr name="textColor" format="reference|color"/>
     </declare-styleable>
-
-    <declare-styleable name="MarkerView">
-        <attr name="pointText" format="reference|string"/>
-        <attr name="bgPointText" format="reference|integer"/>
-        <attr name="image" format="reference|integer"/>
-    </declare-styleable>
 </resources>
