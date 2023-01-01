@@ -34,7 +34,7 @@ class FeedViewModel(
         fetch()
     }
 
-    fun fetch() {
+    private fun fetch() {
         viewModelScope.launch {
             setState {
                 Loading

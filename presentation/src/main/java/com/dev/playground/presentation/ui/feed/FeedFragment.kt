@@ -106,7 +106,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             launch {
                 sharedViewModel.event.collect {
                     if (it is RequestRefreshMemory) {
-                        viewModel.fetch()
+                        viewModel.setEvent(Fetch)
                     }
                 }
             }
