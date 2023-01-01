@@ -144,10 +144,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         }
     }
 
-
     private fun initViews() = with(binding) {
-        viewModel.fetch()
-
         ivAddMemory.setOnClickListener {
             context?.startActivity<AddMemoryActivity> { }
         }

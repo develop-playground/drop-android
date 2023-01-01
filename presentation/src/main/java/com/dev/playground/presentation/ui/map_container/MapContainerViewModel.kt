@@ -9,7 +9,11 @@ import kotlinx.coroutines.launch
 
 class MapContainerViewModel(
     private val getMemoryListUseCase: GetMemoryListUseCase
-) : BaseViewModel<State, Event, Effect>(Loading) {
+) : BaseViewModel<State, Event, Effect>(Idle) {
+
+    init {
+        fetch()
+    }
 
     fun fetch() {
         viewModelScope.launch {
@@ -27,6 +31,6 @@ class MapContainerViewModel(
     }
 
     override fun handleEvent(event: Event) {
-        TODO("Not yet implemented")
+        // no-op
     }
 }

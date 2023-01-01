@@ -8,9 +8,9 @@ import com.dev.playground.presentation.model.base.UiState
 class MapContainerContract {
 
     sealed interface State : UiState {
+        object Idle: State
         data class Success(val itemList: List<Memory>) : State
         data class Failure(val exception: Throwable) : State
-        object Loading : State
     }
 
     sealed interface Event : UiEvent {
