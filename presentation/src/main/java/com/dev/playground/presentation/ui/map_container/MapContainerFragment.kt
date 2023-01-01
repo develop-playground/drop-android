@@ -187,7 +187,6 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         context?.let { c ->
             val temp = memoryList.map {
                 DropClusterItem(
-                    id = it.id,
                     position = LatLng(
                         it.location.latitude,
                         it.location.longitude
