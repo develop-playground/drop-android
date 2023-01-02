@@ -32,7 +32,11 @@ constructor(
         minWidth = resources.getDimensionPixelSize(R.dimen.map_container_marker_image_size)
     }
 
-    fun setClusterItem(item: DropClusterItem, count: Int? = null, onResourceReady: (View) -> Unit) = apply {
+    fun setClusterItem(
+        item: DropClusterItem,
+        count: Int,
+        onResourceReady: (View) -> Unit
+    ) = apply {
         setPoint(count)
         setImage(item.imageUrl, onResourceReady)
     }

@@ -24,12 +24,11 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ted.gun0912.clustering.clustering.Cluster
 import ted.gun0912.clustering.naver.TedNaverClustering
-import java.lang.ref.WeakReference
 
 class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.fragment_map_container), OnMapReadyCallback {
 
@@ -39,7 +38,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         val TAG: String = MapContainerFragment::class.java.simpleName
 
         private const val REQUEST_CODE = 1000
-        private const val MIN_CLUSTER_SIZE = 1
+        private const val MIN_CLUSTER_SIZE = 2
     }
 
     private val needPermission = arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION)
@@ -148,7 +147,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
                         is Success -> {
                             binding.tvDropPointCount.text = state.itemList.size.toString()
                             binding.mapView.getMapAsync {
-                                makeClusterMarker()
+                                makeClustering()
                                 addMarkerList(state.itemList)
                             }
                         }
@@ -159,28 +158,32 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         }
     }
 
-    private fun makeClusterMarker() {
+    private fun makeClustering() {
         context?.let { c ->
             naverClustering?.clearItems()
             naverClustering = TedNaverClustering.with<DropClusterItem>(c, naverMap)
-                .customMarker { item ->
-                    Marker(item.position).apply {
-                        item.bind {
-                            icon = OverlayImage.fromView(it)
-                        }
+                .customMarker {
+                    Marker(it.position).apply {
+                        bindMarker(it, this)
                     }
                 }
-                .customCluster { cluster -> cluster.items.firstOrNull()?.view?.get() ?: MarkerView(c) }
-                .clusterAddedListener { cluster, marker ->
-                    cluster.items.firstOrNull()?.bind(
-                        count = cluster.size,
-                        onResourceReady = {
-                            marker.marker.icon = OverlayImage.fromView(it)
-                        }
-                    )
-                }
+                .customCluster { cluster -> cluster.items.firstOrNull()?.view ?: MarkerView(c) }
+                .clusterAddedListener { cluster, tedMarker -> bindCluster(cluster, tedMarker.marker) }
+                .markerAddedListener { item, tedMarker -> bindMarker(item, tedMarker.marker) }
                 .minClusterSize(MIN_CLUSTER_SIZE)
                 .make()
+        }
+    }
+
+    private fun bindCluster(cluster: Cluster<DropClusterItem>, marker: Marker) {
+        cluster.items.firstOrNull()?.bind(count = cluster.items.sumOf { it.count }) {
+            marker.icon = OverlayImage.fromView(it)
+        }
+    }
+
+    private fun bindMarker(item: DropClusterItem, marker: Marker) {
+        item.bind(count = item.count) {
+            marker.icon = OverlayImage.fromView(it)
         }
     }
 

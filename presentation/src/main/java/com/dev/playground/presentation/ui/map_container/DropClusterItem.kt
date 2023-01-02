@@ -9,16 +9,14 @@ import java.lang.ref.WeakReference
 data class DropClusterItem(
     val position: LatLng,
     val imageUrl: String?,
-    val view: WeakReference<MarkerView>,
+    val count: Int,
+    val view: MarkerView,
 ) : TedClusterItem {
 
     override fun getTedLatLng() = TedLatLng(position.latitude, position.longitude)
 
-    fun bind(
-        count: Int? = null,
-        onResourceReady: (View) -> Unit,
-    ) {
-        view.get()?.setClusterItem(
+    fun bind(count: Int = 0, onResourceReady: (View) -> Unit) {
+        view.setClusterItem(
             item = this,
             count = count,
             onResourceReady = onResourceReady
