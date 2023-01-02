@@ -31,11 +31,9 @@ class ModifyMemoryViewModel(
                         SuccessModified
                     }
                 }
-                .onFailure {
-                    it.catchAuth {
-                        setEffect {
-                            ShowFailureModifyToast
-                        }
+                .onFailureWithAuth {
+                    setEffect {
+                        ShowFailureModifyToast
                     }
                 }
 

@@ -46,11 +46,9 @@ class FeedViewModel(
                     Success(mapToUiModel(it))
                 }
                 pageIndex++
-            }.onFailure {
-                it.catchAuth {
-                    setState {
-                        Failure(it)
-                    }
+            }.onFailureWithAuth {
+                setState {
+                    Failure(it)
                 }
             }
         }
@@ -71,9 +69,8 @@ class FeedViewModel(
                             }
                             pageIndex++
                         }
-                    }
-                    .onFailure {
-                        it.catchAuth { }
+                    }.onFailureWithAuth {
+                        // no-op
                     }
             }
         }
