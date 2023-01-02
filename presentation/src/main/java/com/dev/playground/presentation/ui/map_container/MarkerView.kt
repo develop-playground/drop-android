@@ -57,9 +57,9 @@ constructor(
             )
     }
 
-    fun setPoint(count: Int? = 0) = with(binding.tvDropPoint) {
-        text = count?.toString().orEmpty()
-        isVisible = count != null
+    fun setPoint(count: Int) = with(binding.tvDropPoint) {
+        isVisible = count > 1
+        text = count.toString()
     }
 
 }
