@@ -6,6 +6,7 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import com.charlezz.pickle.util.DeviceUtil.hasPermission
 import com.charlezz.pickle.util.ext.showToast
 import com.dev.playground.domain.model.Memory
 import com.dev.playground.presentation.R
@@ -117,7 +118,13 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
     override fun onMapReady(p0: NaverMap) {
         naverMap = p0
-        naverMap.locationSource = locationSource
+
+        with(naverMap) {
+            locationSource = this@MapContainerFragment.locationSource
+            uiSettings.isZoomControlEnabled = false
+            uiSettings.isCompassEnabled = false
+        }
+        moveCurrentLocation()
     }
 
     private fun initViews() = with(binding) {
@@ -126,15 +133,19 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         }
 
         ivFusedLocation.setOnClickListener {
-            activity?.let {
-                if (it.hasPermission(*needPermission)) {
-                    naverMap.locationTrackingMode = LocationTrackingMode.Follow
-                } else {
-                    it.requestPermission(
-                        permissions = needPermission,
-                        requestCode = REQUEST_CODE
-                    )
-                }
+            moveCurrentLocation()
+        }
+    }
+
+    private fun moveCurrentLocation() {
+        activity?.let {
+            if (it.hasPermission(*needPermission)) {
+                naverMap.locationTrackingMode = LocationTrackingMode.Follow
+            } else {
+                it.requestPermission(
+                    permissions = needPermission,
+                    requestCode = REQUEST_CODE
+                )
             }
         }
     }
