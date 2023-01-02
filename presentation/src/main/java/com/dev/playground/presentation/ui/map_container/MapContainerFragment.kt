@@ -161,6 +161,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
     private fun makeClusterMarker() {
         context?.let { c ->
+            naverClustering?.clearItems()
             naverClustering = TedNaverClustering.with<DropClusterItem>(c, naverMap)
                 .customMarker { item ->
                     Marker(item.position).apply {
