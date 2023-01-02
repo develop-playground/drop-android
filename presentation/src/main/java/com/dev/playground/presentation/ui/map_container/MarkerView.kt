@@ -39,15 +39,14 @@ constructor(
 
     fun setImage(url: String?, onResourceReady: (View) -> Unit) {
         Glide.with(context)
-            .asBitmap()
             .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.DATA)
             .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_drop_logo_black))
             .centerCrop()
+            .override(resources.getDimensionPixelSize(R.dimen.map_container_marker_image_size))
             .into(
-                object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        binding.ivMarkerView.setImageBitmap(resource)
+                object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        binding.ivMarkerView.setImageDrawable(resource)
                         onResourceReady.invoke(this@MarkerView)
                     }
 
