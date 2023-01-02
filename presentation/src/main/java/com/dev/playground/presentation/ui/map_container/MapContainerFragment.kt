@@ -186,16 +186,18 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
     private fun addMarkerList(memoryList: List<Memory>) {
         context?.let { c ->
-            val temp = memoryList.map {
-                DropClusterItem(
-                    position = LatLng(
-                        it.location.latitude,
-                        it.location.longitude
-                    ),
-                    imageUrl = it.imageUrlList.firstOrNull(),
-                    view = WeakReference(MarkerView(c))
-                )
-            }
+            val temp = memoryList
+                .groupBy { it.location }
+                .map {
+                    with(it.value.first()) {
+                        DropClusterItem(
+                            position = LatLng(location.latitude, location.longitude),
+                            imageUrl = imageUrlList.firstOrNull(),
+                            count = it.value.size,
+                            view = MarkerView(c)
+                        )
+                    }
+                }
             naverClustering?.addItems(temp)
         }
     }
