@@ -4,6 +4,7 @@ import com.dev.playground.presentation.model.MemoryBundle
 import com.dev.playground.presentation.ui.add.AddMemoryViewModel
 import com.dev.playground.presentation.ui.feed.FeedViewModel
 import com.dev.playground.presentation.ui.login.LoginViewModel
+import com.dev.playground.presentation.ui.map_container.MapContainerViewModel
 import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.ui.modify.ModifyMemoryViewModel
 import com.dev.playground.presentation.ui.setting.SettingViewModel
@@ -27,6 +28,7 @@ val viewModelModule = module {
             getAddressUseCase = get()
         )
     }
+
     viewModel {
         FeedViewModel(
             getMemoryListUseCase = get(),
@@ -41,6 +43,9 @@ val viewModelModule = module {
             requestLogoutUseCase = get()
         )
     }
+
+    viewModel { MapContainerViewModel(getMemoryListUseCase = get()) }
+
     viewModel { (bundle: MemoryBundle) ->
         ModifyMemoryViewModel(
             bundle = bundle,

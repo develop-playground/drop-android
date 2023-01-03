@@ -1,15 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/ivMapToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@color/black"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_drop_logo_white"
+            android:scaleType="centerInside"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.naver.maps.map.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivMapToolbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/map_container_drop_point_count_box_height"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:background="@color/black"
+            android:paddingHorizontal="@dimen/spacing_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivMapToolbar"
+            app:radius="@{@dimen/spacing_27}">
+
+            <ImageView
+                android:id="@+id/ivPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDropPointTitle"
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:layout_marginEnd="@dimen/spacing_4"
+                android:text="@string/map_pin_title"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvDropPointCount"
+                app:layout_constraintStart_toEndOf="@id/ivPin"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDropPointCount"
+                style="@style/Gmarket.Medium.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lime"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="32" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/ivFusedLocation"
+            android:layout_width="@dimen/map_container_fused_location_button_size"
+            android:layout_height="@dimen/map_container_fused_location_button_size"
+            android:layout_marginBottom="@dimen/spacing_8"
+            android:background="@color/black"
+            android:contentDescription="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/ic_fused"
+            app:layout_constraintBottom_toTopOf="@id/ivAddMemory"
+            app:layout_constraintEnd_toEndOf="@id/ivAddMemory"
+            app:layout_constraintStart_toStartOf="@id/ivAddMemory"
+            app:radius="@{@dimen/spacing_100}" />
 
         <ImageButton
             android:id="@+id/ivAddMemory"

@@ -1,5 +1,7 @@
 package com.dev.playground.presentation.ui.main
 
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.view.MenuItem
 import com.dev.playground.presentation.R
@@ -129,5 +131,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
                 .commitAllowingStateLoss()
         }
     }
-
 }

@@ -7,10 +7,12 @@
     <dimen name="spacing_3">3dp</dimen>
     <dimen name="spacing_4">4dp</dimen>
     <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_10">10dp</dimen>
     <dimen name="spacing_12">12dp</dimen>
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="spacing_20">20dp</dimen>
     <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_27">27dp</dimen>
     <dimen name="spacing_28">28dp</dimen>
     <dimen name="spacing_32">32dp</dimen>
     <dimen name="spacing_36">36dp</dimen>
@@ -37,7 +39,9 @@
 
     <!-- map container -->
     <dimen name="map_container_add_button_size">48dp</dimen>
-
+    <dimen name="map_container_fused_location_button_size">48dp</dimen>
+    <dimen name="map_container_drop_point_count_box_height">24dp</dimen>
+    <dimen name="map_container_marker_image_size">55dp</dimen>
     <!-- add memory -->
     <dimen name="add_memory_location_radius">50dp</dimen>
     <dimen name="add_memory_photo_radius">10dp</dimen>

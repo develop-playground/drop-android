@@ -129,7 +129,6 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
                             finish()
                         }
                     }
-
                 }
             }
         }

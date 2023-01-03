@@ -44,6 +44,12 @@
     <string name="memory_content_hint">내용을 입력하세요</string>
     <string name="memory_drop_button">드롭하기</string>
 
+    <!-- map container -->
+    <string name="map_pin_title">drop point</string>
+    <string name="map_request_permission">현 위치 설정을 켜기 위해서는 권한이 필요합니다.</string>
+    <string name="map_please_grant_permissions">필요한 권한을 허용해주세요.</string>
+    <string name="map_permission_denied">권한이 거절되었습니다!</string>
+
     <!-- add memory -->
     <string name="add_memory_empty_location">위치 정보 없음</string>
     <string name="add_memory_cancel">취소</string>

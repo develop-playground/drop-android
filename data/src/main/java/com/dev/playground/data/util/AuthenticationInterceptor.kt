@@ -16,6 +16,7 @@ class AuthenticationInterceptor(
     }
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+
         val token = preferencesManager.getToken() ?: run {
             preferencesManager.removeAuth()
             throw NotLoggedInException()
