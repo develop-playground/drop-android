@@ -1,5 +1,6 @@
 package com.dev.playground.presentation.ui.feed
 
+import com.dev.playground.presentation.model.MemoryBundle
 import com.dev.playground.presentation.model.MemoryUIModel
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEvent
@@ -36,15 +37,17 @@ class FeedContract {
             }
     }
 
-    sealed class Event(open val id: Int) : UiEvent {
-        data class OnClickEdit(override val id: Int) : Event(id)
-        data class OnClickRemove(override val id: Int) : Event(id)
-        data class OnClickDeleteMemory(override val id: Int) : Event(id)
+    sealed interface Event : UiEvent {
+        object Fetch : Event
+        data class FetchMore(val position: Int) : Event
+        data class OnClickEdit(val bundle: MemoryBundle) : Event
+        data class OnClickRemove(val id: Int) : Event
+        data class OnClickDeleteMemory(val id: Int) : Event
     }
 
     sealed interface Effect : UiEffect {
-        data class RouteEditPage(val id: Int) : Effect
         data class ShowRemoveDialog(val id: Int) : Effect
+        object DeleteMemory : Effect
     }
 
 }

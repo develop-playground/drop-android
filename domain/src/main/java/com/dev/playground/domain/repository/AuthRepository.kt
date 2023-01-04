@@ -13,4 +13,6 @@ interface AuthRepository {
 
     suspend fun postLogout()
 
+    suspend fun refreshAccessToken(): String
+
 }

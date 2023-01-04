@@ -1,27 +1,26 @@
 package com.dev.playground.presentation.ui.setting
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.charlezz.pickle.util.ext.showToast
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.databinding.FragmentSettingBinding
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteLogin
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
-import com.dev.playground.presentation.ui.login.KakaoLoginManager
-import com.dev.playground.presentation.ui.login.LoginActivity
-import com.dev.playground.presentation.ui.login.LoginManager
-import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLoginPage
+import com.dev.playground.presentation.ui.main.MainViewModel
+import com.dev.playground.presentation.ui.setting.SettingContract.Effect.OnOut
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestLogout
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestSignOut
 import com.dev.playground.presentation.util.VERSION_NAME
 import com.dev.playground.presentation.util.repeatOnLifecycleState
-import com.dev.playground.presentation.util.startActivity
+import com.dev.playground.presentation.util.showToast
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
@@ -33,8 +32,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     private val viewModel by viewModel<SettingViewModel>()
+    private val sharedViewModel by sharedViewModel<MainViewModel>()
     private val versionNumber: String by inject(named(VERSION_NAME))
-    private val loginManager: LoginManager = KakaoLoginManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,14 +44,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     private fun initViews() = with(binding) {
         vm = viewModel
         tvServiceTerms.setOnClickListener {
-            showToast("TODO : 서비스 이용약관 WebView 표시!")
+            context?.showToast("TODO : 서비스 이용약관 WebView 표시!")
         }
         tvPrivateTerms.setOnClickListener {
-            showToast("TODO : 개인정보 취급방침 WebView 표시!")
+            context?.showToast("TODO : 개인정보 취급방침 WebView 표시!")
         }
         tvCurrentVersion.text = versionNumber
         tvLogout.setOnClickListener {
-            viewModel.setEvent(OnLogout)
+            viewModel.setEvent(RequestLogout)
         }
         tvSignOut.setOnClickListener {
             context?.let {
@@ -61,7 +60,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     leftText = getString(R.string.setting_sign_out_cancel)
                     rightText = getString(R.string.setting_sign_out_ok)
                     onRightClick = {
-                        viewModel.setEvent(OnSignOut)
+                        viewModel.setEvent(RequestSignOut)
                     }
                 }
             }
@@ -73,19 +72,12 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             launch {
                 effect.collect {
                     when (it) {
-                        RouteLoginPage -> {
-                            loginManager.logout {
-                                // no-op
-                            }
-                            showToast(getString(R.string.logged_out))
-                            activity?.let { a ->
-                                a.startActivity<LoginActivity> { }
-                                a.finish()
-                            }
+                        is OnOut -> {
+                            context?.showToast(it.message)
+                            sharedViewModel.setEvent(RequestRouteLogin(false))
                         }
-                        ShowToast.FailLoadUserInformation -> showToast(getString(R.string.setting_failure_load_user_information))
-                        ShowToast.FailLogout -> showToast(getString(R.string.setting_failure_logout_please_retry))
-                        ShowToast.FailSignOut -> showToast(getString(R.string.setting_failure_sign_out_please_retry))
+                        is RouteLoginPage -> sharedViewModel.setEvent(RequestRouteLogin())
+                        is ShowToast -> context?.showToast(it.message)
                     }
                 }
             }

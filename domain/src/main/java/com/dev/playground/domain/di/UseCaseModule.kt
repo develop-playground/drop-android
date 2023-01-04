@@ -3,6 +3,7 @@ package com.dev.playground.domain.di
 import com.dev.playground.domain.usecase.location.GetAddressUseCase
 import com.dev.playground.domain.usecase.memory.DeleteMemoryUseCase
 import com.dev.playground.domain.usecase.memory.GetMemoryListUseCase
+import com.dev.playground.domain.usecase.memory.ModifyMemoryUseCase
 import com.dev.playground.domain.usecase.memory.PostMemoryUseCase
 import com.dev.playground.domain.usecase.photo.DeletePhotoUseCase
 import com.dev.playground.domain.usecase.photo.UploadPhotoUseCase
@@ -47,4 +48,5 @@ val useCaseModule = module {
     factory { DeletePhotoUseCase(get(), get(named(IO))) }
 
     factory { GetAddressUseCase(get()) }
+    factory { ModifyMemoryUseCase(get()) }
 }

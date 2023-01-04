@@ -18,11 +18,13 @@ import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.base.SimpleBindingViewHolder
 import com.dev.playground.presentation.databinding.ActivityAddMemoryBinding
 import com.dev.playground.presentation.model.PhotoUIModel
-import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Empty
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
+import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.Idle
 import com.dev.playground.presentation.ui.add.AddMemoryContract.AddMemoryState.SelectedPhoto
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.Dropped
-import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect.ShowToast.*
+import com.dev.playground.presentation.ui.add.AddMemoryContract.Effect
 import com.dev.playground.presentation.ui.add.AddMemoryContract.Event.OnClickDrop
+import com.dev.playground.presentation.ui.login.LoginActivity
+import com.dev.playground.presentation.ui.main.MainActivity
 import com.dev.playground.presentation.util.*
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
@@ -103,20 +105,28 @@ class AddMemoryActivity : BaseActivity<ActivityAddMemoryBinding>(R.layout.activi
                         is SelectedPhoto -> photoAdapter.submitList(
                             viewModel.mapToUIModel(state.addMemoryState)
                         )
-                        is Empty -> {
+                        is Idle -> {
                             binding.tvAddMemoryLocation.text = ""
                             photoAdapter.submitList(emptyList())
                         }
+                    }
+                    if (state.isDropped) {
+                        setResult(MainActivity.REFRESH_RESULT_CODE)
+                        finish()
                     }
                 }
             }
             launch {
                 effect.collect {
                     when (it) {
-                        Dropped -> finish()
-                        FailUpload -> showToast(getString(R.string.add_memory_fail_upload))
-                        NotSelectPhoto -> showToast(getString(R.string.add_memory_not_select_photo))
-                        EmptyLocation -> showToast(getString(R.string.add_memory_missing_locate_information))
+                        is Effect -> showToast(it.message)
+                        is RouteLoginPage -> {
+                            if (it.force) {
+                                showToast(R.string.please_re_log_in)
+                            }
+                            startActivity<LoginActivity> { }
+                            finish()
+                        }
                     }
                 }
             }

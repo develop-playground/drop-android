@@ -2,7 +2,6 @@ package com.dev.playground.presentation.util
 
 import android.graphics.Outline
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.ImageView

@@ -2,6 +2,7 @@ package com.dev.playground.data.data_source.remote
 
 import com.dev.playground.data.model.AuthData
 import com.dev.playground.data.model.MemberType
+import com.dev.playground.data.model.RefreshedAccessTokenData
 import com.dev.playground.data.model.UserData
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -21,5 +22,8 @@ interface AuthService {
 
     @POST("auth/logout")
     suspend fun postLogout()
+
+    @POST("auth/token/reissue")
+    suspend fun refreshAccessToken(): RefreshedAccessTokenData
 
 }

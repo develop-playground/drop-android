@@ -70,6 +70,7 @@
                 android:paddingStart="@dimen/spacing_8"
                 android:paddingEnd="@dimen/spacing_8"
                 android:text="@string/easy_login_activity"
+                android:textAppearance="@style/Pretendard.Regular.14"
                 android:textColor="@color/gray_medium" />
 
             <View

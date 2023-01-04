@@ -2,19 +2,28 @@ package com.dev.playground.presentation.ui.feed
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.base.ScrollableScreen
 import com.dev.playground.presentation.base.SimpleBindingAdapter
 import com.dev.playground.presentation.databinding.FragmentFeedBinding
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteLoginPage
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteModifyPage
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteLogin
+import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteModify
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
-import com.dev.playground.presentation.ui.feed.FeedContract.Effect.RouteEditPage
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.DeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
-import com.dev.playground.presentation.ui.feed.FeedContract.Event.OnClickDeleteMemory
+import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
+import com.dev.playground.presentation.ui.main.MainContract.Event.RequestRefreshMemory
+import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), ScrollableScreen {
@@ -26,6 +35,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     }
 
     private val viewModel by viewModel<FeedViewModel>()
+    private val sharedViewModel by sharedViewModel<MainViewModel>()
     private val feedAdapter by lazy {
         SimpleBindingAdapter(FeedViewHolder::class.java)
     }
@@ -39,7 +49,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     private fun initViews() = with(binding) {
         vm = viewModel
         srlFeed.setOnRefreshListener {
-            viewModel.fetch()
+            viewModel.setEvent(Fetch)
             binding.srlFeed.isRefreshing = false
         }
 
@@ -47,6 +57,18 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             itemAnimator = null
             adapter = feedAdapter
             addItemDecoration(FeedItemDecoration())
+            addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        (layoutManager as? LinearLayoutManager)?.let {
+                            viewModel.setEvent(
+                                FetchMore(it.findLastVisibleItemPosition())
+                            )
+                        }
+                    }
+                }
+            )
         }
     }
 
@@ -56,7 +78,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                 uiState.collect { state ->
                     when (state) {
                         is Success -> feedAdapter.submitList(state.itemList) {
-                            scrollTop()
+                            binding.rvFeed.scrollToPosition(0)
                         }
                         else -> Unit
                     }
@@ -65,9 +87,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
             launch {
                 effect.collect {
                     when (it) {
-                        is RouteEditPage -> {
-
-                        }
+                        is RouteModifyPage -> sharedViewModel.setEvent(RequestRouteModify(it.bundle))
                         is ShowRemoveDialog -> context?.let { c ->
                             DropDialog(c).show {
                                 contentText = getString(R.string.feed_delete_memory_content)
@@ -78,6 +98,15 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                                 }
                             }
                         }
+                        is RouteLoginPage -> sharedViewModel.setEvent(RequestRouteLogin())
+                        DeleteMemory -> sharedViewModel.setEvent(RequestRefreshMemory)
+                    }
+                }
+            }
+            launch {
+                sharedViewModel.event.collect {
+                    if (it is RequestRefreshMemory) {
+                        viewModel.setEvent(Fetch)
                     }
                 }
             }

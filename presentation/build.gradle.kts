@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
     kotlin("kapt")
 }
 
@@ -59,6 +60,9 @@ dependencies {
 
     // map
     implementation(Dep.naverMap)
+
+    // location
+    implementation(Dep.location)
 
     // read more
     implementation(Dep.readMoreTextView)

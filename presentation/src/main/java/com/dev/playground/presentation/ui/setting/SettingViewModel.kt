@@ -1,16 +1,20 @@
 package com.dev.playground.presentation.ui.setting
 
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.exception.NotLoggedInException
 import com.dev.playground.domain.usecase.user.DeleteUserUseCase
 import com.dev.playground.domain.usecase.user.GetUserEmailUseCase
 import com.dev.playground.domain.usecase.user.login.GetLoginTypeUseCase
 import com.dev.playground.domain.usecase.user.login.RequestLogoutUseCase
 import com.dev.playground.presentation.base.BaseViewModel
+import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.*
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.*
 import com.dev.playground.presentation.ui.setting.SettingContract.*
-import com.dev.playground.presentation.ui.setting.SettingContract.Effect.RouteLoginPage
-import com.dev.playground.presentation.ui.setting.SettingContract.Effect.ShowToast
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnLogout
-import com.dev.playground.presentation.ui.setting.SettingContract.Event.OnSignOut
+import com.dev.playground.presentation.ui.setting.SettingContract.Effect.*
+import com.dev.playground.presentation.ui.setting.SettingContract.Effect.OnOut.*
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestLogout
+import com.dev.playground.presentation.ui.setting.SettingContract.Event.RequestSignOut
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Idle
 import com.dev.playground.presentation.ui.setting.SettingContract.State.Success
 import kotlinx.coroutines.flow.catch
@@ -23,7 +27,7 @@ class SettingViewModel(
     private val deleteUserUseCase: DeleteUserUseCase,
     private val getLoginTypeUseCase: GetLoginTypeUseCase,
     private val requestLogoutUseCase: RequestLogoutUseCase,
-) : BaseViewModel<State, Event, Effect>(Idle) {
+) : BaseViewModel<State, Event, UiEffect>(Idle) {
 
     init {
         loadUserInformation()
@@ -38,9 +42,13 @@ class SettingViewModel(
                 setState {
                     Success(email = email, loginType = loginType)
                 }
-            }.catch {
+            }.catch { e ->
                 setEffect {
-                    ShowToast.FailLoadUserInformation
+                    if (e is NotLoggedInException) {
+                        RouteLoginPage()
+                    } else {
+                        ShowToast.FailLoadUserInformation
+                    }
                 }
             }.collect()
         }
@@ -51,9 +59,9 @@ class SettingViewModel(
             requestLogoutUseCase.invoke()
                 .onSuccess {
                     setEffect {
-                        RouteLoginPage
+                        OnLogout
                     }
-                }.onFailure {
+                }.onFailureWithAuth {
                     setEffect {
                         ShowToast.FailLogout
                     }
@@ -66,10 +74,10 @@ class SettingViewModel(
             deleteUserUseCase.invoke()
                 .onSuccess {
                     setEffect {
-                        RouteLoginPage
+                        OnSignOut
                     }
                 }
-                .onFailure {
+                .onFailureWithAuth {
                     setEffect {
                         ShowToast.FailSignOut
                     }
@@ -80,8 +88,8 @@ class SettingViewModel(
 
     override fun handleEvent(event: Event) {
         when (event) {
-            OnLogout -> logout()
-            OnSignOut -> signOut()
+            RequestLogout -> logout()
+            RequestSignOut -> signOut()
         }
     }
 

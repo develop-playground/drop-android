@@ -30,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvMemoryTitle"
+                android:id="@+id/tvMemoryDate"
                 style="@style/Gmarket.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/llMemoryEdit"
-                app:layout_constraintStart_toEndOf="@id/tvMemoryTitle"
+                app:layout_constraintStart_toEndOf="@id/tvMemoryDate"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="서울시 역삼동" />
 
@@ -107,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_8"
             android:text="@{item.content}"
             android:textColor="@color/black"
             app:readMoreMaxLines="2"

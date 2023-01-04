@@ -1,6 +1,8 @@
 package com.dev.playground.presentation.ui.add
 
+import androidx.annotation.StringRes
 import com.dev.playground.domain.model.Memory
+import com.dev.playground.presentation.R
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.model.base.UiState
@@ -11,10 +13,11 @@ class AddMemoryContract {
     data class State(
         val addMemoryState: AddMemoryState,
         val isLoading: Boolean = false,
+        val isDropped: Boolean = false,
     ) : UiState
 
     sealed interface AddMemoryState {
-        object Empty : AddMemoryState
+        object Idle : AddMemoryState
         data class SelectedPhoto(
             val fileList: List<File>,
             val information: Information,
@@ -30,8 +33,11 @@ class AddMemoryContract {
             }
         }
 
-        val isEmpty
-            get() = this is Empty
+        val isIdle
+            get() = this is Idle
+
+        val isMoreOne
+            get() = this is SelectedPhoto && this.fileList.size > 1
 
         val formatAddress
             get() = (this as? SelectedPhoto)?.information?.metadata.orEmpty()
@@ -42,13 +48,10 @@ class AddMemoryContract {
         object OnClickDrop : Event
     }
 
-    sealed interface Effect : UiEffect {
-        object Dropped : Effect
-        sealed interface ShowToast : Effect {
-            object FailUpload : ShowToast
-            object NotSelectPhoto : ShowToast
-            object EmptyLocation : ShowToast
-        }
+    sealed class Effect(@StringRes val message: Int) : UiEffect {
+        object FailUpload : Effect(R.string.add_memory_fail_upload)
+        object NotSelectPhoto : Effect(R.string.add_memory_not_select_photo)
+        object EmptyLocation : Effect(R.string.add_memory_missing_locate_information)
     }
 
 }

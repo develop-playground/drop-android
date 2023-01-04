@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.dev.playground.presentation.ui.modify.ModifyMemoryViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:background="@color/black">
+
+                <TextView
+                    android:id="@+id/tvClose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/modify_memory_cancel"
+                    android:textAppearance="@style/Pretendard.Light.14"
+                    android:textColor="@color/white"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/modify_memory_title"
+                    android:textAppearance="@style/Pretendard.Regular.16"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20">
+
+                <ImageView
+                    android:id="@+id/ivMemoryPrefix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_memory_prefix"
+                    app:layout_constraintBottom_toBottomOf="@id/tvMemoryDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvMemoryDate" />
+
+                <TextView
+                    android:id="@+id/tvMemoryDate"
+                    style="@style/Gmarket.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{vm.currentState.bundle.createdDate}"
+                    android:textColor="@color/black"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/ivMemoryPrefix"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="22.12.01" />
+
+                <TextView
+                    android:id="@+id/tvMemoryAddress"
+                    style="@style/Pretendard.Light.12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{vm.currentState.bundle.address}"
+                    android:textColor="@color/black"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvMemoryDate"
+                    app:layout_constraintStart_toEndOf="@id/tvMemoryDate"
+                    tools:text="서울시 역삼동" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpPhotoList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/spacing_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/black"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlPhotoPager"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/image_pager_tab_height"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@color/white"
+                android:visibility="@{vm.uiState.isOnlyOne ? View.GONE : View.VISIBLE}"
+                app:tabBackground="@drawable/selector_image_pager_tab_indicator"
+                app:tabGravity="center"
+                app:tabIndicator="@null"
+                app:tabPaddingEnd="@dimen/spacing_4"
+                app:tabPaddingStart="@dimen/spacing_4" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_16"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@drawable/bg_add_memory_content"
+                android:gravity="top"
+                android:hint="@string/memory_content_hint"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/add_memory_content_min_height"
+                android:paddingHorizontal="@dimen/spacing_8"
+                android:paddingVertical="@dimen/spacing_4"
+                android:text="@={vm.content}"
+                android:textAppearance="@style/Pretendard.Light.14"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_medium" />
+
+            <Button
+                android:id="@+id/btModifyMemory"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_memory_drop_button_height"
+                android:layout_marginHorizontal="@dimen/spacing_16"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@color/lime"
+                android:stateListAnimator="@null"
+                android:text="@string/memory_drop_button"
+                android:textAppearance="@style/Gmarket.Medium.18"
+                android:textColor="@color/black"
+                app:radius="@{@dimen/add_memory_drop_button_radius}" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@color/black"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="@{vm.uiState.isLoading ? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                android:layout_width="@dimen/spacing_48"
+                android:layout_height="@dimen/spacing_48"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/lime" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</layout>
