@@ -1,12 +1,15 @@
 package com.dev.playground.presentation.ui.setting
 
 import androidx.lifecycle.viewModelScope
+import com.dev.playground.domain.exception.NotLoggedInException
 import com.dev.playground.domain.usecase.user.DeleteUserUseCase
 import com.dev.playground.domain.usecase.user.GetUserEmailUseCase
 import com.dev.playground.domain.usecase.user.login.GetLoginTypeUseCase
 import com.dev.playground.domain.usecase.user.login.RequestLogoutUseCase
 import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.base.UiEffect
+import com.dev.playground.presentation.model.base.UiEffect.*
+import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.*
 import com.dev.playground.presentation.ui.setting.SettingContract.*
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.*
 import com.dev.playground.presentation.ui.setting.SettingContract.Effect.OnOut.*
@@ -40,8 +43,12 @@ class SettingViewModel(
                     Success(email = email, loginType = loginType)
                 }
             }.catch { e ->
-                e.catchAuth {
-                    setEffect { ShowToast.FailLoadUserInformation }
+                setEffect {
+                    if (e is NotLoggedInException) {
+                        RouteLoginPage()
+                    } else {
+                        ShowToast.FailLoadUserInformation
+                    }
                 }
             }.collect()
         }
@@ -54,11 +61,9 @@ class SettingViewModel(
                     setEffect {
                         OnLogout
                     }
-                }.onFailure {
-                    it.catchAuth {
-                        setEffect {
-                            ShowToast.FailLogout
-                        }
+                }.onFailureWithAuth {
+                    setEffect {
+                        ShowToast.FailLogout
                     }
                 }
         }
@@ -72,11 +77,9 @@ class SettingViewModel(
                         OnSignOut
                     }
                 }
-                .onFailure {
-                    it.catchAuth {
-                        setEffect {
-                            ShowToast.FailSignOut
-                        }
+                .onFailureWithAuth {
+                    setEffect {
+                        ShowToast.FailSignOut
                     }
                 }
         }

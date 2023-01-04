@@ -130,9 +130,8 @@ class AddMemoryViewModel(
             }
         }.onFailure {
             deletePhoto(oldState.fileList)
-            it.catchAuth {
-                setEffect { FailUpload }
-            }
+        }.onFailureWithAuth {
+            setEffect { FailUpload }
         }
         setState { copy(isLoading = false) }
     }

@@ -14,11 +14,7 @@ class MapContainerContract {
     }
 
     sealed interface Event : UiEvent {
-
-    }
-
-    sealed interface Effect : UiEffect {
-
+        object FetchMemory: Event
     }
 
 }

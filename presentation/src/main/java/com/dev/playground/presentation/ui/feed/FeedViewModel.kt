@@ -8,6 +8,7 @@ import com.dev.playground.presentation.base.BaseViewModel
 import com.dev.playground.presentation.model.base.UiEffect
 import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.RouteModifyPage
 import com.dev.playground.presentation.model.toPresentation
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.DeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
@@ -45,11 +46,9 @@ class FeedViewModel(
                     Success(mapToUiModel(it))
                 }
                 pageIndex++
-            }.onFailure {
-                it.catchAuth {
-                    setState {
-                        Failure(it)
-                    }
+            }.onFailureWithAuth {
+                setState {
+                    Failure(it)
                 }
             }
         }
@@ -70,9 +69,8 @@ class FeedViewModel(
                             }
                             pageIndex++
                         }
-                    }
-                    .onFailure {
-                        it.catchAuth { }
+                    }.onFailureWithAuth {
+                        // no-op
                     }
             }
         }
@@ -88,7 +86,9 @@ class FeedViewModel(
     private fun deleteMemory(id: Int) {
         viewModelScope.launch {
             deleteMemoryUseCase.invoke(id)
-            fetch()
+            setEffect {
+                DeleteMemory
+            }
         }
     }
 

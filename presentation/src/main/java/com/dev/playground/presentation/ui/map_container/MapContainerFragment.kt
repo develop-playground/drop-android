@@ -13,7 +13,10 @@ import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseFragment
 import com.dev.playground.presentation.databinding.FragmentMapContainerBinding
 import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteAdd
+import com.dev.playground.presentation.ui.main.MainContract
+import com.dev.playground.presentation.ui.main.MainContract.Event.*
 import com.dev.playground.presentation.ui.main.MainViewModel
+import com.dev.playground.presentation.ui.map_container.MapContainerContract.Event.*
 import com.dev.playground.presentation.ui.map_container.MapContainerContract.State.Success
 import com.dev.playground.presentation.util.hasPermission
 import com.dev.playground.presentation.util.repeatOnLifecycleState
@@ -87,7 +90,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
 
     override fun onResume() {
         super.onResume()
-        viewModel.fetch()
+        viewModel.setEvent(FetchMemory)
         binding.mapView.onResume()
     }
 
@@ -163,6 +166,13 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
                             }
                         }
                         else -> Unit
+                    }
+                }
+            }
+            launch {
+                sharedViewModel.event.collect {
+                    if (it is RequestRefreshMemory) {
+                        viewModel.setEvent(FetchMemory)
                     }
                 }
             }

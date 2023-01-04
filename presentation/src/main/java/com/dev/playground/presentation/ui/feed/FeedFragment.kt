@@ -15,9 +15,11 @@ import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.Reques
 import com.dev.playground.presentation.model.base.UiEvent.NavigationEvent.RequestRouteModify
 import com.dev.playground.presentation.ui.dialog.DropDialog
 import com.dev.playground.presentation.ui.dialog.show
+import com.dev.playground.presentation.ui.feed.FeedContract.Effect.DeleteMemory
 import com.dev.playground.presentation.ui.feed.FeedContract.Effect.ShowRemoveDialog
 import com.dev.playground.presentation.ui.feed.FeedContract.Event.*
 import com.dev.playground.presentation.ui.feed.FeedContract.State.Success
+import com.dev.playground.presentation.ui.main.MainContract.Event.RequestRefreshMemory
 import com.dev.playground.presentation.ui.main.MainViewModel
 import com.dev.playground.presentation.util.repeatOnLifecycleState
 import kotlinx.coroutines.launch
@@ -97,6 +99,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
                             }
                         }
                         is RouteLoginPage -> sharedViewModel.setEvent(RequestRouteLogin())
+                        DeleteMemory -> sharedViewModel.setEvent(RequestRefreshMemory)
+                    }
+                }
+            }
+            launch {
+                sharedViewModel.event.collect {
+                    if (it is RequestRefreshMemory) {
+                        viewModel.setEvent(Fetch)
                     }
                 }
             }

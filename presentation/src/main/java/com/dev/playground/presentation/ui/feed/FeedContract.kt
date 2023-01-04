@@ -38,8 +38,8 @@ class FeedContract {
     }
 
     sealed interface Event : UiEvent {
-        object Fetch: Event
-        data class FetchMore(val position: Int): Event
+        object Fetch : Event
+        data class FetchMore(val position: Int) : Event
         data class OnClickEdit(val bundle: MemoryBundle) : Event
         data class OnClickRemove(val id: Int) : Event
         data class OnClickDeleteMemory(val id: Int) : Event
@@ -47,6 +47,7 @@ class FeedContract {
 
     sealed interface Effect : UiEffect {
         data class ShowRemoveDialog(val id: Int) : Effect
+        object DeleteMemory : Effect
     }
 
 }
