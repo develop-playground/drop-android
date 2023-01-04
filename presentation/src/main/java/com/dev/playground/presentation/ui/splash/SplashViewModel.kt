@@ -9,6 +9,7 @@ import com.dev.playground.presentation.model.base.UiEffect.NavigationEffect.Rout
 import com.dev.playground.presentation.model.base.UiEvent
 import com.dev.playground.presentation.ui.splash.SplashContract.State
 import com.dev.playground.presentation.ui.splash.SplashContract.State.Idle
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
