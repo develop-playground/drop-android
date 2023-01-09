@@ -22,7 +22,8 @@
 
         <activity
             android:name="com.dev.playground.presentation.ui.splash.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
