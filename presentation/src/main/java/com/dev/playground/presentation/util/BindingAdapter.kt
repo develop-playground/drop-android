@@ -16,7 +16,7 @@ fun ImageView.setImageUrl(url: String?) {
     url ?: return
     Glide.with(this)
         .load(url)
-        .fitCenter()
+        .centerCrop()
         .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.gray_medium)))
         .into(this)
 }
@@ -26,7 +26,7 @@ fun ImageView.setImageUri(file: File?) {
     file ?: return
     Glide.with(this)
         .load(file)
-        .fitCenter()
+        .centerCrop()
         .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.gray_medium)))
         .into(this)
 }
