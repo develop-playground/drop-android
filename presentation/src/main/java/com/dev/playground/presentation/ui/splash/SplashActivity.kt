@@ -3,6 +3,8 @@ package com.dev.playground.presentation.ui.splash
 import android.animation.Animator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.dev.playground.presentation.R
 import com.dev.playground.presentation.base.BaseActivity
 import com.dev.playground.presentation.databinding.ActivitySplashBinding
@@ -30,7 +32,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         callbackFlow {
             val listener = object : Animator.AnimatorListener {
                 override fun onAnimationEnd(animation: Animator?) {
-                    binding.lottieSplash.progress = 0f
+                    binding.isFinishAnimation = true
                     trySend(Unit)
                 }
                 override fun onAnimationCancel(animation: Animator?) { }
@@ -47,6 +49,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding.isFinishAnimation = false
         initCollects()
     }
 

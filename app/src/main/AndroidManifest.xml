@@ -3,17 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dev.playground.drop">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name="com.dev.playground.drop.DropApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_drop"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_drop_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Drop"
         android:usesCleartextTraffic="true"
@@ -24,7 +22,8 @@
 
         <activity
             android:name="com.dev.playground.presentation.ui.splash.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

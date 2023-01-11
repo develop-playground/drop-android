@@ -42,7 +42,7 @@ class MapContainerFragment : BaseFragment<FragmentMapContainerBinding>(R.layout.
         val TAG: String = MapContainerFragment::class.java.simpleName
 
         private const val REQUEST_CODE = 1000
-        private const val MIN_CLUSTER_SIZE = 2
+        private const val MIN_CLUSTER_SIZE = 1
     }
 
     private val needPermission = arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION)
